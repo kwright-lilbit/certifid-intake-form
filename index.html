@@ -1,0 +1,1751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CertifID â New Req In-Take Form</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/docx@8.5.0/build/index.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <style>
+    :root {
+      --primary-blue: #166EBE;
+      --primary-dark: #102754;
+      --text-high: #2B3034;
+      --text-medium: #555555;
+      --grey-light: #DDDDDD;
+      --grey-lighter: #EEEEEE;
+      --grey-100: #F0F0F0;
+      --grey-50: #F7F7F7;
+      --blue-ice: #F4F6FA;
+      --blue-medium: #2E6DA4;
+      --green: #61D690;
+      --font-headline: 'DM Serif Display', serif;
+      --font-body: 'Oxygen', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--grey-50);
+      color: var(--text-high);
+      min-height: 100vh;
+    }
+
+    /* ââ Header ââ */
+    .site-header {
+      background: var(--primary-dark);
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    }
+    .logo-mark {
+      width: 36px; height: 36px;
+      background: white;
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-inner {
+      width: 18px; height: 18px;
+      background: var(--primary-dark);
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    }
+    .header-text h1 {
+      font-family: var(--font-headline);
+      font-size: 20px;
+      color: white;
+      letter-spacing: 0.3px;
+    }
+    .header-text p {
+      font-size: 10px;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+    .header-actions {
+      margin-left: auto;
+      display: flex;
+      gap: 10px;
+    }
+    .btn {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 700;
+      border: none;
+      border-radius: 6px;
+      padding: 9px 20px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+      letter-spacing: 0.3px;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary {
+      background: var(--primary-blue);
+      color: white;
+      box-shadow: 0 2px 8px rgba(22,110,190,0.35);
+    }
+    .btn-primary:hover { background: #1580da; box-shadow: 0 4px 14px rgba(22,110,190,0.45); }
+    .btn-secondary {
+      background: rgba(255,255,255,0.12);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.2); }
+
+    /* ââ Layout ââ */
+    .page-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 24px 60px;
+    }
+
+    .form-title {
+      display: flex;
+      align-items: flex-end;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .form-title h2 {
+      font-family: var(--font-headline);
+      font-size: 32px;
+      color: var(--primary-dark);
+    }
+    .form-title .accent-bar {
+      height: 3px;
+      flex: 1;
+      background: linear-gradient(to right, #61D690, #2E76B5);
+      border-radius: 2px;
+      margin-bottom: 7px;
+    }
+    .form-date {
+      font-size: 12px;
+      color: var(--text-medium);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    /* ââ Cards ââ */
+    .card {
+      background: white;
+      border-radius: 10px;
+      border: 1px solid var(--grey-lighter);
+      margin-bottom: 20px;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .card-header {
+      background: var(--primary-dark);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-header h3 {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      color: white;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    .card-header-icon {
+      width: 20px; height: 20px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px;
+    }
+    .card-body { padding: 20px; }
+
+    /* ââ Form Grid ââ */
+    .field-grid {
+      display: grid;
+      gap: 16px;
+    }
+    .col-1 { grid-template-columns: 1fr; }
+    .col-2 { grid-template-columns: 1fr 1fr; }
+    .col-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .col-2-1 { grid-template-columns: 2fr 1fr; }
+    .col-1-2 { grid-template-columns: 1fr 2fr; }
+    .col-1-1-2 { grid-template-columns: 1fr 1fr 2fr; }
+
+    @media (max-width: 600px) {
+      .col-2, .col-3, .col-2-1, .col-1-2, .col-1-1-2 { grid-template-columns: 1fr; }
+    }
+
+    .field-group { display: flex; flex-direction: column; gap: 5px; }
+    .field-group.span-full { grid-column: 1 / -1; }
+
+    label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-medium);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+    label .required { color: var(--primary-blue); margin-left: 2px; }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    input[type="url"],
+    select,
+    textarea {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--text-high);
+      background: var(--grey-50);
+      border: 1px solid var(--grey-light);
+      border-radius: 6px;
+      padding: 9px 12px;
+      width: 100%;
+      transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary-blue);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(22,110,190,0.12);
+    }
+    textarea { resize: vertical; min-height: 80px; line-height: 1.55; }
+    textarea.tall { min-height: 120px; }
+    textarea.short { min-height: 60px; }
+
+    select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23555' d='M6 8L0 0h12z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+
+    .hint {
+      font-size: 11px;
+      color: var(--text-medium);
+      margin-top: 3px;
+      font-style: italic;
+    }
+
+    /* ââ Divider ââ */
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--grey-100);
+      margin: 18px 0;
+    }
+
+    /* ââ Role Title Banner ââ */
+    .role-title-banner {
+      background: var(--blue-ice);
+      border: 1px solid #C8D9EE;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: end;
+    }
+    .role-title-banner input {
+      font-family: var(--font-headline);
+      font-size: 22px;
+      background: white;
+      border-color: #C8D9EE;
+      padding: 10px 14px;
+    }
+    .role-title-banner input:focus {
+      border-color: var(--primary-blue);
+    }
+    .role-title-banner label {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      color: var(--blue-medium);
+    }
+
+    /* ââ Multi-Select ââ */
+    .multiselect { position: relative; }
+    .multiselect-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--text-high);
+      background: var(--grey-50);
+      border: 1px solid var(--grey-light);
+      border-radius: 6px;
+      padding: 9px 12px;
+      cursor: pointer;
+      user-select: none;
+      transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+      min-height: 38px;
+    }
+    .multiselect.open .multiselect-trigger {
+      border-color: var(--primary-blue);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(22,110,190,0.12);
+    }
+    .multiselect-display {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--text-high);
+    }
+    .multiselect-display.placeholder { color: #aaa; }
+    .multiselect-arrow {
+      color: var(--text-medium);
+      font-size: 11px;
+      margin-left: 8px;
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+    .multiselect.open .multiselect-arrow { transform: rotate(180deg); }
+    .multiselect-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0; right: 0;
+      background: white;
+      border: 1px solid var(--grey-light);
+      border-radius: 8px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+      z-index: 50;
+      max-height: 260px;
+      overflow-y: auto;
+      padding: 6px 0;
+    }
+    .multiselect.open .multiselect-dropdown { display: block; }
+    .multiselect-group-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--primary-blue);
+      padding: 8px 12px 4px;
+    }
+    .multiselect-option {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 12px;
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--text-high);
+      transition: background 0.1s;
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 400;
+    }
+    .multiselect-option:hover { background: var(--blue-ice); }
+    .multiselect-option input[type="checkbox"] {
+      width: 15px; height: 15px;
+      accent-color: var(--primary-blue);
+      flex-shrink: 0;
+      cursor: pointer;
+      margin: 0; padding: 0;
+      border: none;
+      background: none;
+      box-shadow: none;
+    }
+    .multiselect-option input[type="checkbox"]:focus { box-shadow: none; }
+    .multiselect-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      align-items: center;
+    }
+    .tag {
+      background: var(--blue-ice);
+      color: var(--primary-blue);
+      border: 1px solid #C8D9EE;
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* ââ Rich Editor ââ */
+    .rich-editor-wrapper {
+      border: 1px solid var(--grey-light);
+      border-radius: 6px;
+      overflow: hidden;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      background: var(--grey-50);
+    }
+    .rich-editor-wrapper:focus-within {
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(22,110,190,0.12);
+      background: white;
+    }
+    .rich-toolbar {
+      background: var(--grey-100);
+      border-bottom: 1px solid var(--grey-light);
+      padding: 4px 8px;
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+    .rich-editor-wrapper:focus-within .rich-toolbar {
+      background: var(--grey-50);
+    }
+    .toolbar-btn {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-medium);
+      background: white;
+      border: 1px solid var(--grey-light);
+      border-radius: 4px;
+      padding: 3px 9px;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+      transition: all 0.15s;
+      line-height: 1.6;
+    }
+    .toolbar-btn:hover { border-color: var(--primary-blue); color: var(--primary-blue); background: var(--blue-ice); }
+    .toolbar-btn.active { border-color: var(--primary-blue); color: white; background: var(--primary-blue); }
+    .toolbar-sep { width: 1px; height: 16px; background: var(--grey-light); margin: 0 2px; }
+    .toolbar-hint {
+      font-size: 10px;
+      color: var(--text-medium);
+      letter-spacing: 0.5px;
+      margin-left: auto;
+      opacity: 0.6;
+    }
+    .rich-editor {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--text-high);
+      background: transparent;
+      padding: 9px 12px;
+      min-height: 80px;
+      outline: none;
+      line-height: 1.6;
+    }
+    .rich-editor.tall { min-height: 120px; }
+    .rich-editor:focus { background: white; }
+    .rich-editor.is-empty:before {
+      content: attr(data-placeholder);
+      color: #aaa;
+      pointer-events: none;
+      display: block;
+    }
+    .rich-editor ul { padding-left: 22px; margin: 3px 0; }
+    .rich-editor ol { padding-left: 22px; margin: 3px 0; }
+    .rich-editor li { margin: 2px 0; }
+    .rich-editor p { margin: 0; }
+
+    /* ââ Toggle (Y/N) ââ */
+    .toggle-group {
+      display: flex;
+      gap: 8px;
+    }
+    .toggle-group label {
+      flex: 1;
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 14px;
+      font-weight: 400;
+      cursor: pointer;
+    }
+    .toggle-group input[type="radio"] { display: none; }
+    .toggle-option {
+      display: block;
+      text-align: center;
+      padding: 8px 0;
+      border-radius: 6px;
+      border: 1.5px solid var(--grey-light);
+      background: var(--grey-50);
+      color: var(--text-medium);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .toggle-group input[type="radio"]:checked + .toggle-option {
+      border-color: var(--primary-blue);
+      background: var(--blue-ice);
+      color: var(--primary-blue);
+    }
+
+    /* ââ Dynamic List (Interview Steps) ââ */
+    .dynamic-list { display: flex; flex-direction: column; gap: 8px; }
+    .dynamic-item {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 8px;
+      align-items: center;
+    }
+    .dynamic-item input { margin: 0; }
+    .btn-icon {
+      width: 32px; height: 32px;
+      border-radius: 6px;
+      border: 1.5px solid var(--grey-light);
+      background: white;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      color: var(--text-medium);
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
+    .btn-icon:hover { border-color: var(--primary-blue); color: var(--primary-blue); background: var(--blue-ice); }
+    .btn-icon.danger:hover { border-color: #DB132C; color: #DB132C; background: #FFF5F6; }
+    .add-row-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary-blue);
+      background: none;
+      border: 1.5px dashed var(--primary-blue);
+      border-radius: 6px;
+      padding: 7px 14px;
+      cursor: pointer;
+      width: 100%;
+      justify-content: center;
+      opacity: 0.75;
+      transition: opacity 0.15s, background 0.15s;
+    }
+    .add-row-btn:hover { opacity: 1; background: var(--blue-ice); }
+
+    /* ââ Bottom Actions ââ */
+    .bottom-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid var(--grey-light);
+    }
+    .btn-lg {
+      padding: 13px 28px;
+      font-size: 14px;
+      border-radius: 8px;
+    }
+    .btn-outline {
+      background: white;
+      color: var(--text-high);
+      border: 1.5px solid var(--grey-light);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 8px;
+      padding: 13px 28px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-outline:hover { border-color: var(--primary-blue); color: var(--primary-blue); }
+
+    /* ââ Toast ââ */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: var(--primary-dark);
+      color: white;
+      padding: 13px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast-icon { font-size: 16px; }
+
+    /* ââ Confirm Dialog ââ */
+    .overlay {
+      position: fixed; inset: 0;
+      background: rgba(16,39,84,0.55);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .overlay.active { opacity: 1; pointer-events: all; }
+    .dialog {
+      background: white;
+      border-radius: 12px;
+      padding: 28px;
+      max-width: 380px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      transform: scale(0.95);
+      transition: transform 0.2s;
+    }
+    .overlay.active .dialog { transform: scale(1); }
+    .dialog h4 {
+      font-family: var(--font-headline);
+      font-size: 20px;
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+    }
+    .dialog p { font-size: 14px; color: var(--text-medium); line-height: 1.55; }
+    .dialog-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 22px; }
+
+    /* ââ Spinner ââ */
+    .spinner {
+      display: inline-block;
+      width: 14px; height: 14px;
+      border: 2px solid rgba(255,255,255,0.35);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin-right: 6px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<!-- ââ Header ââ -->
+<header class="site-header">
+  <div class="logo-mark"><div class="logo-inner"></div></div>
+  <div class="header-text">
+    <h1>CertifID</h1>
+    <p>Recruiting Â· Req In-Take</p>
+  </div>
+  <div class="header-actions">
+    <button class="btn btn-secondary" onclick="confirmNewForm()">+ New Form</button>
+    <button class="btn btn-secondary" id="copyLinkBtn" onclick="copyShareableLink()">ð Copy Link</button>
+    <button class="btn btn-primary" id="downloadBtn" onclick="downloadDocx()">â¬ Download DOCX</button>
+  </div>
+</header>
+
+<!-- ââ Main ââ -->
+<main class="page-container">
+  <div class="form-date" id="formDate"></div>
+  <div class="form-title">
+    <h2>New Req In-Take</h2>
+    <div class="accent-bar"></div>
+  </div>
+
+  <!-- Role Title -->
+  <div class="role-title-banner" style="grid-template-columns: 1fr 200px; row-gap: 14px;">
+    <div class="field-group">
+      <label for="roleTitle">Role Title <span class="required">*</span></label>
+      <input type="text" id="roleTitle" placeholder="e.g. Senior Account Executive â Enterprise" autocomplete="off" />
+    </div>
+    <div class="field-group">
+      <label for="targetHireDate">Target Hire Date</label>
+      <input type="date" id="targetHireDate" />
+    </div>
+    <div class="field-group">
+      <label for="jdLink">Job Description Link</label>
+      <input type="url" id="jdLink" placeholder="https://â¦" />
+    </div>
+    <div class="field-group">
+      <label for="scorecardLink">Scorecard Link</label>
+      <input type="url" id="scorecardLink" placeholder="https://â¦" />
+    </div>
+  </div>
+
+  <!-- ââ SCHEDULING / EASYLINK ââ -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-header-icon">ð</span>
+      <h3>Scheduling &amp; EasyLink</h3>
+    </div>
+    <div class="card-body">
+      <div class="field-grid col-3" style="margin-bottom:16px">
+        <div class="field-group">
+          <label for="blackoutDays">Days you can't interview</label>
+          <input type="text" id="blackoutDays" placeholder="e.g. Mondays, Fridays" />
+        </div>
+        <div class="field-group">
+          <label for="dailyInterviewLimit">Interview limit per day</label>
+          <input type="text" id="dailyInterviewLimit" placeholder="e.g. 3" />
+        </div>
+        <div class="field-group">
+          <label for="candidateCount">Candidates to interview</label>
+          <input type="text" id="candidateCount" placeholder="e.g. 10â15" />
+        </div>
+      </div>
+      <div class="field-grid col-2">
+        <div class="field-group">
+          <label for="weeklySyncLink">Weekly 15-min sync link</label>
+          <input type="url" id="weeklySyncLink" placeholder="https://calendly.com/â¦" />
+        </div>
+        <div class="field-group">
+          <label for="linkedinTalentReview">LinkedIn Talent Review</label>
+          <input type="text" id="linkedinTalentReview" placeholder="Review cadence or link" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ââ ROLE DETAILS ââ -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-header-icon">ð</span>
+      <h3>Role Details</h3>
+    </div>
+    <div class="card-body">
+      <div class="field-grid col-1" style="margin-bottom:16px">
+        <div class="field-group">
+          <label>Role Summary</label>
+          <div class="rich-editor-wrapper">
+            <div class="rich-toolbar">
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('roleSummary','insertUnorderedList')">â¢ Bullets</button>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('roleSummary','insertOrderedList')">1. Numbered</button>
+              <div class="toolbar-sep"></div>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('roleSummary','bold')"><b>B</b></button>
+              <span class="toolbar-hint">Enter to add lines</span>
+            </div>
+            <div class="rich-editor tall is-empty" id="roleSummary" contenteditable="true" data-placeholder="Describe the overall purpose and scope of the roleâ¦" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-grid col-3" style="margin-bottom:16px">
+        <div class="field-group">
+          <label>Level(s)</label>
+          <div class="multiselect" id="levelsMultiselect">
+            <div class="multiselect-trigger" onclick="toggleMultiselect('levelsMultiselect')">
+              <span class="multiselect-display" id="levelsDisplay">Select levelsâ¦</span>
+              <span class="multiselect-arrow">â¾</span>
+            </div>
+            <div class="multiselect-dropdown" id="levelsDropdown">
+              <div class="multiselect-group-label">Individual Contributor</div>
+              <label class="multiselect-option"><input type="checkbox" value="IC-1" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-1</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="IC-2" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-2</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="IC-3" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-3</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="IC-4" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-4</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="IC-5" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-5</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="IC-6" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-6</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="IC-7" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-7</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="IC-8" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-8</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="IC-9" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-9</span></label>
+              <div class="multiselect-group-label">Manager</div>
+              <label class="multiselect-option"><input type="checkbox" value="MGR-4" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>MGR-4</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="MGR-5" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>MGR-5</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="MGR-6" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>MGR-6</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="MGR-7" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>MGR-7</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="MGR-8" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>MGR-8</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="MGR-9" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>MGR-9</span></label>
+              <div class="multiselect-group-label">Executive</div>
+              <label class="multiselect-option"><input type="checkbox" value="EX-9" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>EX-9</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="EX-10" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>EX-10</span></label>
+            </div>
+          </div>
+        </div>
+        <div class="field-group">
+          <label for="department">Department</label>
+          <select id="department">
+            <option value="">Selectâ¦</option>
+            <option value="Customer Success">Customer Success</option>
+            <option value="Engineering">Engineering</option>
+            <option value="Finance">Finance</option>
+            <option value="IT">IT</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Operations">Operations</option>
+            <option value="Partnerships">Partnerships</option>
+            <option value="Product">Product</option>
+            <option value="Sales">Sales</option>
+            <option value="Support">Support</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label for="team">Team</label>
+          <input type="text" id="team" placeholder="e.g. Enterprise AE" />
+        </div>
+      </div>
+
+      <div class="field-grid col-2" style="margin-bottom:16px">
+        <div class="field-group">
+          <label for="headcount"># of Headcount</label>
+          <input type="text" id="headcount" placeholder="e.g. 2" />
+        </div>
+        <div class="field-group">
+          <label for="reportingTo">Reporting To</label>
+          <input type="text" id="reportingTo" placeholder="e.g. VP of Sales" />
+        </div>
+      </div>
+
+      <div class="field-grid col-3" style="margin-bottom:16px">
+        <div class="field-group">
+          <label for="certsRequired">Certs Required</label>
+          <input type="text" id="certsRequired" placeholder="e.g. None, AWS, PMP" />
+        </div>
+        <div class="field-group">
+          <label>College Required</label>
+          <div class="toggle-group">
+            <label><input type="radio" name="collegeRequired" value="Yes" /><span class="toggle-option">Yes</span></label>
+            <label><input type="radio" name="collegeRequired" value="No" checked /><span class="toggle-option">No</span></label>
+            <label><input type="radio" name="collegeRequired" value="Preferred" /><span class="toggle-option">Pref.</span></label>
+          </div>
+        </div>
+        <div class="field-group">
+          <label for="location">Remote or Physical Location</label>
+          <select id="location">
+            <option value="">Selectâ¦</option>
+            <option value="Remote">Remote</option>
+            <option value="Hybrid">Hybrid</option>
+            <option value="On-site">On-site</option>
+            <option value="Remote â US only">Remote â US only</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-grid col-3" style="margin-bottom:16px">
+        <div class="field-group">
+          <label for="directReports">Direct Reports</label>
+          <input type="text" id="directReports" placeholder="e.g. None, 3â5 SDRs" />
+        </div>
+        <div class="field-group">
+          <label>Net New or Backfill</label>
+          <div class="toggle-group">
+            <label><input type="radio" name="newOrBackfill" value="Net New" /><span class="toggle-option">Net New</span></label>
+            <label><input type="radio" name="newOrBackfill" value="Backfill" /><span class="toggle-option">Backfill</span></label>
+          </div>
+        </div>
+        <div class="field-group">
+          <label for="yearsExperience">Years of Experience</label>
+          <input type="text" id="yearsExperience" placeholder="e.g. 3â5 years" />
+        </div>
+      </div>
+
+      <hr class="section-divider" />
+
+      <div class="field-group">
+        <label>Team Org Structure</label>
+        <div class="rich-editor-wrapper">
+          <div class="rich-toolbar">
+            <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('orgStructure','insertUnorderedList')">â¢ Bullets</button>
+            <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('orgStructure','insertOrderedList')">1. Numbered</button>
+            <div class="toolbar-sep"></div>
+            <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('orgStructure','bold')"><b>B</b></button>
+          </div>
+          <div class="rich-editor tall is-empty" id="orgStructure" contenteditable="true" data-placeholder="Describe the reporting structure and team compositionâ¦" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ââ FINANCIALS ââ -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-header-icon">ð°</span>
+      <h3>Financials</h3>
+    </div>
+    <div class="card-body">
+      <div class="field-grid col-3" style="margin-bottom:16px">
+        <div class="field-group">
+          <label for="salaryRange">Salary Range</label>
+          <input type="text" id="salaryRange" placeholder="e.g. $90,000 â $110,000" />
+        </div>
+        <div class="field-group">
+          <label>Quota Carrying</label>
+          <div class="toggle-group">
+            <label><input type="radio" name="quotaCarrying" value="Yes" /><span class="toggle-option">Yes</span></label>
+            <label><input type="radio" name="quotaCarrying" value="No" /><span class="toggle-option">No</span></label>
+          </div>
+        </div>
+        <div class="field-group">
+          <label for="annualBonus">Annual Bonus %</label>
+          <input type="text" id="annualBonus" placeholder="e.g. 10%" />
+        </div>
+      </div>
+      <div class="field-grid col-2">
+        <div class="field-group">
+          <label for="equity">Equity</label>
+          <input type="text" id="equity" placeholder="e.g. 0.05% â 0.15% options" />
+        </div>
+        <div class="field-group">
+          <label for="otherComp">Other Compensation Notes</label>
+          <input type="text" id="otherComp" placeholder="e.g. commission structure, ESPP" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ââ SKILLS / EXPERIENCE ââ -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-header-icon">â­</span>
+      <h3>Skills &amp; Experience</h3>
+    </div>
+    <div class="card-body">
+      <div class="field-grid col-1">
+        <div class="field-group">
+          <label>3â5 Most Important Skill Sets on JD</label>
+          <div class="rich-editor-wrapper">
+            <div class="rich-toolbar">
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('topSkills','insertUnorderedList')">â¢ Bullets</button>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('topSkills','insertOrderedList')">1. Numbered</button>
+              <div class="toolbar-sep"></div>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('topSkills','bold')"><b>B</b></button>
+            </div>
+            <div class="rich-editor tall is-empty" id="topSkills" contenteditable="true" data-placeholder="Add each skill as a bullet or numbered itemâ¦" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
+          </div>
+        </div>
+        <div class="field-grid col-2">
+          <div class="field-group">
+            <label>Nice to Have</label>
+            <div class="rich-editor-wrapper">
+              <div class="rich-toolbar">
+                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('niceToHave','insertUnorderedList')">â¢ Bullets</button>
+                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('niceToHave','insertOrderedList')">1. Numbered</button>
+              </div>
+              <div class="rich-editor is-empty" id="niceToHave" contenteditable="true" data-placeholder="Bonus skills or experiencesâ¦" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Pet Peeves / Disqualifiers</label>
+            <div class="rich-editor-wrapper">
+              <div class="rich-toolbar">
+                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('petPeeves','insertUnorderedList')">â¢ Bullets</button>
+                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('petPeeves','insertOrderedList')">1. Numbered</button>
+              </div>
+              <div class="rich-editor is-empty" id="petPeeves" contenteditable="true" data-placeholder="Traits or backgrounds that are a red flagâ¦" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
+            </div>
+          </div>
+        </div>
+        <div class="field-grid col-2">
+          <div class="field-group">
+            <label>Skill Gaps We Can Grow</label>
+            <div class="rich-editor-wrapper">
+              <div class="rich-toolbar">
+                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('skillGaps','insertUnorderedList')">â¢ Bullets</button>
+                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('skillGaps','insertOrderedList')">1. Numbered</button>
+              </div>
+              <div class="rich-editor is-empty" id="skillGaps" contenteditable="true" data-placeholder="Areas we'd train intoâ¦" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Comparable Titles</label>
+            <div class="rich-editor-wrapper">
+              <div class="rich-toolbar">
+                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('comparableTitles','insertUnorderedList')">â¢ Bullets</button>
+                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('comparableTitles','insertOrderedList')">1. Numbered</button>
+              </div>
+              <div class="rich-editor is-empty" id="comparableTitles" contenteditable="true" data-placeholder="Other titles that map to this roleâ¦" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
+            </div>
+          </div>
+        </div>
+        <hr class="section-divider" />
+        <div class="field-group">
+          <label for="linkedinProfiles">LinkedIn Profiles â People You'd Love</label>
+          <textarea id="linkedinProfiles" placeholder="Paste profile URLs or names, one per lineâ¦"></textarea>
+          <span class="hint">Real people whose career path / background you'd love to replicate</span>
+        </div>
+        <div class="field-group">
+          <label for="companiesToPoach">Companies to Poach From</label>
+          <textarea id="companiesToPoach">Closinglock, Qualia, CloseSimple, Socure, FileVine, Rynoh, Payload, Earnest, Zoccam</textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ââ DAY IN THE LIFE ââ -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-header-icon">ðï¸</span>
+      <h3>Day in the Life</h3>
+    </div>
+    <div class="card-body">
+      <div class="field-grid col-1">
+        <div class="field-group">
+          <label for="dayInLife">What does a typical day look like?</label>
+          <textarea id="dayInLife" style="min-height:160px" placeholder="Walk through a typical day, week, or quarter in this role â the cadence, key responsibilities, tools used, and who they interact withâ¦"></textarea>
+        </div>
+        <div class="field-grid col-2">
+          <div class="field-group">
+            <label for="trainingLooks">What Does Training Look Like?</label>
+            <textarea id="trainingLooks" placeholder="Onboarding timeline, ramp expectations, resources providedâ¦"></textarea>
+          </div>
+          <div class="field-group">
+            <label for="successLooks">What Does Success Look Like?</label>
+            <textarea id="successLooks" placeholder="30 / 60 / 90 day milestones, KPIs, long-term goalsâ¦"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ââ INTERVIEW PROCESS ââ -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-header-icon">ð¤</span>
+      <h3>Interview Process</h3>
+    </div>
+    <div class="card-body">
+      <div class="field-grid col-1">
+        <div class="field-group">
+          <label>3 Key Phone Screen Questions</label>
+          <div class="rich-editor-wrapper">
+            <div class="rich-toolbar">
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('phoneScreenQuestions','insertUnorderedList')">â¢ Bullets</button>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('phoneScreenQuestions','insertOrderedList')">1. Numbered</button>
+              <div class="toolbar-sep"></div>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('phoneScreenQuestions','bold')"><b>B</b></button>
+            </div>
+            <div class="rich-editor tall is-empty" id="phoneScreenQuestions" contenteditable="true" data-placeholder="1. What drew you to this role?&#10;2. &#10;3. " oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
+          </div>
+        </div>
+
+        <hr class="section-divider" />
+
+        <div class="field-group">
+          <label>Interview Process Steps</label>
+          <div class="dynamic-list" id="interviewStepsList"></div>
+          <button type="button" class="add-row-btn" onclick="addInterviewStep()" style="margin-top:8px">+ Add Interview Round</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ââ BOTTOM ACTIONS ââ -->
+  <div class="bottom-actions">
+    <button class="btn-outline" onclick="confirmNewForm()">Clear &amp; New Form</button>
+    <button class="btn btn-primary btn-lg" onclick="downloadDocx()">â¬ Download DOCX</button>
+  </div>
+</main>
+
+<!-- ââ Confirm New Form Dialog ââ -->
+<div class="overlay" id="confirmOverlay">
+  <div class="dialog">
+    <h4>Start a New Form?</h4>
+    <p>This will clear all fields. Make sure you've downloaded the current form first if you need to keep it.</p>
+    <div class="dialog-actions">
+      <button class="btn-outline" onclick="closeConfirm()" style="padding:9px 18px;font-size:13px">Cancel</button>
+      <button class="btn btn-primary" onclick="resetForm()" style="padding:9px 18px;font-size:13px">Yes, Clear Form</button>
+    </div>
+  </div>
+</div>
+
+<!-- ââ Toast ââ -->
+<div class="toast" id="toast">
+  <span class="toast-icon">â</span>
+  <span id="toastMsg">Form downloaded!</span>
+</div>
+
+<script>
+  // ââ Date display ââ
+  const today = new Date();
+  document.getElementById('formDate').textContent =
+    today.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+
+  // ââ Interview Steps ââ
+  const defaultSteps = [
+    'Kalyn â Intro Screen (25 min)',
+    'Hiring Manager Interview (45 min)',
+    'Panel / Team Interview (60 min)',
+    'Final / Executive Interview (30 min)',
+  ];
+
+  function addInterviewStep(value = '') {
+    const list = document.getElementById('interviewStepsList');
+    const idx = list.children.length;
+    const div = document.createElement('div');
+    div.className = 'dynamic-item';
+    div.innerHTML = `
+      <input type="text" placeholder="e.g. VP Interview (30 min)" value="${value}" />
+      <button type="button" class="btn-icon" title="Move up" onclick="moveStep(this,-1)">â</button>
+      <button type="button" class="btn-icon danger" title="Remove" onclick="removeStep(this)">â</button>
+    `;
+    list.appendChild(div);
+  }
+
+  function removeStep(btn) {
+    btn.closest('.dynamic-item').remove();
+  }
+
+  function moveStep(btn, dir) {
+    const item = btn.closest('.dynamic-item');
+    const list = item.parentElement;
+    if (dir === -1 && item.previousElementSibling) {
+      list.insertBefore(item, item.previousElementSibling);
+    } else if (dir === 1 && item.nextElementSibling) {
+      list.insertBefore(item.nextElementSibling, item);
+    }
+  }
+
+  // Populate defaults
+  defaultSteps.forEach(s => addInterviewStep(s));
+
+  // ââ Helpers ââ
+  function val(id) {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : '';
+  }
+  function radioVal(name) {
+    const checked = document.querySelector(`input[name="${name}"]:checked`);
+    return checked ? checked.value : '';
+  }
+  function getInterviewSteps() {
+    return Array.from(document.querySelectorAll('#interviewStepsList input'))
+      .map(i => i.value.trim()).filter(Boolean);
+  }
+
+  // ââ Confirm / Reset ââ
+  function confirmNewForm() {
+    document.getElementById('confirmOverlay').classList.add('active');
+  }
+  function closeConfirm() {
+    document.getElementById('confirmOverlay').classList.remove('active');
+  }
+  function resetForm() {
+    closeConfirm();
+    // Text / textarea / date / url inputs
+    document.querySelectorAll('input[type="text"], input[type="date"], input[type="url"], input[type="number"], textarea, select').forEach(el => {
+      if (el.id === 'companiesToPoach') {
+        el.value = 'Closinglock, Qualia, CloseSimple, Socure, FileVine, Rynoh, Payload, Earnest, Zoccam';
+      } else {
+        el.value = '';
+      }
+    });
+    // Rich editors
+    RICH_FIELDS.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) { el.innerHTML = ''; el.classList.add('is-empty'); }
+    });
+    // Multi-select checkboxes
+    document.querySelectorAll('.multiselect input[type="checkbox"]').forEach(cb => cb.checked = false);
+    document.getElementById('levelsDisplay').innerHTML = '<span class="placeholder">Select levelsâ¦</span>';
+    document.getElementById('levelsDisplay').style.overflow = '';
+    document.getElementById('levelsDisplay').style.whiteSpace = '';
+    // Radio buttons
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+    document.querySelector('input[name="collegeRequired"][value="No"]').checked = true;
+    // Interview steps
+    document.getElementById('interviewStepsList').innerHTML = '';
+    defaultSteps.forEach(s => addInterviewStep(s));
+
+    showToast('Form cleared â ready for a new role!', 'ð');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ââ Toast ââ
+  function showToast(msg, icon = 'â') {
+    const toast = document.getElementById('toast');
+    document.getElementById('toastMsg').textContent = msg;
+    toast.querySelector('.toast-icon').textContent = icon;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3200);
+  }
+
+  // ââ DOCX Generation ââ
+  async function downloadDocx() {
+    const btn = document.getElementById('downloadBtn');
+    btn.innerHTML = '<span class="spinner"></span> Generatingâ¦';
+    btn.disabled = true;
+
+    try {
+      const {
+        Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell,
+        WidthType, BorderStyle, ShadingType, AlignmentType, HeadingLevel, LevelFormat
+      } = docx;
+
+      const PAGE_WIDTH = 9360; // US Letter 1" margins
+      const COL1 = 2000;
+      const COL2 = PAGE_WIDTH - COL1;
+      const HALF = Math.floor(PAGE_WIDTH / 2);
+      const THIRD = Math.floor(PAGE_WIDTH / 3);
+
+      const border = { style: BorderStyle.SINGLE, size: 1, color: 'CCCCCC' };
+      const borders = { top: border, bottom: border, left: border, right: border };
+      const noBorder = { style: BorderStyle.NONE, size: 0, color: 'FFFFFF' };
+      const noBorders = { top: noBorder, bottom: noBorder, left: noBorder, right: noBorder };
+
+      const cellPad = { top: 100, bottom: 100, left: 140, right: 140 };
+
+      function labelStyle(text) {
+        return new TextRun({ text, bold: true, size: 18, font: 'Calibri', color: '555555' });
+      }
+      function valueStyle(text) {
+        return new TextRun({ text: text || 'â', size: 20, font: 'Calibri', color: '2B3034' });
+      }
+      function sectionHeaderRow(title, colSpan = 2, totalWidth = PAGE_WIDTH) {
+        return new TableRow({
+          children: [new TableCell({
+            columnSpan: colSpan,
+            width: { size: totalWidth, type: WidthType.DXA },
+            shading: { fill: '102754', type: ShadingType.CLEAR },
+            margins: cellPad,
+            borders,
+            children: [new Paragraph({
+              children: [new TextRun({ text: title.toUpperCase(), bold: true, size: 20, font: 'Calibri', color: 'FFFFFF' })]
+            })]
+          })]
+        });
+      }
+      function fieldRow(label, value) {
+        return new TableRow({
+          children: [
+            new TableCell({
+              width: { size: COL1, type: WidthType.DXA },
+              shading: { fill: 'F4F6FA', type: ShadingType.CLEAR },
+              margins: cellPad, borders,
+              children: [new Paragraph({ children: [labelStyle(label)] })]
+            }),
+            new TableCell({
+              width: { size: COL2, type: WidthType.DXA },
+              margins: cellPad, borders,
+              children: [new Paragraph({ children: [valueStyle(value)] })]
+            })
+          ]
+        });
+      }
+      function fieldRow2(pairs) {
+        // pairs = [{label, value}, {label, value}]
+        const w = Math.floor(PAGE_WIDTH / pairs.length);
+        const children = pairs.map((p, i) => {
+          const isLast = i === pairs.length - 1;
+          const cellW = isLast ? PAGE_WIDTH - w * (pairs.length - 1) : w;
+          return new TableCell({
+            width: { size: cellW, type: WidthType.DXA },
+            margins: cellPad, borders,
+            children: [
+              new Paragraph({ children: [labelStyle(p.label)] }),
+              new Paragraph({ children: [valueStyle(p.value)] })
+            ]
+          });
+        });
+        return new TableRow({ children });
+      }
+      function textareaRow(label, value, colSpan = 2) {
+        const lines = (value || 'â').split('\n');
+        return new TableRow({
+          children: [
+            new TableCell({
+              width: { size: COL1, type: WidthType.DXA },
+              shading: { fill: 'F4F6FA', type: ShadingType.CLEAR },
+              margins: cellPad, borders,
+              children: [new Paragraph({ children: [labelStyle(label)] })]
+            }),
+            new TableCell({
+              width: { size: COL2, type: WidthType.DXA },
+              margins: cellPad, borders,
+              children: lines.map(line => new Paragraph({ children: [valueStyle(line)] }))
+            })
+          ]
+        });
+      }
+      function makeTable(rows) {
+        const colWidths = rows[0]?.children?.length === 2 ? [COL1, COL2] : [HALF, HALF];
+        return new Table({
+          width: { size: PAGE_WIDTH, type: WidthType.DXA },
+          columnWidths: Array(rows[0]?.children?.length || 2).fill(Math.floor(PAGE_WIDTH / (rows[0]?.children?.length || 2))),
+          rows,
+          margins: { top: 0, bottom: 0 }
+        });
+      }
+      function gap() {
+        return new Paragraph({ children: [new TextRun({ text: '', size: 16 })] });
+      }
+      function richRow(label, items) {
+        let content;
+        if (!items || items.length === 0) {
+          content = [new Paragraph({ children: [valueStyle('â')] })];
+        } else {
+          content = items.map(item => {
+            if (item.isBullet) {
+              return new Paragraph({
+                numbering: { reference: 'doc-bullets', level: 0 },
+                children: [new TextRun({ text: item.text, size: 20, font: 'Calibri', color: '2B3034' })]
+              });
+            } else if (item.isOrdered) {
+              return new Paragraph({
+                numbering: { reference: 'doc-numbers', level: 0 },
+                children: [new TextRun({ text: item.text, size: 20, font: 'Calibri', color: '2B3034' })]
+              });
+            } else {
+              return new Paragraph({ children: [valueStyle(item.text)] });
+            }
+          });
+        }
+        return new TableRow({
+          children: [
+            new TableCell({
+              width: { size: COL1, type: WidthType.DXA },
+              shading: { fill: 'F4F6FA', type: ShadingType.CLEAR },
+              margins: cellPad, borders,
+              children: [new Paragraph({ children: [labelStyle(label)] })]
+            }),
+            new TableCell({ width: { size: COL2, type: WidthType.DXA }, margins: cellPad, borders, children: content })
+          ]
+        });
+      }
+
+      // Gather values
+      const roleTitle = val('roleTitle') || 'Untitled Role';
+      const targetHire = val('targetHireDate');
+      const jdLink = val('jdLink');
+      const scorecardLink = val('scorecardLink');
+      const blackout = val('blackoutDays');
+      const intLimit = val('dailyInterviewLimit');
+      const candCount = val('candidateCount');
+      const syncLink = val('weeklySyncLink');
+      const liTalent = val('linkedinTalentReview');
+      const roleSummary = getRichItems('roleSummary');
+      const levels = getMultiselectValues('levelsMultiselect').join(', ') || '';
+      const dept = val('department');
+      const team = val('team');
+      const headcount = val('headcount');
+      const reportsTo = val('reportingTo');
+      const certs = val('certsRequired');
+      const college = radioVal('collegeRequired');
+      const location = val('location');
+      const directReports = val('directReports');
+      const newOrBackfill = radioVal('newOrBackfill');
+      const yearsExp = val('yearsExperience');
+      const orgStructure = getRichItems('orgStructure');
+      const salary = val('salaryRange');
+      const quota = radioVal('quotaCarrying');
+      const bonus = val('annualBonus');
+      const equity = val('equity');
+      const otherComp = val('otherComp');
+      const topSkills = getRichItems('topSkills');
+      const niceToHave = getRichItems('niceToHave');
+      const petPeeves = getRichItems('petPeeves');
+      const skillGaps = getRichItems('skillGaps');
+      const comparableTitles = getRichItems('comparableTitles');
+      const liProfiles = val('linkedinProfiles');
+      const companiesToPoach = val('companiesToPoach');
+      const dayInLife = val('dayInLife');
+      const training = val('trainingLooks');
+      const success = val('successLooks');
+      const phoneQs = getRichItems('phoneScreenQuestions');
+      const steps = getInterviewSteps();
+
+      const doc = new Document({
+        numbering: {
+          config: [
+            { reference: 'doc-bullets', levels: [{ level: 0, format: LevelFormat.BULLET, text: '\u2022', alignment: AlignmentType.LEFT, style: { paragraph: { indent: { left: 360, hanging: 180 } } } }] },
+            { reference: 'doc-numbers', levels: [{ level: 0, format: LevelFormat.DECIMAL, text: '%1.', alignment: AlignmentType.LEFT, style: { paragraph: { indent: { left: 360, hanging: 200 } } } }] },
+          ]
+        },
+        sections: [{
+          properties: {
+            page: {
+              size: { width: 12240, height: 15840 },
+              margin: { top: 1080, right: 1080, bottom: 1080, left: 1080 }
+            }
+          },
+          children: [
+            // Title
+            new Paragraph({
+              children: [new TextRun({ text: 'NEW REQ IN-TAKE', bold: true, size: 28, font: 'Calibri', color: '102754', allCaps: true })]
+            }),
+            new Paragraph({
+              children: [new TextRun({ text: roleTitle, bold: true, size: 40, font: 'Calibri', color: '166EBE' })]
+            }),
+            new Paragraph({
+              children: [new TextRun({ text: `Date: ${new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' })}   |   Target Hire: ${targetHire || 'TBD'}`, size: 18, font: 'Calibri', color: '555555' })]
+            }),
+            ...(jdLink ? [new Paragraph({ children: [new TextRun({ text: `JD: ${jdLink}`, size: 18, font: 'Calibri', color: '166EBE' })] })] : []),
+            ...(scorecardLink ? [new Paragraph({ children: [new TextRun({ text: `Scorecard: ${scorecardLink}`, size: 18, font: 'Calibri', color: '166EBE' })] })] : []),
+            gap(),
+
+            // Scheduling
+            new Table({
+              width: { size: PAGE_WIDTH, type: WidthType.DXA },
+              columnWidths: [COL1, COL2],
+              rows: [
+                sectionHeaderRow('Scheduling & EasyLink'),
+                fieldRow2([
+                  { label: 'Days unavailable for interviews', value: blackout },
+                  { label: 'Daily interview limit', value: intLimit }
+                ]),
+                fieldRow2([
+                  { label: 'Candidates to interview', value: candCount },
+                  { label: 'LinkedIn Talent Review', value: liTalent }
+                ]),
+                fieldRow('Weekly 15-min sync link', syncLink),
+              ]
+            }),
+            gap(),
+
+            // Role Details
+            new Table({
+              width: { size: PAGE_WIDTH, type: WidthType.DXA },
+              columnWidths: [COL1, COL2],
+                 rows: [
+                sectionHeaderRow('Role Details'),
+                richRow('Role Summary', roleSummary),
+                fieldRow2([
+                  { label: 'Level(s)', value: levels },
+                  { label: 'Department', value: dept },
+                  { label: 'Team', value: team }
+                ]),
+                fieldRow2([
+                  { label: '# of Headcount', value: headcount },
+                  { label: 'Reporting To', value: reportsTo }
+                ]),
+                fieldRow2([
+                  { label: 'Certs Required', value: certs },
+                  { label: 'College Required', value: college },
+                  { label: 'Location', value: location }
+                ]),
+                fieldRow2([
+                  { label: 'Direct Reports', value: directReports },
+                  { label: 'Net New or Backfill', value: newOrBackfill },
+                  { label: 'Years of Experience', value: yearsExp }
+                ]),
+                richRow('Team Org Structure', orgStructure),
+              ]
+            }),
+            gap(),
+
+            // Financials
+            new Table({
+              width: { size: PAGE_WIDTH, type: WidthType.DXA },
+              columnWidths: [COL1, COL2],
+              rows: [
+                sectionHeaderRow('Financials'),
+                fieldRow2([
+                  { label: 'Salary Range', value: salary },
+                  { label: 'Quota Carrying', value: quota },
+                  { label: 'Annual Bonus %', value: bonus }
+                ]),
+                fieldRow2([
+                  { label: 'Target Hire Date', value: targetHire || 'TBD' },
+                  { label: 'Equity', value: equity }
+                ]),
+                ...(otherComp ? [fieldRow('Other Compensation', otherComp)] : []),
+              ]
+            }),
+            gap(),
+
+            // Skills
+            new Table({
+              width: { size: PAGE_WIDTH, type: WidthType.DXA },
+              columnWidths: [COL1, COL2],
+              rows: [
+                sectionHeaderRow('Skills & Experience'),
+                richRow('3â5 Key Skill Sets (JD)', topSkills),
+                richRow('Nice to Have', niceToHave),
+                richRow('Pet Peeves / Disqualifiers', petPeeves),
+                richRow('Skill Gaps We Can Grow', skillGaps),
+                richRow('Comparable Titles', comparableTitles),
+                textareaRow('LinkedIn Profiles â Would Love', liProfiles),
+                textareaRow('Companies to Poach From', companiesToPoach),
+              ]
+            }),
+            gap(),
+
+            // Day in the Life
+            new Table({
+              width: { size: PAGE_WIDTH, type: WidthType.DXA },
+              columnWidths: [COL1, COL2],
+              rows: [
+                sectionHeaderRow('Day in the Life'),
+                textareaRow('Typical day / cadence', dayInLife),
+                textareaRow('What does training look like?', training),
+                textareaRow('What does success look like?', success),
+              ]
+            }),
+            gap(),
+
+            // Interview Process
+            new Table({
+              width: { size: PAGE_WIDTH, type: WidthType.DXA },
+              columnWidths: [COL1, COL2],
+              rows: [
+                sectionHeaderRow('Interview Process'),
+                richRow('3 Key Phone Screen Questions', phoneQs),
+                new TableRow({
+                  children: [
+                    new TableCell({
+                      width: { size: COL1, type: WidthType.DXA },
+                      shading: { fill: 'F4F6FA', type: ShadingType.CLEAR },
+                      margins: cellPad, borders,
+                      children: [new Paragraph({ children: [labelStyle('Interview Steps')] })]
+                    }),
+                    new TableCell({
+                      width: { size: COL2, type: WidthType.DXA },
+                      margins: cellPad, borders,
+                      children: steps.length
+                        ? steps.map((s, i) => new Paragraph({ children: [valueStyle(`${i + 1}. ${s}`)] }))
+                        : [new Paragraph({ children: [valueStyle('â')] })]
+                    })
+                  ]
+                })
+              ]
+            }),
+          ]
+        }]
+      });
+
+      const blob = await Packer.toBlob(doc);
+      const safeName = roleTitle.replace(/[^a-zA-Z0-9\s\-]/g, '').replace(/\s+/g, '-');
+      saveAs(blob, `CertifID-Intake-${safeName}.docx`);
+      showToast('DOCX downloaded successfully!', 'â');
+    } catch (err) {
+      console.error(err);
+      showToast('Error generating DOCX â check console', 'â');
+    } finally {
+      btn.innerHTML = 'â¬ Download DOCX';
+      btn.disabled = false;
+    }
+  }
+
+  // ââ Rich Editor ââ
+  const RICH_FIELDS = ['roleSummary','orgStructure','topSkills','niceToHave','petPeeves','skillGaps','comparableTitles','phoneScreenQuestions'];
+
+  function richCmd(id, cmd) {
+    const el = document.getElementById(id);
+    el.focus();
+    document.execCommand(cmd, false, null);
+    updateToolbarButtons(el);
+  }
+  function richInput(el) {
+    el.classList.toggle('is-empty', !el.textContent.trim() && !el.querySelector('ul,ol'));
+    updateToolbarButtons(el);
+  }
+  function richFocus(el) {
+    el.classList.remove('is-empty');
+  }
+  function richBlur(el) {
+    el.classList.toggle('is-empty', !el.textContent.trim() && !el.querySelector('ul,ol'));
+  }
+  function updateToolbarButtons(el) {
+    const wrapper = el.closest('.rich-editor-wrapper');
+    if (!wrapper) return;
+    wrapper.querySelectorAll('.toolbar-btn').forEach(btn => {
+      const cmd = btn.getAttribute('data-cmd');
+      if (cmd) btn.classList.toggle('active', document.queryCommandState(cmd));
+    });
+  }
+  function getRichItems(id) {
+    // Returns array of {text, isBullet, isOrdered, bold} objects
+    const el = document.getElementById(id);
+    if (!el) return [];
+    const items = [];
+    function walk(node, inUl, inOl) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const t = node.textContent;
+        if (t.trim()) items.push({ text: t, isBullet: inUl, isOrdered: inOl, bold: false });
+      } else if (node.tagName === 'LI') {
+        const t = node.textContent.trim();
+        if (t) items.push({ text: t, isBullet: inUl, isOrdered: inOl, bold: false });
+      } else if (node.tagName === 'UL') {
+        node.childNodes.forEach(c => walk(c, true, false));
+      } else if (node.tagName === 'OL') {
+        node.childNodes.forEach(c => walk(c, false, true));
+      } else if (node.tagName === 'BR') {
+        // skip
+      } else {
+        node.childNodes.forEach(c => walk(c, inUl, inOl));
+      }
+    }
+    el.childNodes.forEach(c => walk(c, false, false));
+    // Remove empty duplicates from top-level text nodes adjacent to lists
+    return items.filter(i => i.text.trim());
+  }
+  function richVal(id) {
+    // Plain text version for simple DOCX rows
+    const el = document.getElementById(id);
+    return el ? el.innerText.trim() : '';
+  }
+
+  // ââ Multi-Select ââ
+  function toggleMultiselect(id) {
+    const ms = document.getElementById(id);
+    const isOpen = ms.classList.contains('open');
+    // Close all open multiselects first
+    document.querySelectorAll('.multiselect.open').forEach(el => el.classList.remove('open'));
+    if (!isOpen) ms.classList.add('open');
+  }
+  function updateMultiselectDisplay(multiselectId, displayId) {
+    const ms = document.getElementById(multiselectId);
+    const display = document.getElementById(displayId);
+    const checked = Array.from(ms.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
+    if (checked.length === 0) {
+      display.innerHTML = '<span class="placeholder">Select levelsâ¦</span>';
+    } else {
+      display.innerHTML = checked.map(v => `<span class="tag">${v}</span>`).join('');
+    }
+    // Wrap display in tags layout
+    display.style.overflow = 'visible';
+    display.style.whiteSpace = 'normal';
+  }
+  function getMultiselectValues(multiselectId) {
+    const ms = document.getElementById(multiselectId);
+    return Array.from(ms.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
+  }
+  // Close multiselect when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.multiselect')) {
+      document.querySelectorAll('.multiselect.open').forEach(el => el.classList.remove('open'));
+    }
+  });
+
+  // ââ Shareable Link ââ
+  function serializeForm() {
+    const data = {};
+
+    // Plain inputs (text, date, url, number)
+    data.inputs = {};
+    document.querySelectorAll('input[type="text"], input[type="date"], input[type="url"], input[type="number"]').forEach(el => {
+      if (el.id) data.inputs[el.id] = el.value;
+    });
+
+    // Selects
+    data.selects = {};
+    document.querySelectorAll('select').forEach(el => {
+      if (el.id) data.selects[el.id] = el.value;
+    });
+
+    // Textareas (non-rich ones)
+    data.textareas = {};
+    document.querySelectorAll('textarea').forEach(el => {
+      if (el.id) data.textareas[el.id] = el.value;
+    });
+
+    // Radio buttons (one value per name)
+    data.radios = {};
+    ['collegeRequired', 'quotaCarrying', 'newOrBackfill'].forEach(name => {
+      data.radios[name] = radioVal(name);
+    });
+
+    // Rich editors (save innerHTML)
+    data.richEditors = {};
+    RICH_FIELDS.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) data.richEditors[id] = el.innerHTML;
+    });
+
+    // Multi-select
+    data.multiselect = {};
+    data.multiselect.levels = getMultiselectValues('levelsMultiselect');
+
+    // Interview steps
+    data.interviewSteps = getInterviewSteps();
+
+    return data;
+  }
+
+  function populateForm(data) {
+    // Plain inputs
+    if (data.inputs) {
+      Object.entries(data.inputs).forEach(([id, value]) => {
+        const el = document.getElementById(id);
+        if (el) el.value = value;
+      });
+    }
+    // Selects
+    if (data.selects) {
+      Object.entries(data.selects).forEach(([id, value]) => {
+        const el = document.getElementById(id);
+        if (el) el.value = value;
+      });
+    }
+    // Textareas
+    if (data.textareas) {
+      Object.entries(data.textareas).forEach(([id, value]) => {
+        const el = document.getElementById(id);
+        if (el) el.value = value;
+      });
+    }
+    // Radios
+    if (data.radios) {
+      Object.entries(data.radios).forEach(([name, value]) => {
+        if (value) {
+          const r = document.querySelector(`input[name="${name}"][value="${value}"]`);
+          if (r) r.checked = true;
+        }
+      });
+    }
+    // Rich editors
+    if (data.richEditors) {
+      Object.entries(data.richEditors).forEach(([id, html]) => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.innerHTML = html;
+          el.classList.toggle('is-empty', !el.textContent.trim() && !el.querySelector('ul,ol'));
+        }
+      });
+    }
+    // Multi-select levels
+    if (data.multiselect && data.multiselect.levels) {
+      data.multiselect.levels.forEach(v => {
+        const cb = document.querySelector(`#levelsMultiselect input[value="${v}"]`);
+        if (cb) cb.checked = true;
+      });
+      updateMultiselectDisplay('levelsMultiselect', 'levelsDisplay');
+    }
+    // Interview steps
+    if (data.interviewSteps) {
+      document.getElementById('interviewStepsList').innerHTML = '';
+      data.interviewSteps.forEach(s => addInterviewStep(s));
+    }
+  }
+
+  function copyShareableLink() {
+    try {
+      const data = serializeForm();
+      const json = JSON.stringify(data);
+      const encoded = btoa(unescape(encodeURIComponent(json)));
+      const base = window.location.href.split('#')[0];
+      const url = base + '#formData=' + encoded;
+
+      navigator.clipboard.writeText(url).then(() => {
+        const btn = document.getElementById('copyLinkBtn');
+        btn.textContent = 'â Copied!';
+        btn.style.borderColor = 'var(--green)';
+        btn.style.color = '#1a7a3a';
+        setTimeout(() => {
+          btn.textContent = 'ð Copy Link';
+          btn.style.borderColor = '';
+          btn.style.color = '';
+        }, 2500);
+        showToast('Link copied! Share it or paste it in a new tab to restore this form.', 'ð');
+      }).catch(() => {
+        // Fallback for browsers that block clipboard without HTTPS
+        const ta = document.createElement('textarea');
+        ta.value = url;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('Link copied! Open it in any browser to restore this form.', 'ð');
+      });
+    } catch (e) {
+      showToast('Could not generate link â please try again.', 'â');
+    }
+  }
+
+  function loadFromHash() {
+    const hash = window.location.hash;
+    if (!hash.startsWith('#formData=')) return;
+    try {
+      const encoded = hash.slice('#formData='.length);
+      const json = decodeURIComponent(escape(atob(encoded)));
+      const data = JSON.parse(json);
+      populateForm(data);
+      showToast('Form restored from shared link!', 'â');
+    } catch (e) {
+      console.warn('Could not restore form from URL:', e);
+    }
+  }
+
+  // Load from hash after a brief delay to ensure DOM is ready
+  setTimeout(loadFromHash, 100);
+
+  // Close confirm overlay on background click
+  document.getElementById('confirmOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closeConfirm();
+  });
+</script>
+</body>
+</html>
