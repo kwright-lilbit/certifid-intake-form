@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CertifID â New Req In-Take Form</title>
+  <title>CertifID — New Req In-Take Form</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/docx@8.5.0/build/index.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
@@ -33,7 +33,7 @@
       min-height: 100vh;
     }
 
-    /* ââ Header ââ */
+    /* ── Header ── */
     .site-header {
       background: var(--primary-dark);
       padding: 18px 40px;
@@ -100,7 +100,7 @@
     }
     .btn-secondary:hover { background: rgba(255,255,255,0.2); }
 
-    /* ââ Layout ââ */
+    /* ── Layout ── */
     .page-container {
       max-width: 900px;
       margin: 0 auto;
@@ -133,7 +133,7 @@
       margin-bottom: 4px;
     }
 
-    /* ââ Cards ââ */
+    /* ── Cards ── */
     .card {
       background: white;
       border-radius: 10px;
@@ -166,7 +166,7 @@
     }
     .card-body { padding: 20px; }
 
-    /* ââ Form Grid ââ */
+    /* ── Form Grid ── */
     .field-grid {
       display: grid;
       gap: 16px;
@@ -229,14 +229,14 @@
       font-style: italic;
     }
 
-    /* ââ Divider ââ */
+    /* ── Divider ── */
     .section-divider {
       border: none;
       border-top: 1px solid var(--grey-100);
       margin: 18px 0;
     }
 
-    /* ââ Role Title Banner ââ */
+    /* ── Role Title Banner ── */
     .role-title-banner {
       background: var(--blue-ice);
       border: 1px solid #C8D9EE;
@@ -264,7 +264,7 @@
       color: var(--blue-medium);
     }
 
-    /* ââ Multi-Select ââ */
+    /* ── Multi-Select ── */
     .multiselect { position: relative; }
     .multiselect-trigger {
       display: flex;
@@ -368,7 +368,7 @@
       white-space: nowrap;
     }
 
-    /* ââ Rich Editor ââ */
+    /* ── Rich Editor ── */
     .rich-editor-wrapper {
       border: 1px solid var(--grey-light);
       border-radius: 6px;
@@ -439,7 +439,7 @@
     .rich-editor li { margin: 2px 0; }
     .rich-editor p { margin: 0; }
 
-    /* ââ Toggle (Y/N) ââ */
+    /* ── Toggle (Y/N) ── */
     .toggle-group {
       display: flex;
       gap: 8px;
@@ -472,7 +472,7 @@
       color: var(--primary-blue);
     }
 
-    /* ââ Dynamic List (Interview Steps) ââ */
+    /* ── Dynamic List (Interview Steps) ── */
     .dynamic-list { display: flex; flex-direction: column; gap: 8px; }
     .dynamic-item {
       display: grid;
@@ -515,7 +515,7 @@
     }
     .add-row-btn:hover { opacity: 1; background: var(--blue-ice); }
 
-    /* ââ Bottom Actions ââ */
+    /* ── Bottom Actions ── */
     .bottom-actions {
       display: flex;
       gap: 12px;
@@ -543,7 +543,7 @@
     }
     .btn-outline:hover { border-color: var(--primary-blue); color: var(--primary-blue); }
 
-    /* ââ Toast ââ */
+    /* ── Toast ── */
     .toast {
       position: fixed;
       bottom: 28px;
@@ -566,7 +566,7 @@
     .toast.show { transform: translateY(0); opacity: 1; }
     .toast-icon { font-size: 16px; }
 
-    /* ââ Confirm Dialog ââ */
+    /* ── Confirm Dialog ── */
     .overlay {
       position: fixed; inset: 0;
       background: rgba(16,39,84,0.55);
@@ -599,7 +599,7 @@
     .dialog p { font-size: 14px; color: var(--text-medium); line-height: 1.55; }
     .dialog-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 22px; }
 
-    /* ââ Spinner ââ */
+    /* ── Spinner ── */
     .spinner {
       display: inline-block;
       width: 14px; height: 14px;
@@ -614,21 +614,21 @@
 </head>
 <body>
 
-<!-- ââ Header ââ -->
+<!-- ── Header ── -->
 <header class="site-header">
   <div class="logo-mark"><div class="logo-inner"></div></div>
   <div class="header-text">
     <h1>CertifID</h1>
-    <p>Recruiting Â· Req In-Take</p>
+    <p>Recruiting · Req In-Take</p>
   </div>
   <div class="header-actions">
     <button class="btn btn-secondary" onclick="confirmNewForm()">+ New Form</button>
-    <button class="btn btn-secondary" id="copyLinkBtn" onclick="copyShareableLink()">ð Copy Link</button>
-    <button class="btn btn-primary" id="downloadBtn" onclick="downloadDocx()">â¬ Download DOCX</button>
+    <button class="btn btn-secondary" id="copyLinkBtn" onclick="copyShareableLink()">🔗 Copy Link</button>
+    <button class="btn btn-primary" id="downloadBtn" onclick="downloadDocx()">⬇ Download DOCX</button>
   </div>
 </header>
 
-<!-- ââ Main ââ -->
+<!-- ── Main ── -->
 <main class="page-container">
   <div class="form-date" id="formDate"></div>
   <div class="form-title">
@@ -640,7 +640,7 @@
   <div class="role-title-banner" style="grid-template-columns: 1fr 200px; row-gap: 14px;">
     <div class="field-group">
       <label for="roleTitle">Role Title <span class="required">*</span></label>
-      <input type="text" id="roleTitle" placeholder="e.g. Senior Account Executive â Enterprise" autocomplete="off" />
+      <input type="text" id="roleTitle" placeholder="e.g. Senior Account Executive — Enterprise" autocomplete="off" />
     </div>
     <div class="field-group">
       <label for="targetHireDate">Target Hire Date</label>
@@ -648,18 +648,18 @@
     </div>
     <div class="field-group">
       <label for="jdLink">Job Description Link</label>
-      <input type="url" id="jdLink" placeholder="https://â¦" />
+      <input type="url" id="jdLink" placeholder="https://…" />
     </div>
     <div class="field-group">
       <label for="scorecardLink">Scorecard Link</label>
-      <input type="url" id="scorecardLink" placeholder="https://â¦" />
+      <input type="url" id="scorecardLink" placeholder="https://…" />
     </div>
   </div>
 
-  <!-- ââ SCHEDULING / EASYLINK ââ -->
+  <!-- ── SCHEDULING / EASYLINK ── -->
   <div class="card">
     <div class="card-header">
-      <span class="card-header-icon">ð</span>
+      <span class="card-header-icon">📅</span>
       <h3>Scheduling &amp; EasyLink</h3>
     </div>
     <div class="card-body">
@@ -674,13 +674,13 @@
         </div>
         <div class="field-group">
           <label for="candidateCount">Candidates to interview</label>
-          <input type="text" id="candidateCount" placeholder="e.g. 10â15" />
+          <input type="text" id="candidateCount" placeholder="e.g. 10–15" />
         </div>
       </div>
       <div class="field-grid col-2">
         <div class="field-group">
           <label for="weeklySyncLink">Weekly 15-min sync link</label>
-          <input type="url" id="weeklySyncLink" placeholder="https://calendly.com/â¦" />
+          <input type="url" id="weeklySyncLink" placeholder="https://calendly.com/…" />
         </div>
         <div class="field-group">
           <label for="linkedinTalentReview">LinkedIn Talent Review</label>
@@ -690,10 +690,10 @@
     </div>
   </div>
 
-  <!-- ââ ROLE DETAILS ââ -->
+  <!-- ── ROLE DETAILS ── -->
   <div class="card">
     <div class="card-header">
-      <span class="card-header-icon">ð</span>
+      <span class="card-header-icon">📋</span>
       <h3>Role Details</h3>
     </div>
     <div class="card-body">
@@ -702,13 +702,13 @@
           <label>Role Summary</label>
           <div class="rich-editor-wrapper">
             <div class="rich-toolbar">
-              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('roleSummary','insertUnorderedList')">â¢ Bullets</button>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('roleSummary','insertUnorderedList')">• Bullets</button>
               <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('roleSummary','insertOrderedList')">1. Numbered</button>
               <div class="toolbar-sep"></div>
               <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('roleSummary','bold')"><b>B</b></button>
               <span class="toolbar-hint">Enter to add lines</span>
             </div>
-            <div class="rich-editor tall is-empty" id="roleSummary" contenteditable="true" data-placeholder="Describe the overall purpose and scope of the roleâ¦" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
+            <div class="rich-editor tall is-empty" id="roleSummary" contenteditable="true" data-placeholder="Describe the overall purpose and scope of the role…" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
           </div>
         </div>
       </div>
@@ -718,8 +718,8 @@
           <label>Level(s)</label>
           <div class="multiselect" id="levelsMultiselect">
             <div class="multiselect-trigger" onclick="toggleMultiselect('levelsMultiselect')">
-              <span class="multiselect-display" id="levelsDisplay">Select levelsâ¦</span>
-              <span class="multiselect-arrow">â¾</span>
+              <span class="multiselect-display" id="levelsDisplay">Select levels…</span>
+              <span class="multiselect-arrow">▾</span>
             </div>
             <div class="multiselect-dropdown" id="levelsDropdown">
               <div class="multiselect-group-label">Individual Contributor</div>
@@ -748,7 +748,7 @@
         <div class="field-group">
           <label for="department">Department</label>
           <select id="department">
-            <option value="">Selectâ¦</option>
+            <option value="">Select…</option>
             <option value="Customer Success">Customer Success</option>
             <option value="Engineering">Engineering</option>
             <option value="Finance">Finance</option>
@@ -794,11 +794,11 @@
         <div class="field-group">
           <label for="location">Remote or Physical Location</label>
           <select id="location">
-            <option value="">Selectâ¦</option>
+            <option value="">Select…</option>
             <option value="Remote">Remote</option>
             <option value="Hybrid">Hybrid</option>
             <option value="On-site">On-site</option>
-            <option value="Remote â US only">Remote â US only</option>
+            <option value="Remote – US only">Remote – US only</option>
           </select>
         </div>
       </div>
@@ -806,7 +806,7 @@
       <div class="field-grid col-3" style="margin-bottom:16px">
         <div class="field-group">
           <label for="directReports">Direct Reports</label>
-          <input type="text" id="directReports" placeholder="e.g. None, 3â5 SDRs" />
+          <input type="text" id="directReports" placeholder="e.g. None, 3–5 SDRs" />
         </div>
         <div class="field-group">
           <label>Net New or Backfill</label>
@@ -817,7 +817,7 @@
         </div>
         <div class="field-group">
           <label for="yearsExperience">Years of Experience</label>
-          <input type="text" id="yearsExperience" placeholder="e.g. 3â5 years" />
+          <input type="text" id="yearsExperience" placeholder="e.g. 3–5 years" />
         </div>
       </div>
 
@@ -827,28 +827,28 @@
         <label>Team Org Structure</label>
         <div class="rich-editor-wrapper">
           <div class="rich-toolbar">
-            <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('orgStructure','insertUnorderedList')">â¢ Bullets</button>
+            <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('orgStructure','insertUnorderedList')">• Bullets</button>
             <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('orgStructure','insertOrderedList')">1. Numbered</button>
             <div class="toolbar-sep"></div>
             <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('orgStructure','bold')"><b>B</b></button>
           </div>
-          <div class="rich-editor tall is-empty" id="orgStructure" contenteditable="true" data-placeholder="Describe the reporting structure and team compositionâ¦" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
+          <div class="rich-editor tall is-empty" id="orgStructure" contenteditable="true" data-placeholder="Describe the reporting structure and team composition…" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ââ FINANCIALS ââ -->
+  <!-- ── FINANCIALS ── -->
   <div class="card">
     <div class="card-header">
-      <span class="card-header-icon">ð°</span>
+      <span class="card-header-icon">💰</span>
       <h3>Financials</h3>
     </div>
     <div class="card-body">
       <div class="field-grid col-3" style="margin-bottom:16px">
         <div class="field-group">
           <label for="salaryRange">Salary Range</label>
-          <input type="text" id="salaryRange" placeholder="e.g. $90,000 â $110,000" />
+          <input type="text" id="salaryRange" placeholder="e.g. $90,000 – $110,000" />
         </div>
         <div class="field-group">
           <label>Quota Carrying</label>
@@ -865,7 +865,7 @@
       <div class="field-grid col-2">
         <div class="field-group">
           <label for="equity">Equity</label>
-          <input type="text" id="equity" placeholder="e.g. 0.05% â 0.15% options" />
+          <input type="text" id="equity" placeholder="e.g. 0.05% – 0.15% options" />
         </div>
         <div class="field-group">
           <label for="otherComp">Other Compensation Notes</label>
@@ -875,24 +875,24 @@
     </div>
   </div>
 
-  <!-- ââ SKILLS / EXPERIENCE ââ -->
+  <!-- ── SKILLS / EXPERIENCE ── -->
   <div class="card">
     <div class="card-header">
-      <span class="card-header-icon">â­</span>
+      <span class="card-header-icon">⭐</span>
       <h3>Skills &amp; Experience</h3>
     </div>
     <div class="card-body">
       <div class="field-grid col-1">
         <div class="field-group">
-          <label>3â5 Most Important Skill Sets on JD</label>
+          <label>3–5 Most Important Skill Sets on JD</label>
           <div class="rich-editor-wrapper">
             <div class="rich-toolbar">
-              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('topSkills','insertUnorderedList')">â¢ Bullets</button>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('topSkills','insertUnorderedList')">• Bullets</button>
               <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('topSkills','insertOrderedList')">1. Numbered</button>
               <div class="toolbar-sep"></div>
               <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('topSkills','bold')"><b>B</b></button>
             </div>
-            <div class="rich-editor tall is-empty" id="topSkills" contenteditable="true" data-placeholder="Add each skill as a bullet or numbered itemâ¦" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
+            <div class="rich-editor tall is-empty" id="topSkills" contenteditable="true" data-placeholder="Add each skill as a bullet or numbered item…" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
           </div>
         </div>
         <div class="field-grid col-2">
@@ -900,20 +900,20 @@
             <label>Nice to Have</label>
             <div class="rich-editor-wrapper">
               <div class="rich-toolbar">
-                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('niceToHave','insertUnorderedList')">â¢ Bullets</button>
+                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('niceToHave','insertUnorderedList')">• Bullets</button>
                 <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('niceToHave','insertOrderedList')">1. Numbered</button>
               </div>
-              <div class="rich-editor is-empty" id="niceToHave" contenteditable="true" data-placeholder="Bonus skills or experiencesâ¦" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
+              <div class="rich-editor is-empty" id="niceToHave" contenteditable="true" data-placeholder="Bonus skills or experiences…" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
             </div>
           </div>
           <div class="field-group">
             <label>Pet Peeves / Disqualifiers</label>
             <div class="rich-editor-wrapper">
               <div class="rich-toolbar">
-                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('petPeeves','insertUnorderedList')">â¢ Bullets</button>
+                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('petPeeves','insertUnorderedList')">• Bullets</button>
                 <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('petPeeves','insertOrderedList')">1. Numbered</button>
               </div>
-              <div class="rich-editor is-empty" id="petPeeves" contenteditable="true" data-placeholder="Traits or backgrounds that are a red flagâ¦" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
+              <div class="rich-editor is-empty" id="petPeeves" contenteditable="true" data-placeholder="Traits or backgrounds that are a red flag…" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
             </div>
           </div>
         </div>
@@ -922,27 +922,27 @@
             <label>Skill Gaps We Can Grow</label>
             <div class="rich-editor-wrapper">
               <div class="rich-toolbar">
-                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('skillGaps','insertUnorderedList')">â¢ Bullets</button>
+                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('skillGaps','insertUnorderedList')">• Bullets</button>
                 <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('skillGaps','insertOrderedList')">1. Numbered</button>
               </div>
-              <div class="rich-editor is-empty" id="skillGaps" contenteditable="true" data-placeholder="Areas we'd train intoâ¦" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
+              <div class="rich-editor is-empty" id="skillGaps" contenteditable="true" data-placeholder="Areas we'd train into…" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
             </div>
           </div>
           <div class="field-group">
             <label>Comparable Titles</label>
             <div class="rich-editor-wrapper">
               <div class="rich-toolbar">
-                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('comparableTitles','insertUnorderedList')">â¢ Bullets</button>
+                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('comparableTitles','insertUnorderedList')">• Bullets</button>
                 <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('comparableTitles','insertOrderedList')">1. Numbered</button>
               </div>
-              <div class="rich-editor is-empty" id="comparableTitles" contenteditable="true" data-placeholder="Other titles that map to this roleâ¦" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
+              <div class="rich-editor is-empty" id="comparableTitles" contenteditable="true" data-placeholder="Other titles that map to this role…" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
             </div>
           </div>
         </div>
         <hr class="section-divider" />
         <div class="field-group">
-          <label for="linkedinProfiles">LinkedIn Profiles â People You'd Love</label>
-          <textarea id="linkedinProfiles" placeholder="Paste profile URLs or names, one per lineâ¦"></textarea>
+          <label for="linkedinProfiles">LinkedIn Profiles — People You'd Love</label>
+          <textarea id="linkedinProfiles" placeholder="Paste profile URLs or names, one per line…"></textarea>
           <span class="hint">Real people whose career path / background you'd love to replicate</span>
         </div>
         <div class="field-group">
@@ -953,36 +953,36 @@
     </div>
   </div>
 
-  <!-- ââ DAY IN THE LIFE ââ -->
+  <!-- ── DAY IN THE LIFE ── -->
   <div class="card">
     <div class="card-header">
-      <span class="card-header-icon">ðï¸</span>
+      <span class="card-header-icon">🗓️</span>
       <h3>Day in the Life</h3>
     </div>
     <div class="card-body">
       <div class="field-grid col-1">
         <div class="field-group">
           <label for="dayInLife">What does a typical day look like?</label>
-          <textarea id="dayInLife" style="min-height:160px" placeholder="Walk through a typical day, week, or quarter in this role â the cadence, key responsibilities, tools used, and who they interact withâ¦"></textarea>
+          <textarea id="dayInLife" style="min-height:160px" placeholder="Walk through a typical day, week, or quarter in this role — the cadence, key responsibilities, tools used, and who they interact with…"></textarea>
         </div>
         <div class="field-grid col-2">
           <div class="field-group">
             <label for="trainingLooks">What Does Training Look Like?</label>
-            <textarea id="trainingLooks" placeholder="Onboarding timeline, ramp expectations, resources providedâ¦"></textarea>
+            <textarea id="trainingLooks" placeholder="Onboarding timeline, ramp expectations, resources provided…"></textarea>
           </div>
           <div class="field-group">
             <label for="successLooks">What Does Success Look Like?</label>
-            <textarea id="successLooks" placeholder="30 / 60 / 90 day milestones, KPIs, long-term goalsâ¦"></textarea>
+            <textarea id="successLooks" placeholder="30 / 60 / 90 day milestones, KPIs, long-term goals…"></textarea>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ââ INTERVIEW PROCESS ââ -->
+  <!-- ── INTERVIEW PROCESS ── -->
   <div class="card">
     <div class="card-header">
-      <span class="card-header-icon">ð¤</span>
+      <span class="card-header-icon">🎤</span>
       <h3>Interview Process</h3>
     </div>
     <div class="card-body">
@@ -991,7 +991,7 @@
           <label>3 Key Phone Screen Questions</label>
           <div class="rich-editor-wrapper">
             <div class="rich-toolbar">
-              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('phoneScreenQuestions','insertUnorderedList')">â¢ Bullets</button>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('phoneScreenQuestions','insertUnorderedList')">• Bullets</button>
               <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('phoneScreenQuestions','insertOrderedList')">1. Numbered</button>
               <div class="toolbar-sep"></div>
               <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('phoneScreenQuestions','bold')"><b>B</b></button>
@@ -1011,14 +1011,14 @@
     </div>
   </div>
 
-  <!-- ââ BOTTOM ACTIONS ââ -->
+  <!-- ── BOTTOM ACTIONS ── -->
   <div class="bottom-actions">
     <button class="btn-outline" onclick="confirmNewForm()">Clear &amp; New Form</button>
-    <button class="btn btn-primary btn-lg" onclick="downloadDocx()">â¬ Download DOCX</button>
+    <button class="btn btn-primary btn-lg" onclick="downloadDocx()">⬇ Download DOCX</button>
   </div>
 </main>
 
-<!-- ââ Confirm New Form Dialog ââ -->
+<!-- ── Confirm New Form Dialog ── -->
 <div class="overlay" id="confirmOverlay">
   <div class="dialog">
     <h4>Start a New Form?</h4>
@@ -1030,21 +1030,21 @@
   </div>
 </div>
 
-<!-- ââ Toast ââ -->
+<!-- ── Toast ── -->
 <div class="toast" id="toast">
-  <span class="toast-icon">â</span>
+  <span class="toast-icon">✅</span>
   <span id="toastMsg">Form downloaded!</span>
 </div>
 
 <script>
-  // ââ Date display ââ
+  // ── Date display ──
   const today = new Date();
   document.getElementById('formDate').textContent =
     today.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
 
-  // ââ Interview Steps ââ
+  // ── Interview Steps ──
   const defaultSteps = [
-    'Kalyn â Intro Screen (25 min)',
+    'Kalyn — Intro Screen (25 min)',
     'Hiring Manager Interview (45 min)',
     'Panel / Team Interview (60 min)',
     'Final / Executive Interview (30 min)',
@@ -1057,8 +1057,8 @@
     div.className = 'dynamic-item';
     div.innerHTML = `
       <input type="text" placeholder="e.g. VP Interview (30 min)" value="${value}" />
-      <button type="button" class="btn-icon" title="Move up" onclick="moveStep(this,-1)">â</button>
-      <button type="button" class="btn-icon danger" title="Remove" onclick="removeStep(this)">â</button>
+      <button type="button" class="btn-icon" title="Move up" onclick="moveStep(this,-1)">↑</button>
+      <button type="button" class="btn-icon danger" title="Remove" onclick="removeStep(this)">✕</button>
     `;
     list.appendChild(div);
   }
@@ -1080,7 +1080,7 @@
   // Populate defaults
   defaultSteps.forEach(s => addInterviewStep(s));
 
-  // ââ Helpers ââ
+  // ── Helpers ──
   function val(id) {
     const el = document.getElementById(id);
     return el ? el.value.trim() : '';
@@ -1094,7 +1094,7 @@
       .map(i => i.value.trim()).filter(Boolean);
   }
 
-  // ââ Confirm / Reset ââ
+  // ── Confirm / Reset ──
   function confirmNewForm() {
     document.getElementById('confirmOverlay').classList.add('active');
   }
@@ -1118,7 +1118,7 @@
     });
     // Multi-select checkboxes
     document.querySelectorAll('.multiselect input[type="checkbox"]').forEach(cb => cb.checked = false);
-    document.getElementById('levelsDisplay').innerHTML = '<span class="placeholder">Select levelsâ¦</span>';
+    document.getElementById('levelsDisplay').innerHTML = '<span class="placeholder">Select levels…</span>';
     document.getElementById('levelsDisplay').style.overflow = '';
     document.getElementById('levelsDisplay').style.whiteSpace = '';
     // Radio buttons
@@ -1128,12 +1128,12 @@
     document.getElementById('interviewStepsList').innerHTML = '';
     defaultSteps.forEach(s => addInterviewStep(s));
 
-    showToast('Form cleared â ready for a new role!', 'ð');
+    showToast('Form cleared — ready for a new role!', '🆕');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // ââ Toast ââ
-  function showToast(msg, icon = 'â') {
+  // ── Toast ──
+  function showToast(msg, icon = '✅') {
     const toast = document.getElementById('toast');
     document.getElementById('toastMsg').textContent = msg;
     toast.querySelector('.toast-icon').textContent = icon;
@@ -1141,10 +1141,10 @@
     setTimeout(() => toast.classList.remove('show'), 3200);
   }
 
-  // ââ DOCX Generation ââ
+  // ── DOCX Generation ──
   async function downloadDocx() {
     const btn = document.getElementById('downloadBtn');
-    btn.innerHTML = '<span class="spinner"></span> Generatingâ¦';
+    btn.innerHTML = '<span class="spinner"></span> Generating…';
     btn.disabled = true;
 
     try {
@@ -1170,7 +1170,7 @@
         return new TextRun({ text, bold: true, size: 18, font: 'Calibri', color: '555555' });
       }
       function valueStyle(text) {
-        return new TextRun({ text: text || 'â', size: 20, font: 'Calibri', color: '2B3034' });
+        return new TextRun({ text: text || '—', size: 20, font: 'Calibri', color: '2B3034' });
       }
       function sectionHeaderRow(title, colSpan = 2, totalWidth = PAGE_WIDTH) {
         return new TableRow({
@@ -1221,7 +1221,7 @@
         return new TableRow({ children });
       }
       function textareaRow(label, value, colSpan = 2) {
-        const lines = (value || 'â').split('\n');
+        const lines = (value || '—').split('\n');
         return new TableRow({
           children: [
             new TableCell({
@@ -1253,7 +1253,7 @@
       function richRow(label, items) {
         let content;
         if (!items || items.length === 0) {
-          content = [new Paragraph({ children: [valueStyle('â')] })];
+          content = [new Paragraph({ children: [valueStyle('—')] })];
         } else {
           content = items.map(item => {
             if (item.isBullet) {
@@ -1377,7 +1377,7 @@
             new Table({
               width: { size: PAGE_WIDTH, type: WidthType.DXA },
               columnWidths: [COL1, COL2],
-                 rows: [
+              rows: [
                 sectionHeaderRow('Role Details'),
                 richRow('Role Summary', roleSummary),
                 fieldRow2([
@@ -1430,12 +1430,12 @@
               columnWidths: [COL1, COL2],
               rows: [
                 sectionHeaderRow('Skills & Experience'),
-                richRow('3â5 Key Skill Sets (JD)', topSkills),
+                richRow('3–5 Key Skill Sets (JD)', topSkills),
                 richRow('Nice to Have', niceToHave),
                 richRow('Pet Peeves / Disqualifiers', petPeeves),
                 richRow('Skill Gaps We Can Grow', skillGaps),
                 richRow('Comparable Titles', comparableTitles),
-                textareaRow('LinkedIn Profiles â Would Love', liProfiles),
+                textareaRow('LinkedIn Profiles — Would Love', liProfiles),
                 textareaRow('Companies to Poach From', companiesToPoach),
               ]
             }),
@@ -1474,7 +1474,7 @@
                       margins: cellPad, borders,
                       children: steps.length
                         ? steps.map((s, i) => new Paragraph({ children: [valueStyle(`${i + 1}. ${s}`)] }))
-                        : [new Paragraph({ children: [valueStyle('â')] })]
+                        : [new Paragraph({ children: [valueStyle('—')] })]
                     })
                   ]
                 })
@@ -1487,17 +1487,17 @@
       const blob = await Packer.toBlob(doc);
       const safeName = roleTitle.replace(/[^a-zA-Z0-9\s\-]/g, '').replace(/\s+/g, '-');
       saveAs(blob, `CertifID-Intake-${safeName}.docx`);
-      showToast('DOCX downloaded successfully!', 'â');
+      showToast('DOCX downloaded successfully!', '✅');
     } catch (err) {
       console.error(err);
-      showToast('Error generating DOCX â check console', 'â');
+      showToast('Error generating DOCX — check console', '❌');
     } finally {
-      btn.innerHTML = 'â¬ Download DOCX';
+      btn.innerHTML = '⬇ Download DOCX';
       btn.disabled = false;
     }
   }
 
-  // ââ Rich Editor ââ
+  // ── Rich Editor ──
   const RICH_FIELDS = ['roleSummary','orgStructure','topSkills','niceToHave','petPeeves','skillGaps','comparableTitles','phoneScreenQuestions'];
 
   function richCmd(id, cmd) {
@@ -1556,7 +1556,7 @@
     return el ? el.innerText.trim() : '';
   }
 
-  // ââ Multi-Select ââ
+  // ── Multi-Select ──
   function toggleMultiselect(id) {
     const ms = document.getElementById(id);
     const isOpen = ms.classList.contains('open');
@@ -1569,7 +1569,7 @@
     const display = document.getElementById(displayId);
     const checked = Array.from(ms.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
     if (checked.length === 0) {
-      display.innerHTML = '<span class="placeholder">Select levelsâ¦</span>';
+      display.innerHTML = '<span class="placeholder">Select levels…</span>';
     } else {
       display.innerHTML = checked.map(v => `<span class="tag">${v}</span>`).join('');
     }
@@ -1588,7 +1588,7 @@
     }
   });
 
-  // ââ Shareable Link ââ
+  // ── Shareable Link ──
   function serializeForm() {
     const data = {};
 
@@ -1699,15 +1699,15 @@
 
       navigator.clipboard.writeText(url).then(() => {
         const btn = document.getElementById('copyLinkBtn');
-        btn.textContent = 'â Copied!';
+        btn.textContent = '✓ Copied!';
         btn.style.borderColor = 'var(--green)';
         btn.style.color = '#1a7a3a';
         setTimeout(() => {
-          btn.textContent = 'ð Copy Link';
+          btn.textContent = '🔗 Copy Link';
           btn.style.borderColor = '';
           btn.style.color = '';
         }, 2500);
-        showToast('Link copied! Share it or paste it in a new tab to restore this form.', 'ð');
+        showToast('Link copied! Share it or paste it in a new tab to restore this form.', '🔗');
       }).catch(() => {
         // Fallback for browsers that block clipboard without HTTPS
         const ta = document.createElement('textarea');
@@ -1718,10 +1718,10 @@
         ta.select();
         document.execCommand('copy');
         document.body.removeChild(ta);
-        showToast('Link copied! Open it in any browser to restore this form.', 'ð');
+        showToast('Link copied! Open it in any browser to restore this form.', '🔗');
       });
     } catch (e) {
-      showToast('Could not generate link â please try again.', 'â');
+      showToast('Could not generate link — please try again.', '❌');
     }
   }
 
@@ -1733,7 +1733,7 @@
       const json = decodeURIComponent(escape(atob(encoded)));
       const data = JSON.parse(json);
       populateForm(data);
-      showToast('Form restored from shared link!', 'â');
+      showToast('Form restored from shared link!', '✅');
     } catch (e) {
       console.warn('Could not restore form from URL:', e);
     }
