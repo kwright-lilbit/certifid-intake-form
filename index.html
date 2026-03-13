@@ -5,7 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CertifID — New Req In-Take Form</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet" />
-  <script src="https://unpkg.com/docx@8.5.0/build/index.js"></script>
+  <script src="https://unpkg.com/docx@8.5.0/build/index.js">
+  /* ---- Tab System ---- */
+  let currentTab=0;const TAB_KEY='certifid_intake_tabs';
+  function getTabStore(){try{return JSON.parse(localStorage.getItem(TAB_KEY))||[{},{},{}]}catch(e){return[{},{},{}]}}
+  function saveTabStore(s){localStorage.setItem(TAB_KEY,JSON.stringify(s))}
+  function saveCurrentTab(){const s=getTabStore();s[currentTab]=serializeForm();saveTabStore(s);updateTabIndicators()}
+  function switchTab(idx){if(idx===currentTab)return;saveCurrentTab();silentReset();currentTab=idx;const s=getTabStore();if(s[idx]&&Object.keys(s[idx]).length>0)populateForm(s[idx]);document.querySelectorAll('.tab-bar .tab').forEach((t,i)=>t.classList.toggle('active',i===idx));updateTabIndicators();localStorage.setItem('certifid_intake_activeTab',idx)}
+  function updateTabIndicators(){const s=getTabStore();document.querySelectorAll('.tab-bar .tab').forEach((t,i)=>{const d=s[i]||{};const has=Object.values(d).some(v=>v&&v.toString().trim().length>0);t.classList.toggle('has-data',has)})}
+  function silentReset(){document.querySelectorAll('input:not([type=radio]):not([type=checkbox])').forEach(i=>i.value='');document.querySelectorAll('textarea').forEach(t=>t.value='');document.querySelectorAll('select').forEach(s=>s.selectedIndex=0);document.querySelectorAll('.rich-editor').forEach(r=>{r.innerHTML='';r.classList.add('is-empty')});document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);document.querySelectorAll('.multiselect-display').forEach(d=>{const sel=d.closest('.multiselect-wrap');if(sel){const s=sel.querySelector('select');if(s&&s.options[0])d.textContent=s.options[0].text}});document.querySelectorAll('.multiselect-checkboxes input').forEach(c=>c.checked=false);const ic=document.getElementById('interviewSteps');if(ic){ic.innerHTML='';if(typeof addInterviewStep==='function')addInterviewStep()}}
+  document.addEventListener('input',function(){clearTimeout(window._tabSaveTimer);window._tabSaveTimer=setTimeout(saveCurrentTab,500)});
+  document.addEventListener('change',function(){clearTimeout(window._tabSaveTimer);window._tabSaveTimer=setTimeout(saveCurrentTab,500)});
+  (function initTabs(){const st=parseInt(localStorage.getItem('certifid_intake_activeTab'))||0;currentTab=st;const s=getTabStore();if(s[st]&&Object.keys(s[st]).length>0)populateForm(s[st]);document.querySelectorAll('.tab-bar .tab').forEach((t,i)=>t.classList.toggle('active',i===st));updateTabIndicators()})();
+
+</script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
   <style>
     :root {
@@ -610,6 +623,15 @@
       margin-right: 6px;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
+  
+  .tab-bar{display:flex;gap:0;background:var(--navy);padding:8px 40px 0}
+  .tab-bar .tab{padding:10px 24px 8px;border-radius:8px 8px 0 0;cursor:pointer;font-family:Oxygen,sans-serif;font-size:13px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:rgba(255,255,255,.55);background:rgba(255,255,255,.08);border:none;transition:all .15s ease}
+  .tab-bar .tab:hover{color:rgba(255,255,255,.8);background:rgba(255,255,255,.12)}
+  .tab-bar .tab.active{color:#fff;background:#1a3a6b}
+  .tab-bar .tab .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;background:rgba(255,255,255,.25)}
+  .tab-bar .tab.active .dot{background:var(--green)}
+  .tab-bar .tab.has-data .dot{background:#FFA624}
+  .tab-bar .tab.active.has-data .dot{background:var(--green)}
   </style>
 </head>
 <body>
@@ -627,6 +649,11 @@
     <button class="btn btn-primary" id="downloadBtn" onclick="downloadDocx()">⬇ Download DOCX</button>
   </div>
 </header>
+  <div class="tab-bar" id="tabBar">
+    <button class="tab active" data-tab="0" onclick="switchTab(0)"><span class="dot"></span>Form 1</button>
+    <button class="tab" data-tab="1" onclick="switchTab(1)"><span class="dot"></span>Form 2</button>
+    <button class="tab" data-tab="2" onclick="switchTab(2)"><span class="dot"></span>Form 3</button>
+  </div>
 
 <!-- ── Main ── -->
 <main class="page-container">
@@ -963,7 +990,17 @@
       <div class="field-grid col-1">
         <div class="field-group">
           <label for="dayInLife">What does a typical day look like?</label>
-          <textarea id="dayInLife" style="min-height:160px" placeholder="Walk through a typical day, week, or quarter in this role — the cadence, key responsibilities, tools used, and who they interact with…"></textarea>
+          <div class="rich-wrap">
+            <div class="toolbar">
+              <button type="button" class="toolbar-btn" onclick="richCmd(this,'insertUnorderedList')" title="Bullet list">&bull; Bullets</button>
+              <button type="button" class="toolbar-btn" onclick="richCmd(this,'insertOrderedList')" title="Numbered list">1. Numbered</button>
+              <button type="button" class="toolbar-btn" onclick="richCmd(this,'bold')" title="Bold"><b>B</b></button>
+            </div>
+            <div id="dayInLife" class="rich-editor tall is-empty" contenteditable="true" role="textbox"
+                 onfocus="richFocus(this)" onblur="richBlur(this)"
+                 oninput="richInput(this)"
+                 data-placeholder="Walk through a typical day, week, or quarter in this role - the cadence, key responsibilities, tools used, and who they interact with..."></div>
+          </div>
         </div>
         <div class="field-grid col-2">
           <div class="field-group">
