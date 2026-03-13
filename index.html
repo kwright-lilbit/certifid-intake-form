@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CertifID — New Req In-Take Form</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet" />
-  <script src="https://unpkg.com/docx@8.5.0/build/index.js">
-  /* ---- Tab System ---- */
-  let currentTab=0;const TAB_KEY='certifid_intake_tabs';
+  <script src="https://unpkg.com/docx@8.5.0/build/index.js"></script>
+<script>
+/* ---- Tab System ---- */
+  var currentTab=0;var TAB_KEY='certifid_intake_tabs';
   function getTabStore(){try{return JSON.parse(localStorage.getItem(TAB_KEY))||[{},{},{}]}catch(e){return[{},{},{}]}}
   function saveTabStore(s){localStorage.setItem(TAB_KEY,JSON.stringify(s))}
   function saveCurrentTab(){const s=getTabStore();s[currentTab]=serializeForm();saveTabStore(s);updateTabIndicators()}
@@ -17,7 +18,6 @@
   document.addEventListener('input',function(){clearTimeout(window._tabSaveTimer);window._tabSaveTimer=setTimeout(saveCurrentTab,500)});
   document.addEventListener('change',function(){clearTimeout(window._tabSaveTimer);window._tabSaveTimer=setTimeout(saveCurrentTab,500)});
   (function initTabs(){const st=parseInt(localStorage.getItem('certifid_intake_activeTab'))||0;currentTab=st;const s=getTabStore();if(s[st]&&Object.keys(s[st]).length>0)populateForm(s[st]);document.querySelectorAll('.tab-bar .tab').forEach((t,i)=>t.classList.toggle('active',i===st));updateTabIndicators()})();
-
 </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
   <style>
@@ -990,11 +990,11 @@
       <div class="field-grid col-1">
         <div class="field-group">
           <label for="dayInLife">What does a typical day look like?</label>
-          <div class="rich-wrap">
-            <div class="toolbar">
-              <button type="button" class="toolbar-btn" onclick="richCmd(this,'insertUnorderedList')" title="Bullet list">&bull; Bullets</button>
-              <button type="button" class="toolbar-btn" onclick="richCmd(this,'insertOrderedList')" title="Numbered list">1. Numbered</button>
-              <button type="button" class="toolbar-btn" onclick="richCmd(this,'bold')" title="Bold"><b>B</b></button>
+          <div class="rich-editor-wrapper">
+            <div class="rich-toolbar">
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('dayInLife','insertUnorderedList')">&bull; Bullets</button>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('dayInLife','insertOrderedList')">1. Numbered</button>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('dayInLife','bold')"><b>B</b></button>
             </div>
             <div id="dayInLife" class="rich-editor tall is-empty" contenteditable="true" role="textbox"
                  onfocus="richFocus(this)" onblur="richBlur(this)"
