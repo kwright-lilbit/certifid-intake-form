@@ -20329,6 +20329,8 @@ var __async = (__this, __arguments, generator) => {
       width: 100%;
       transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
       outline: none;
+      overflow-wrap: break-word;
+      word-break: break-word;
     }
     input:focus, select:focus, textarea:focus {
       border-color: var(--primary-blue);
@@ -20822,8 +20824,11 @@ var __async = (__this, __arguments, generator) => {
           <input type="url" id="weeklySyncLink" placeholder="https://calendly.com/…" />
         </div>
         <div class="field-group">
-          <label for="linkedinTalentReview">LinkedIn Talent Review</label>
-          <input type="text" id="linkedinTalentReview" placeholder="Review cadence or link" />
+          <label>LinkedIn Talent Review</label>
+          <div class="toggle-group">
+            <label><input type="radio" name="linkedinTalentReview" value="Yes" /><span class="toggle-option">Yes</span></label>
+            <label><input type="radio" name="linkedinTalentReview" value="No" /><span class="toggle-option">No</span></label>
+          </div>
         </div>
       </div>
     </div>
@@ -20841,8 +20846,8 @@ var __async = (__this, __arguments, generator) => {
           <label>Role Summary</label>
           <div class="rich-editor-wrapper">
             <div class="rich-toolbar">
-              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('roleSummary','insertUnorderedList')">• Bullets</button>
-              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('roleSummary','insertOrderedList')">1. Numbered</button>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richList('roleSummary','insertUnorderedList')">• Bullets</button>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richList('roleSummary','insertOrderedList')">1. Numbered</button>
               <div class="toolbar-sep"></div>
               <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('roleSummary','bold')"><b>B</b></button>
               <span class="toolbar-hint">Enter to add lines</span>
@@ -20950,8 +20955,12 @@ var __async = (__this, __arguments, generator) => {
         <div class="field-group">
           <label>Net New or Backfill</label>
           <div class="toggle-group">
-            <label><input type="radio" name="newOrBackfill" value="Net New" /><span class="toggle-option">Net New</span></label>
-            <label><input type="radio" name="newOrBackfill" value="Backfill" /><span class="toggle-option">Backfill</span></label>
+            <label><input type="radio" name="newOrBackfill" value="Net New" onclick="document.getElementById('backfillForWrap').style.display='none'" /><span class="toggle-option">Net New</span></label>
+            <label><input type="radio" name="newOrBackfill" value="Backfill" onclick="document.getElementById('backfillForWrap').style.display='block'" /><span class="toggle-option">Backfill</span></label>
+          </div>
+          <div id="backfillForWrap" style="display:none;margin-top:8px">
+            <label for="backfillFor" style="font-size:12px;color:var(--text-medium)">Backfill for</label>
+            <input type="text" id="backfillFor" placeholder="e.g. Jane Smith" />
           </div>
         </div>
         <div class="field-group">
@@ -20966,8 +20975,8 @@ var __async = (__this, __arguments, generator) => {
         <label>Team Org Structure</label>
         <div class="rich-editor-wrapper">
           <div class="rich-toolbar">
-            <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('orgStructure','insertUnorderedList')">• Bullets</button>
-            <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('orgStructure','insertOrderedList')">1. Numbered</button>
+            <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richList('orgStructure','insertUnorderedList')">• Bullets</button>
+            <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richList('orgStructure','insertOrderedList')">1. Numbered</button>
             <div class="toolbar-sep"></div>
             <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('orgStructure','bold')"><b>B</b></button>
           </div>
@@ -20984,11 +20993,13 @@ var __async = (__this, __arguments, generator) => {
       <h3>Financials</h3>
     </div>
     <div class="card-body">
-      <div class="field-grid col-3" style="margin-bottom:16px">
-        <div class="field-group salary-range-field">
+      <div class="field-grid col-1" style="margin-bottom:12px">
+        <div class="field-group">
           <label for="salaryRange">Salary Range</label>
           <input type="text" id="salaryRange" placeholder="e.g. $90,000 – $110,000" />
         </div>
+      </div>
+      <div class="field-grid col-2" style="margin-bottom:16px">
         <div class="field-group">
           <label>Quota Carrying</label>
           <div class="toggle-group">
@@ -21026,8 +21037,8 @@ var __async = (__this, __arguments, generator) => {
           <label>3–5 Most Important Skill Sets on JD</label>
           <div class="rich-editor-wrapper">
             <div class="rich-toolbar">
-              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('topSkills','insertUnorderedList')">• Bullets</button>
-              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('topSkills','insertOrderedList')">1. Numbered</button>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richList('topSkills','insertUnorderedList')">• Bullets</button>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richList('topSkills','insertOrderedList')">1. Numbered</button>
               <div class="toolbar-sep"></div>
               <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('topSkills','bold')"><b>B</b></button>
             </div>
@@ -21039,8 +21050,8 @@ var __async = (__this, __arguments, generator) => {
             <label>Nice to Have</label>
             <div class="rich-editor-wrapper">
               <div class="rich-toolbar">
-                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('niceToHave','insertUnorderedList')">• Bullets</button>
-                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('niceToHave','insertOrderedList')">1. Numbered</button>
+                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richList('niceToHave','insertUnorderedList')">• Bullets</button>
+                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richList('niceToHave','insertOrderedList')">1. Numbered</button>
               </div>
               <div class="rich-editor is-empty" id="niceToHave" contenteditable="true" data-placeholder="Bonus skills or experiences…" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
             </div>
@@ -21049,8 +21060,8 @@ var __async = (__this, __arguments, generator) => {
             <label>Pet Peeves / Disqualifiers</label>
             <div class="rich-editor-wrapper">
               <div class="rich-toolbar">
-                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('petPeeves','insertUnorderedList')">• Bullets</button>
-                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('petPeeves','insertOrderedList')">1. Numbered</button>
+                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richList('petPeeves','insertUnorderedList')">• Bullets</button>
+                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richList('petPeeves','insertOrderedList')">1. Numbered</button>
               </div>
               <div class="rich-editor is-empty" id="petPeeves" contenteditable="true" data-placeholder="Traits or backgrounds that are a red flag…" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
             </div>
@@ -21061,8 +21072,8 @@ var __async = (__this, __arguments, generator) => {
             <label>Skill Gaps We Can Grow</label>
             <div class="rich-editor-wrapper">
               <div class="rich-toolbar">
-                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('skillGaps','insertUnorderedList')">• Bullets</button>
-                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('skillGaps','insertOrderedList')">1. Numbered</button>
+                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richList('skillGaps','insertUnorderedList')">• Bullets</button>
+                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richList('skillGaps','insertOrderedList')">1. Numbered</button>
               </div>
               <div class="rich-editor is-empty" id="skillGaps" contenteditable="true" data-placeholder="Areas we'd train into…" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
             </div>
@@ -21071,8 +21082,8 @@ var __async = (__this, __arguments, generator) => {
             <label>Comparable Titles</label>
             <div class="rich-editor-wrapper">
               <div class="rich-toolbar">
-                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('comparableTitles','insertUnorderedList')">• Bullets</button>
-                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('comparableTitles','insertOrderedList')">1. Numbered</button>
+                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richList('comparableTitles','insertUnorderedList')">• Bullets</button>
+                <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richList('comparableTitles','insertOrderedList')">1. Numbered</button>
               </div>
               <div class="rich-editor is-empty" id="comparableTitles" contenteditable="true" data-placeholder="Other titles that map to this role…" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
             </div>
@@ -21130,8 +21141,8 @@ var __async = (__this, __arguments, generator) => {
           <label>3 Key Phone Screen Questions</label>
           <div class="rich-editor-wrapper">
             <div class="rich-toolbar">
-              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('phoneScreenQuestions','insertUnorderedList')">• Bullets</button>
-              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('phoneScreenQuestions','insertOrderedList')">1. Numbered</button>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richList('phoneScreenQuestions','insertUnorderedList')">• Bullets</button>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richList('phoneScreenQuestions','insertOrderedList')">1. Numbered</button>
               <div class="toolbar-sep"></div>
               <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('phoneScreenQuestions','bold')"><b>B</b></button>
             </div>
@@ -21279,6 +21290,8 @@ var __async = (__this, __arguments, generator) => {
     // Radio buttons
     document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
     document.querySelector('input[name="collegeRequired"][value="No"]').checked = true;
+    // Hide backfill field
+    document.getElementById('backfillForWrap').style.display = 'none';
     // Interview steps
     document.getElementById('interviewStepsList').innerHTML = '';
     defaultSteps.forEach(s => addInterviewStep(s));
@@ -21581,7 +21594,7 @@ var __async = (__this, __arguments, generator) => {
       const intLimit         = val('dailyInterviewLimit');
       const candCount        = val('candidateCount');
       const syncLink         = val('weeklySyncLink');
-      const liTalent         = val('linkedinTalentReview');
+      const liTalent         = radioVal('linkedinTalentReview');
       const roleSummary      = getRichItems('roleSummary');
       const levels           = getMultiselectValues('levelsMultiselect').join(', ') || '';
       const dept             = val('department');
@@ -21593,6 +21606,7 @@ var __async = (__this, __arguments, generator) => {
       const location         = val('location');
       const directReports    = val('directReports');
       const newOrBackfill    = radioVal('newOrBackfill');
+      const backfillFor      = val('backfillFor');
       const yearsExp         = val('yearsExperience');
       const orgStructure     = getRichItems('orgStructure');
       const salary           = val('salaryRange');
@@ -21677,7 +21691,7 @@ var __async = (__this, __arguments, generator) => {
               ]),
               fieldRow2([
                 { label: 'Direct Reports',      value: directReports },
-                { label: 'Net New or Backfill', value: newOrBackfill },
+                { label: 'Net New or Backfill', value: newOrBackfill + (backfillFor ? ` — ${backfillFor}` : '') },
                 { label: 'Years of Experience', value: yearsExp }
               ]),
               richRow('Team Org Structure', orgStructure),
@@ -21770,6 +21784,40 @@ var __async = (__this, __arguments, generator) => {
     const el = document.getElementById(id);
     el.focus();
     document.execCommand(cmd, false, null);
+    updateToolbarButtons(el);
+  }
+  // Bullet/numbered list — only applies to the line the cursor is on,
+  // never auto-bullets the whole field at once.
+  function richList(id, listCmd) {
+    const el = document.getElementById(id);
+    el.focus();
+    const sel = window.getSelection();
+    if (!sel || !sel.rangeCount) return;
+    const range = sel.getRangeAt(0);
+    // If selection spans multiple block elements, collapse to just the start
+    // so we only affect the one line the cursor is on.
+    if (!range.collapsed) {
+      let n = range.startContainer;
+      while (n && n !== el) { n = n.parentNode; }
+      const sameBlock = (function() {
+        function blockOf(node) {
+          while (node && node !== el) {
+            if (/^(DIV|P|LI|H[1-6])$/.test(node.nodeName)) return node;
+            node = node.parentNode;
+          }
+          return el;
+        }
+        return blockOf(range.startContainer) === blockOf(range.endContainer);
+      })();
+      if (!sameBlock) {
+        const collapsed = range.cloneRange();
+        collapsed.collapse(true);
+        sel.removeAllRanges();
+        sel.addRange(collapsed);
+      }
+    }
+    document.execCommand(listCmd, false, null);
+    richInput(el);
     updateToolbarButtons(el);
   }
   function richInput(el) {
@@ -21878,7 +21926,7 @@ var __async = (__this, __arguments, generator) => {
 
     // Radio buttons (one value per name)
     data.radios = {};
-    ['collegeRequired', 'quotaCarrying', 'newOrBackfill'].forEach(name => {
+    ['collegeRequired', 'quotaCarrying', 'newOrBackfill', 'linkedinTalentReview'].forEach(name => {
       data.radios[name] = radioVal(name);
     });
 
