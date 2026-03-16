@@ -33,6 +33,7 @@
       min-height: 100vh;
     }
 
+    /* ── Header ── */
     .site-header {
       background: var(--primary-dark);
       padding: 18px 40px;
@@ -99,6 +100,7 @@
     }
     .btn-secondary:hover { background: rgba(255,255,255,0.2); }
 
+    /* ── Layout ── */
     .page-container {
       max-width: 900px;
       margin: 0 auto;
@@ -131,6 +133,7 @@
       margin-bottom: 4px;
     }
 
+    /* ── Cards ── */
     .card {
       background: white;
       border-radius: 10px;
@@ -163,6 +166,7 @@
     }
     .card-body { padding: 20px; }
 
+    /* ── Form Grid ── */
     .field-grid {
       display: grid;
       gap: 16px;
@@ -225,12 +229,14 @@
       font-style: italic;
     }
 
+    /* ── Divider ── */
     .section-divider {
       border: none;
       border-top: 1px solid var(--grey-100);
       margin: 18px 0;
     }
 
+    /* ── Role Title Banner ── */
     .role-title-banner {
       background: var(--blue-ice);
       border: 1px solid #C8D9EE;
@@ -258,6 +264,7 @@
       color: var(--blue-medium);
     }
 
+    /* ── Multi-Select ── */
     .multiselect { position: relative; }
     .multiselect-trigger {
       display: flex;
@@ -361,6 +368,7 @@
       white-space: nowrap;
     }
 
+    /* ── Rich Editor ── */
     .rich-editor-wrapper {
       border: 1px solid var(--grey-light);
       border-radius: 6px;
@@ -431,6 +439,7 @@
     .rich-editor li { margin: 2px 0; }
     .rich-editor p { margin: 0; }
 
+    /* ── Toggle (Y/N) ── */
     .toggle-group {
       display: flex;
       gap: 8px;
@@ -463,6 +472,7 @@
       color: var(--primary-blue);
     }
 
+    /* ── Dynamic List (Interview Steps) ── */
     .dynamic-list { display: flex; flex-direction: column; gap: 8px; }
     .dynamic-item {
       display: grid;
@@ -505,6 +515,7 @@
     }
     .add-row-btn:hover { opacity: 1; background: var(--blue-ice); }
 
+    /* ── Bottom Actions ── */
     .bottom-actions {
       display: flex;
       gap: 12px;
@@ -532,6 +543,7 @@
     }
     .btn-outline:hover { border-color: var(--primary-blue); color: var(--primary-blue); }
 
+    /* ── Toast ── */
     .toast {
       position: fixed;
       bottom: 28px;
@@ -554,6 +566,7 @@
     .toast.show { transform: translateY(0); opacity: 1; }
     .toast-icon { font-size: 16px; }
 
+    /* ── Confirm Dialog ── */
     .overlay {
       position: fixed; inset: 0;
       background: rgba(16,39,84,0.55);
@@ -586,6 +599,7 @@
     .dialog p { font-size: 14px; color: var(--text-medium); line-height: 1.55; }
     .dialog-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 22px; }
 
+    /* ── Spinner ── */
     .spinner {
       display: inline-block;
       width: 14px; height: 14px;
@@ -597,6 +611,7 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
+    /* ── Print / PDF ── */
     @media print {
       @page { size: letter; margin: 0.65in 0.75in; }
       body { background: white; font-size: 11pt; }
@@ -616,6 +631,7 @@
 </head>
 <body>
 
+<!-- ── Header ── -->
 <header class="site-header">
   <div class="logo-mark"><div class="logo-inner"></div></div>
   <div class="header-text">
@@ -630,6 +646,7 @@
   </div>
 </header>
 
+<!-- ── Main ── -->
 <main class="page-container">
   <div class="form-date" id="formDate"></div>
   <div class="form-title">
@@ -641,7 +658,7 @@
   <div class="role-title-banner" style="grid-template-columns: 1fr 200px; row-gap: 14px;">
     <div class="field-group">
       <label for="roleTitle">Role Title <span class="required">*</span></label>
-      <input type="text" id="roleTitle" placeholder="e.g. Senior Account Executive – Enterprise" autocomplete="off" />
+      <input type="text" id="roleTitle" placeholder="e.g. Senior Account Executive — Enterprise" autocomplete="off" />
     </div>
     <div class="field-group">
       <label for="targetHireDate">Target Hire Date</label>
@@ -657,11 +674,11 @@
     </div>
   </div>
 
-  <!-- SCHEDULING / EASYLINK -->
+  <!-- ── SCHEDULING / EASYLINK ── -->
   <div class="card">
     <div class="card-header">
-      <span class="card-header-icon">⏰</span>
-      <h3>Scheduling & EasyLink</h3>
+      <span class="card-header-icon">📅</span>
+      <h3>Scheduling &amp; EasyLink</h3>
     </div>
     <div class="card-body">
       <div class="field-grid col-3" style="margin-bottom:16px">
@@ -691,10 +708,10 @@
     </div>
   </div>
 
-  <!-- ROLE DETAILS -->
+  <!-- ── ROLE DETAILS ── -->
   <div class="card">
     <div class="card-header">
-      <span class="card-header-icon">💼</span>
+      <span class="card-header-icon">📋</span>
       <h3>Role Details</h3>
     </div>
     <div class="card-body">
@@ -717,32 +734,32 @@
       <div class="field-grid col-3" style="margin-bottom:16px">
         <div class="field-group">
           <label>Level(s)</label>
-          <div class="multiselect" id="levelsMutliselect">
-            <div class="multiselect-trigger" onclick="toggleMultiselect('levelsMutliselect')">
+          <div class="multiselect" id="levelsMultiselect">
+            <div class="multiselect-trigger" onclick="toggleMultiselect('levelsMultiselect')">
               <span class="multiselect-display" id="levelsDisplay">Select levels…</span>
-              <span class="multiselect-arrow">▼</span>
+              <span class="multiselect-arrow">▾</span>
             </div>
             <div class="multiselect-dropdown" id="levelsDropdown">
               <div class="multiselect-group-label">Individual Contributor</div>
-              <label class="multiselect-option"><input type="checkbox" value="IC-1" onchange="updateMultiselectDisplay('levelsMutliselect','levelsDisplay')" /><span>IC-1</span></label>
-              <label class="multiselect-option"><input type="checkbox" value="IC-2" onchange="updateMultiselectDisplay('levelsMutliselect','levelsDisplay')" /><span>IC-2</span></label>
-              <label class="multiselect-option"><input type="checkbox" value="IC-3" onchange="updateMultiselectDisplay('levelsMutliselect','levelsDisplay')" /><span>IC-3</span></label>
-              <label class="multiselect-option"><input type="checkbox" value="IC-4" onchange="updateMultiselectDisplay('levelsMutliselect','levelsDisplay')" /><span>IC-4</span></label>
-              <label class="multiselect-option"><input type="checkbox" value="IC-5" onchange="updateMultiselectDisplay('levelsMutliselect','levelsDisplay')" /><span>IC-5</span></label>
-              <label class="multiselect-option"><input type="checkbox" value="IC-6" onchange="updateMultiselectDisplay('levelsMutliselect','levelsDisplay')" /><span>IC-6</span></label>
-              <label class="multiselect-option"><input type="checkbox" value="IC-7" onchange="updateMultiselectDisplay('levelsMutliselect','levelsDisplay')" /><span>IC-7</span></label>
-              <label class="multiselect-option"><input type="checkbox" value="IC-8" onchange="updateMultiselectDisplay('levelsMutliselect','levelsDisplay')" /><span>IC-8</span></label>
-              <label class="multiselect-option"><input type="checkbox" value="IC-9" onchange="updateMultiselectDisplay('levelsMutliselect','levelsDisplay')" /><span>IC-9</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="IC-1" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-1</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="IC-2" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-2</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="IC-3" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-3</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="IC-4" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-4</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="IC-5" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-5</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="IC-6" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-6</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="IC-7" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-7</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="IC-8" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-8</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="IC-9" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-9</span></label>
               <div class="multiselect-group-label">Manager</div>
-              <label class="multiselect-option"><input type="checkbox" value="MGR-4" onchange="updateMultiselectDisplay('levelsMutliselect','levelsDisplay')" /><span>MGR-4</span></label>
-              <label class="multiselect-option"><input type="checkbox" value="MGR-5" onchange="updateMultiselectDisplay('levelsMutliselect','levelsDisplay')" /><span>MGR-5</span></label>
-              <label class="multiselect-option"><input type="checkbox" value="MGR-6" onchange="updateMultiselectDisplay('levelsMutliselect','levelsDisplay')" /><span>MGR-6</span></label>
-              <label class="multiselect-option"><input type="checkbox" value="MGR-7" onchange="updateMultiselectDisplay('levelsMutliselect','levelsDisplay')" /><span>MGR-7</span></label>
-              <label class="multiselect-option"><input type="checkbox" value="MGR-8" onchange="updateMultiselectDisplay('levelsMutliselect','levelsDisplay')" /><span>MGR-8</span></label>
-              <label class="multiselect-option"><input type="checkbox" value="MGR-9" onchange="updateMultiselectDisplay('levelsMutliselect','levelsDisplay')" /><span>MGR-9</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="MGR-4" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>MGR-4</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="MGR-5" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>MGR-5</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="MGR-6" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>MGR-6</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="MGR-7" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>MGR-7</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="MGR-8" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>MGR-8</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="MGR-9" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>MGR-9</span></label>
               <div class="multiselect-group-label">Executive</div>
-              <label class="multiselect-option"><input type="checkbox" value="EX-9" onchange="updateMultiselectDisplay('levelsMutliselect','levelsDisplay')" /><span>EX-9</span></label>
-              <label class="multiselect-option"><input type="checkbox" value="EX-10" onchange="updateMultiselectDisplay('levelsMutliselect','levelsDisplay')" /><span>EX-10</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="EX-9" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>EX-9</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="EX-10" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>EX-10</span></label>
             </div>
           </div>
         </div>
@@ -839,7 +856,7 @@
     </div>
   </div>
 
-  <!-- FINANCIALS -->
+  <!-- ── FINANCIALS ── -->
   <div class="card">
     <div class="card-header">
       <span class="card-header-icon">💰</span>
@@ -876,16 +893,16 @@
     </div>
   </div>
 
-  <!-- SKILLS / EXPERIENCE -->
+  <!-- ── SKILLS / EXPERIENCE ── -->
   <div class="card">
     <div class="card-header">
       <span class="card-header-icon">⭐</span>
-      <h3>Skills & Experience</h3>
+      <h3>Skills &amp; Experience</h3>
     </div>
     <div class="card-body">
       <div class="field-grid col-1">
         <div class="field-group">
-          <label>3–5 Most Important Skill Sets (JD)</label>
+          <label>3–5 Most Important Skill Sets on JD</label>
           <div class="rich-editor-wrapper">
             <div class="rich-toolbar">
               <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('topSkills','insertUnorderedList')">• Bullets</button>
@@ -904,7 +921,7 @@
                 <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('niceToHave','insertUnorderedList')">• Bullets</button>
                 <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('niceToHave','insertOrderedList')">1. Numbered</button>
               </div>
-              <div class="rich-editor is-empty" id="niceToHave" contenteditable="true" data-placeholder="Bonus skills or experience…" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
+              <div class="rich-editor is-empty" id="niceToHave" contenteditable="true" data-placeholder="Bonus skills or experiences…" oninput="richInput(this)" onfocus="richFocus(this)" onblur="richBlur(this)"></div>
             </div>
           </div>
           <div class="field-group">
@@ -942,8 +959,8 @@
         </div>
         <hr class="section-divider" />
         <div class="field-group">
-          <label for="linkedinProfiles">LinkedIn Profiles – People You'd Love</label>
-          <textarea id="linkedinProfiles" placeholder="Paste profile URLs or names, one per line…">Real people whose career path / background you'd love to replicate</textarea>
+          <label for="linkedinProfiles">LinkedIn Profiles — People You'd Love</label>
+          <textarea id="linkedinProfiles" placeholder="Paste profile URLs or names, one per line…"></textarea>
           <span class="hint">Real people whose career path / background you'd love to replicate</span>
         </div>
         <div class="field-group">
@@ -954,10 +971,10 @@
     </div>
   </div>
 
-  <!-- DAY IN THE LIFE -->
+  <!-- ── DAY IN THE LIFE ── -->
   <div class="card">
     <div class="card-header">
-      <span class="card-header-icon">🌅</span>
+      <span class="card-header-icon">🗓️</span>
       <h3>Day in the Life</h3>
     </div>
     <div class="card-body">
@@ -980,7 +997,7 @@
     </div>
   </div>
 
-  <!-- INTERVIEW PROCESS -->
+  <!-- ── INTERVIEW PROCESS ── -->
   <div class="card">
     <div class="card-header">
       <span class="card-header-icon">🎤</span>
@@ -1012,15 +1029,15 @@
     </div>
   </div>
 
-  <!-- BOTTOM ACTIONS -->
+  <!-- ── BOTTOM ACTIONS ── -->
   <div class="bottom-actions">
-    <button class="btn-outline" onclick="confirmNewForm()">Clear & New Form</button>
+    <button class="btn-outline" onclick="confirmNewForm()">Clear &amp; New Form</button>
     <button class="btn btn-secondary btn-lg" onclick="downloadPdf()">⬇ Download PDF</button>
     <button class="btn btn-primary btn-lg" onclick="downloadDocx()">⬇ Download DOCX</button>
   </div>
 </main>
 
-<!-- Confirm New Form Dialog -->
+<!-- ── Confirm New Form Dialog ── -->
 <div class="overlay" id="confirmOverlay">
   <div class="dialog">
     <h4>Start a New Form?</h4>
@@ -1032,21 +1049,21 @@
   </div>
 </div>
 
-<!-- Toast -->
+<!-- ── Toast ── -->
 <div class="toast" id="toast">
   <span class="toast-icon">✅</span>
   <span id="toastMsg">Form downloaded!</span>
 </div>
 
 <script>
-  // Date display
+  // ── Date display ──
   const today = new Date();
   document.getElementById('formDate').textContent =
     today.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
 
-  // Interview Steps
+  // ── Interview Steps ──
   const defaultSteps = [
-    'Kalyn – Intro Screen (25 min)',
+    'Kalyn — Intro Screen (25 min)',
     'Hiring Manager Interview (45 min)',
     'Panel / Team Interview (60 min)',
     'Final / Executive Interview (30 min)',
@@ -1059,7 +1076,7 @@
     div.className = 'dynamic-item';
     div.innerHTML = `
       <input type="text" placeholder="e.g. VP Interview (30 min)" value="${value}" />
-      <button type="button" class="btn-icon" title="Move up" onclick="moveStep(this,-1)">⬆</button>
+      <button type="button" class="btn-icon" title="Move up" onclick="moveStep(this,-1)">↑</button>
       <button type="button" class="btn-icon danger" title="Remove" onclick="removeStep(this)">✕</button>
     `;
     list.appendChild(div);
@@ -1069,12 +1086,12 @@
     btn.closest('.dynamic-item').remove();
   }
 
-  function moveStep(btn, dir){
+  function moveStep(btn, dir) {
     const item = btn.closest('.dynamic-item');
     const list = item.parentElement;
-    if(dir === -1 && item.previousElementSibling) {
+    if (dir === -1 && item.previousElementSibling) {
       list.insertBefore(item, item.previousElementSibling);
-    } else if(dir === 1 && item.nextElementSibling) {
+    } else if (dir === 1 && item.nextElementSibling) {
       list.insertBefore(item.nextElementSibling, item);
     }
   }
@@ -1082,7 +1099,7 @@
   // Populate defaults
   defaultSteps.forEach(s => addInterviewStep(s));
 
-  // Helpers
+  // ── Helpers ──
   function val(id) {
     const el = document.getElementById(id);
     return el ? el.value.trim() : '';
@@ -1092,10 +1109,11 @@
     return checked ? checked.value : '';
   }
   function getInterviewSteps() {
-    return Array.from(document.querySelectorAll('#interviewStepsList input')).map(i => i.value.trim()).filter(Boolean);
+    return Array.from(document.querySelectorAll('#interviewStepsList input'))
+      .map(i => i.value.trim()).filter(Boolean);
   }
 
-  // Confirm / Reset
+  // ── Confirm / Reset ──
   function confirmNewForm() {
     document.getElementById('confirmOverlay').classList.add('active');
   }
@@ -1104,6 +1122,7 @@
   }
   function resetForm() {
     closeConfirm();
+    // Text / textarea / date / url inputs
     document.querySelectorAll('input[type="text"], input[type="date"], input[type="url"], input[type="number"], textarea, select').forEach(el => {
       if (el.id === 'companiesToPoach') {
         el.value = 'Closinglock, Qualia, CloseSimple, Socure, FileVine, Rynoh, Payload, Earnest, Zoccam';
@@ -1111,23 +1130,28 @@
         el.value = '';
       }
     });
+    // Rich editors
     RICH_FIELDS.forEach(id => {
       const el = document.getElementById(id);
       if (el) { el.innerHTML = ''; el.classList.add('is-empty'); }
     });
+    // Multi-select checkboxes
     document.querySelectorAll('.multiselect input[type="checkbox"]').forEach(cb => cb.checked = false);
     document.getElementById('levelsDisplay').innerHTML = '<span class="placeholder">Select levels…</span>';
     document.getElementById('levelsDisplay').style.overflow = '';
     document.getElementById('levelsDisplay').style.whiteSpace = '';
+    // Radio buttons
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
     document.querySelector('input[name="collegeRequired"][value="No"]').checked = true;
+    // Interview steps
     document.getElementById('interviewStepsList').innerHTML = '';
     defaultSteps.forEach(s => addInterviewStep(s));
 
-    showToast('Form cleared – ready for a new role!', '🔄');
+    showToast('Form cleared — ready for a new role!', '🆕');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // Toast
+  // ── Toast ──
   function showToast(msg, icon = '✅') {
     const toast = document.getElementById('toast');
     document.getElementById('toastMsg').textContent = msg;
@@ -1136,239 +1160,185 @@
     setTimeout(() => toast.classList.remove('show'), 3200);
   }
 
-  // Rich Editor
-  const RICH_FIELDS = ['roleSummary','orgStructure','topSkills','niceToHave','petPeeves','skillGaps','comparableTitles','phoneScreenQuestions'];
+  // ── DOCX Generation ──
+  function downloadPdf() {
+    const roleTitle = document.getElementById('roleTitle')?.value?.trim() || 'New Req In-Take';
+    document.title = 'CertifID — ' + roleTitle;
+    window.print();
+  }
 
-  function richCmd(id, cmd) {
-    const el = document.getElementById(id);
-    el.focus();
-    document.execCommand(cmd, false, null);
-    updateToolbarButtons(el);
-  }
-  function richInput(el) {
-    el.classList.toggle('is-empty', !el.textContent.trim() && !el.querySelector('ul,ol'));
-    updateToolbarButtons(el);
-  }
-  function richFocus(el) {
-    el.classList.remove('is-empty');
-  }
-  function richBlur(el) {
-    el.classList.toggle('is-empty', !el.textContent.trim() && !el.querySelector('ul,ol'));
-  }
-  function updateToolbarButtons(el) {
-    const wrapper = el.closest('.rich-editor-wrapper');
-    if (!wrapper) return;
-    wrapper.querySelectorAll('.toolbar-btn').forEach(btn => {
-      const cmd = btn.getAttribute('data-cmd');
-      if (cmd) btn.classList.toggle('active', document.queryCommandState(cmd));
-    });
-  }
-  function getRichItems(id) {
-    const el = document.getElementById(id);
-    if (!el) return [];
-    const items = [];
-    function walk(node, inUl, inOl) {
-      if (node.nodeType === Node.TEXT_NODE) {
-        const t = node.textContent;
-        if (t.trim()) items.push({ text: t, isBullet: inUl, isOrdered: inOl, bold: false });
-      } else if (node.tagName === 'LI') {
-        const t = node.textContent.trim();
-        if (t) items.push({ text: t, isBullet: inUl, isOrdered: inOl, bold: false });
-      } else if (node.tagName === 'UL') {
-        node.childNodes.forEach(c => walk(c, true, false));
-      } else if (node.tagName === 'OL') {
-        node.childNodes.forEach(c => walk(c, false, true));
-      } else if (node.tagName === 'BR') {
-        // skip
-      } else {
-        node.childNodes.forEach(c => walk(c, inUl, inOl));
+  async function downloadDocx() {
+    const btn = document.getElementById('downloadBtn');
+    btn.innerHTML = '<span class="spinner"></span> Generating…';
+    btn.disabled = true;
+
+    try {
+      const {
+        Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell,
+        WidthType, BorderStyle, ShadingType, AlignmentType, HeadingLevel, LevelFormat
+      } = docx;
+
+      const PAGE_WIDTH = 9360; // US Letter 1" margins
+      const COL1 = 2000;
+      const COL2 = PAGE_WIDTH - COL1;
+      const HALF = Math.floor(PAGE_WIDTH / 2);
+      const THIRD = Math.floor(PAGE_WIDTH / 3);
+
+      const border = { style: BorderStyle.SINGLE, size: 1, color: 'CCCCCC' };
+      const borders = { top: border, bottom: border, left: border, right: border };
+      const noBorder = { style: BorderStyle.NONE, size: 0, color: 'FFFFFF' };
+      const noBorders = { top: noBorder, bottom: noBorder, left: noBorder, right: noBorder };
+
+      const cellPad = { top: 100, bottom: 100, left: 140, right: 140 };
+
+      function labelStyle(text) {
+        return new TextRun({ text, bold: true, size: 18, font: 'Calibri', color: '555555' });
       }
-    }
-    el.childNodes.forEach(c => walk(c, false, false));
-    return items.filter(i => i.text.trim());
-  }
-  function richVal(id) {
-    const el = document.getElementById(id);
-    return el ? el.innerText.trim() : '';
-  }
-
-  // Multi-select
-  function toggleMultiselect(id) {
-    const ms = document.getElementById(id);
-    const isOpen = ms.classList.contains('open');
-    document.querySelectorAll('.multiselect.open').forEach(el => el.classList.remove('open'));
-    if (!isOpen) ms.classList.add('open');
-  }
-  function updateMultiselectDisplay(multiselectId, displayId) {
-    const ms = document.getElementById(multiselectId);
-    const display = document.getElementById(displayId);
-    const checked = Array.from(ms.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
-    if (checked.length === 0) {
-      display.innerHTML = '<span class="placeholder">Select levels…</span>';
-    } else {
-      display.innerHTML = checked.map(v => `<span class="tag">${v}</span>`).join('');
-    }
-    display.style.overflow = 'visible';
-    display.style.whiteSpace = 'normal';
-  }
-  function getMultiselectValues(multiselectId) {
-    const ms = document.getElementById(multiselectId);
-    return Array.from(ms.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
-  }
-  // Close multiselect when clicking outside
-  document.addEventListener('click', function(e) {
-    if (!e.target.closest('.multiselect')) {
-      document.querySelectorAll('.multiselect.open').forEach(el => el.classList.remove('open'));
-    }
-  });
-
-  // Shareablble Link
-  function serializeForm() {
-    const data = {};
-
-    data.inputs = {};
-    document.querySelectorAll('input[type="text"], input[type="date"], input[type="url"], input[type="number"], textarea, select').forEach(el => {
-      if (el.id) data.inputs[el.id] = el.value;
-    });
-
-    data.selects = {};
-    document.querySelectorAll('select').forEach(el => {
-      if (el.id) data.selects[el.id] = el.value;
-    });
-
-    data.textareas = {};
-    document.querySelectorAll('textarea').forEach(el => {
-      if (el.id) data.textareas[el.id] = el.value;
-    });
-
-    data.radios = {};
-    ['collegeRequired', 'quotaCarrying', 'newOrBackfill'].forEach(name => {
-      data.radios[name] = radioVal(name);
-    });
-
-    data.richEditors = {};
-    RICH_FIELDS.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) data.richEditors[id] = el.innerHTML;
-    });
-
-    data.multiselect = {};
-    data.multiselect.levels = getMultiselectValues('levelsMutliselect');
-
-    data.interviewSteps = getInterviewSteps();
-
-    return data;
-  }
-
-  function populateForm(data) {
-    if (data.inputs) {
-      Object.entries(data.inputs).forEach(([id, value]) => {
-        const el = document.getElementById(id);
-        if (el) el.value = value;
-      });
-    }
-    if (data.selects) {
-      Object.entries(data.selects).forEach(([id, value]) => {
-        const el = document.getElementById(id);
-        if (el) el.value = value;
-      });
-    }
-    if (data.textareas) {
-      Object.entries(data.textareas).forEach(([id, value]) => {
-        const el = document.getElementById(id);
-        if (el) el.value = value;
-      });
-    }
-    if (data.radios) {
-      Object.entries(data.radios).forEach(([name, value]) => {
-        if (value) {
-          const r = document.querySelector(`input[name="${name}"][value="${value}"]`);
-          if (r) r.checked = true;
+      function valueStyle(text) {
+        return new TextRun({ text: text || '—', size: 20, font: 'Calibri', color: '2B3034' });
+      }
+      function sectionHeaderRow(title, colSpan = 2, totalWidth = PAGE_WIDTH) {
+        return new TableRow({
+          children: [new TableCell({
+            columnSpan: colSpan,
+            width: { size: totalWidth, type: WidthType.DXA },
+            shading: { fill: '102754', type: ShadingType.CLEAR },
+            margins: cellPad,
+            borders,
+            children: [new Paragraph({
+              children: [new TextRun({ text: title.toUpperCase(), bold: true, size: 20, font: 'Calibri', color: 'FFFFFF' })]
+            })]
+          })]
+        });
+      }
+      function fieldRow(label, value) {
+        return new TableRow({
+          children: [
+            new TableCell({
+              width: { size: COL1, type: WidthType.DXA },
+              shading: { fill: 'F4F6FA', type: ShadingType.CLEAR },
+              margins: cellPad, borders,
+              children: [new Paragraph({ children: [labelStyle(label)] })]
+            }),
+            new TableCell({
+              width: { size: COL2, type: WidthType.DXA },
+              margins: cellPad, borders,
+              children: [new Paragraph({ children: [valueStyle(value)] })]
+            })
+          ]
+        });
+      }
+      function fieldRow2(pairs) {
+        // pairs = [{label, value}, {label, value}]
+        const w = Math.floor(PAGE_WIDTH / pairs.length);
+        const children = pairs.map((p, i) => {
+          const isLast = i === pairs.length - 1;
+          const cellW = isLast ? PAGE_WIDTH - w * (pairs.length - 1) : w;
+          return new TableCell({
+            width: { size: cellW, type: WidthType.DXA },
+            margins: cellPad, borders,
+            children: [
+              new Paragraph({ children: [labelStyle(p.label)] }),
+              new Paragraph({ children: [valueStyle(p.value)] })
+            ]
+          });
+        });
+        return new TableRow({ children });
+      }
+      function textareaRow(label, value, colSpan = 2) {
+        const lines = (value || '—').split('\n');
+        return new TableRow({
+          children: [
+            new TableCell({
+              width: { size: COL1, type: WidthType.DXA },
+              shading: { fill: 'F4F6FA', type: ShadingType.CLEAR },
+              margins: cellPad, borders,
+              children: [new Paragraph({ children: [labelStyle(label)] })]
+            }),
+            new TableCell({
+              width: { size: COL2, type: WidthType.DXA },
+              margins: cellPad, borders,
+              children: lines.map(line => new Paragraph({ children: [valueStyle(line)] }))
+            })
+          ]
+        });
+      }
+      function makeTable(rows) {
+        const colWidths = rows[0]?.children?.length === 2 ? [COL1, COL2] : [HALF, HALF];
+        return new Table({
+          width: { size: PAGE_WIDTH, type: WidthType.DXA },
+          columnWidths: Array(rows[0]?.children?.length || 2).fill(Math.floor(PAGE_WIDTH / (rows[0]?.children?.length || 2))),
+          rows,
+          margins: { top: 0, bottom: 0 }
+        });
+      }
+      function gap() {
+        return new Paragraph({ children: [new TextRun({ text: '', size: 16 })] });
+      }
+      function richRow(label, items) {
+        let content;
+        if (!items || items.length === 0) {
+          content = [new Paragraph({ children: [valueStyle('—')] })];
+        } else {
+          content = items.map(item => {
+            if (item.isBullet) {
+              return new Paragraph({
+                numbering: { reference: 'doc-bullets', level: 0 },
+                children: [new TextRun({ text: item.text, size: 20, font: 'Calibri', color: '2B3034' })]
+              });
+            } else if (item.isOrdered) {
+              return new Paragraph({
+                numbering: { reference: 'doc-numbers', level: 0 },
+                children: [new TextRun({ text: item.text, size: 20, font: 'Calibri', color: '2B3034' })]
+              });
+            } else {
+              return new Paragraph({ children: [valueStyle(item.text)] });
+            }
+          });
         }
-      });
-    }
-    if (data.richEditors) {
-      Object.entries(data.richEditors).forEach(([id, html]) => {
-        const el = document.getElementById(id);
-        if (el) {
-          el.innerHTML = html;
-          el.classList.toggle('is-empty', !el.textContent.trim() && !el.querySelector('ul,ol'));
-        }
-      });
-    }
-    if (data.multiselect && data.multiselect.levels) {
-      data.multiselect.levels.forEach(v => {
-        const cb = document.querySelector(`#levelsMutliselect input[value="${v}"]`);
-        if (cb) cb.checked = true;
-      });
-      updateMultiselectDisplay('levelsMutliselect', 'levelsDisplay');
-    }
-    if (data.interviewSteps) {
-      document.getElementById('interviewStepsList').innerHTML = '';
-      data.interviewSteps.forEach(s => addInterviewStep(s));
-    }
-  }
+        return new TableRow({
+          children: [
+            new TableCell({
+              width: { size: COL1, type: WidthType.DXA },
+              shading: { fill: 'F4F6FA', type: ShadingType.CLEAR },
+              margins: cellPad, borders,
+              children: [new Paragraph({ children: [labelStyle(label)] })]
+            }),
+            new TableCell({ width: { size: COL2, type: WidthType.DXA }, margins: cellPad, borders, children: content })
+          ]
+        });
+      }
 
-  function copyShareableLink() {
-    try {
-      const data = serializeForm();
-      const json = JSON.stringify(data);
-      const encoded = btoa(unescape(encodeURIComponent(json)));
-      const base = window.location.href.split('#')[0];
-      const url = base + '#formData=' + encoded;
-
-      navigator.clipboard.writeText(url).then(() => {
-        const btn = document.getElementById('copyLinkBtn');
-        btn.textContent = '✅ Copied!';
-        btn.style.borderColor = 'var(--green)';
-        btn.style.color = '#1a7a3a';
-        setTimeout(() => {
-          btn.textContent = '🔗 Copy Link';
-          btn.style.borderColor = '';
-          btn.style.color = '';
-        }, 2500);
-        showToast('Link copied! Share it or paste it in any browser to restore this form.', '🔗');
-      }).catch(() => {
-        const ta = document.createElement('textarea');
-        ta.value = url;
-        ta.style.position = 'fixed';
-        ta.style.opacity = '0';
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-        showToast('Link copied! Open it in any browser to restore this form.', '🔗');
-      });
-    } catch (e) {
-      showToast('Could not generate link – please try again.', '❌');
-    }
-  }
-
-  function loadFromHash() {
-    const hash = window.location.hash;
-    if (!hash.startsWith('#formData=')) return;
-    try {
-      const encoded = hash.slice('#formData='.length);
-      const json = decodeURIComponent(escape(atob(encoded)));
-      const data = JSON.parse(json);
-      populateForm(data);
-      showToast('Form restored from shared link!', '✅');
-    } catch (e) {
-      console.warn('Could not restore form from URL:', e);
-    }
-  }
-
-  // Load from hash after a brief delay to ensure DOM is ready
-  setTimeout(loadFromHash, 100);
-
-  // Close confirm overlay on background click
-  document.getElementById('confirmOverlay').addEventListener('click', function(e) {
-    if (e.target === this) closeConfirm();
-  });
-</script>
-</body>
-</html>
-);
+      // Gather values
+      const roleTitle = val('roleTitle') || 'Untitled Role';
+      const targetHire = val('targetHireDate');
+      const jdLink = val('jdLink');
+      const scorecardLink = val('scorecardLink');
+      const blackout = val('blackoutDays');
+      const intLimit = val('dailyInterviewLimit');
+      const candCount = val('candidateCount');
+      const syncLink = val('weeklySyncLink');
+      const liTalent = val('linkedinTalentReview');
+      const roleSummary = getRichItems('roleSummary');
+      const levels = getMultiselectValues('levelsMultiselect').join(', ') || '';
+      const dept = val('department');
+      const team = val('team');
+      const headcount = val('headcount');
+      const reportsTo = val('reportingTo');
+      const certs = val('certsRequired');
+      const college = radioVal('collegeRequired');
+      const location = val('location');
+      const directReports = val('directReports');
+      const newOrBackfill = radioVal('newOrBackfill');
+      const yearsExp = val('yearsExperience');
+      const orgStructure = getRichItems('orgStructure');
+      const salary = val('salaryRange');
+      const quota = radioVal('quotaCarrying');
+      const bonus = val('annualBonus');
+      const equity = val('equity');
+      const otherComp = val('otherComp');
+      const topSkills = getRichItems('topSkills');
+      const niceToHave = getRichItems('niceToHave');
       const petPeeves = getRichItems('petPeeves');
       const skillGaps = getRichItems('skillGaps');
       const comparableTitles = getRichItems('comparableTitles');
@@ -1383,7 +1353,7 @@
       const doc = new Document({
         numbering: {
           config: [
-            { reference: 'doc-bullets', levels: [{ level: 0, format: LevelFormat.BULLET, text: '•', alignment: AlignmentType.LEFT, style: { paragraph: { indent: { left: 360, hanging: 180 } } } }] },
+            { reference: 'doc-bullets', levels: [{ level: 0, format: LevelFormat.BULLET, text: '\u2022', alignment: AlignmentType.LEFT, style: { paragraph: { indent: { left: 360, hanging: 180 } } } }] },
             { reference: 'doc-numbers', levels: [{ level: 0, format: LevelFormat.DECIMAL, text: '%1.', alignment: AlignmentType.LEFT, style: { paragraph: { indent: { left: 360, hanging: 200 } } } }] },
           ]
         },
@@ -1395,6 +1365,7 @@
             }
           },
           children: [
+            // Title
             new Paragraph({
               children: [new TextRun({ text: 'NEW REQ IN-TAKE', bold: true, size: 28, font: 'Calibri', color: '102754', allCaps: true })]
             }),
@@ -1406,62 +1377,152 @@
             }),
             ...(jdLink ? [new Paragraph({ children: [new TextRun({ text: `JD: ${jdLink}`, size: 18, font: 'Calibri', color: '166EBE' })] })] : []),
             ...(scorecardLink ? [new Paragraph({ children: [new TextRun({ text: `Scorecard: ${scorecardLink}`, size: 18, font: 'Calibri', color: '166EBE' })] })] : []),
-            new Paragraph({ children: [new TextRun({ text: '', size: 16 })] }),
+            gap(),
 
             // Scheduling
             new Table({
-              width: { size: 9360, type: WidthType.DXA },
-              columnWidths: [2000, 7360],
+              width: { size: PAGE_WIDTH, type: WidthType.DXA },
+              columnWidths: [COL1, COL2],
               rows: [
-                new TableRow({
-                  children: [new TableCell({
-                    columnSpan: 2,
-                    width: { size: 9360, type: WidthType.DXA },
-                    shading: { fill: '102754', type: ShadingType.CLEAR },
-                    margins: { top: 100, bottom: 100, left: 140, right: 140 },
-                    borders: { top: { style: BorderStyle.SINGLE, size: 1, color: 'CCCCCC' }, bottom: { style: BorderStyle.SINGLE, size: 1, color: 'CCCCCC' }, left: { style: BorderStyle.SINGLE, size: 1, color: 'CCCCCC' }, right: { style: BorderStyle.SINGLE, size: 1, color: 'CCCCCC' } },
-                    children: [new Paragraph({ children: [new TextRun({ text: 'SCHEDULING & EASYLINK', bold: true, size: 20, font: 'Calibri', color: 'FFFFFF' })] })]
-                  })]
-                }),
+                sectionHeaderRow('Scheduling & EasyLink'),
+                fieldRow2([
+                  { label: 'Days unavailable for interviews', value: blackout },
+                  { label: 'Daily interview limit', value: intLimit }
+                ]),
+                fieldRow2([
+                  { label: 'Candidates to interview', value: candCount },
+                  { label: 'LinkedIn Talent Review', value: liTalent }
+                ]),
+                fieldRow('Weekly 15-min sync link', syncLink),
+              ]
+            }),
+            gap(),
+
+            // Role Details
+            new Table({
+              width: { size: PAGE_WIDTH, type: WidthType.DXA },
+              columnWidths: [COL1, COL2],
+              rows: [
+                sectionHeaderRow('Role Details'),
+                richRow('Role Summary', roleSummary),
+                fieldRow2([
+                  { label: 'Level(s)', value: levels },
+                  { label: 'Department', value: dept },
+                  { label: 'Team', value: team }
+                ]),
+                fieldRow2([
+                  { label: '# of Headcount', value: headcount },
+                  { label: 'Reporting To', value: reportsTo }
+                ]),
+                fieldRow2([
+                  { label: 'Certs Required', value: certs },
+                  { label: 'College Required', value: college },
+                  { label: 'Location', value: location }
+                ]),
+                fieldRow2([
+                  { label: 'Direct Reports', value: directReports },
+                  { label: 'Net New or Backfill', value: newOrBackfill },
+                  { label: 'Years of Experience', value: yearsExp }
+                ]),
+                richRow('Team Org Structure', orgStructure),
+              ]
+            }),
+            gap(),
+
+            // Financials
+            new Table({
+              width: { size: PAGE_WIDTH, type: WidthType.DXA },
+              columnWidths: [COL1, COL2],
+              rows: [
+                sectionHeaderRow('Financials'),
+                fieldRow('Salary Range', salary),
+                fieldRow2([
+                  { label: 'Quota Carrying', value: quota },
+                  { label: 'Annual Bonus %', value: bonus }
+                ]),
+                fieldRow2([
+                  { label: 'Target Hire Date', value: targetHire || 'TBD' },
+                  { label: 'Equity', value: equity }
+                ]),
+                ...(otherComp ? [fieldRow('Other Compensation', otherComp)] : []),
+              ]
+            }),
+            gap(),
+
+            // Skills
+            new Table({
+              width: { size: PAGE_WIDTH, type: WidthType.DXA },
+              columnWidths: [COL1, COL2],
+              rows: [
+                sectionHeaderRow('Skills & Experience'),
+                richRow('3–5 Key Skill Sets (JD)', topSkills),
+                richRow('Nice to Have', niceToHave),
+                richRow('Pet Peeves / Disqualifiers', petPeeves),
+                richRow('Skill Gaps We Can Grow', skillGaps),
+                richRow('Comparable Titles', comparableTitles),
+                textareaRow('LinkedIn Profiles — Would Love', liProfiles),
+                textareaRow('Companies to Poach From', companiesToPoach),
+              ]
+            }),
+            gap(),
+
+            // Day in the Life
+            new Table({
+              width: { size: PAGE_WIDTH, type: WidthType.DXA },
+              columnWidths: [COL1, COL2],
+              rows: [
+                sectionHeaderRow('Day in the Life'),
+                textareaRow('Typical day / cadence', dayInLife),
+                textareaRow('What does training look like?', training),
+                textareaRow('What does success look like?', success),
+              ]
+            }),
+            gap(),
+
+            // Interview Process
+            new Table({
+              width: { size: PAGE_WIDTH, type: WidthType.DXA },
+              columnWidths: [COL1, COL2],
+              rows: [
+                sectionHeaderRow('Interview Process'),
+                richRow('3 Key Phone Screen Questions', phoneQs),
                 new TableRow({
                   children: [
                     new TableCell({
-                      width: { size: 2000, type: WidthType.DXA },
+                      width: { size: COL1, type: WidthType.DXA },
                       shading: { fill: 'F4F6FA', type: ShadingType.CLEAR },
-                      margins: { top: 100, bottom: 100, left: 140, right: 140 },
-                      borders: { top: { style: BorderStyle.SINGLE, size: 1, color: 'CCCCCC' }, bottom: { style: BorderStyle.SINGLE, size: 1, color: 'CCCCCC' }, left: { style: BorderStyle.SINGLE, size: 1, color: 'CCCCCC' }, right: { style: BorderStyle.SINGLE, size: 1, color: 'CCCCCC' } },
-                      children: [new Paragraph({ children: [new TextRun({ text: 'Days unavailable for interviews', bold: true, size: 18, font: 'Calibri', color: '555555' })] })]
+                      margins: cellPad, borders,
+                      children: [new Paragraph({ children: [labelStyle('Interview Steps')] })]
                     }),
                     new TableCell({
-                      width: { size: 7360, type: WidthType.DXA },
-                      margins: { top: 100, bottom: 100, left: 140, right: 140 },
-                      borders: { top: { style: BorderStyle.SINGLE, size: 1, color: 'CCCCCC' }, bottom: { style: BorderStyle.SINGLE, size: 1, color: 'CCCCCC' }, left: { style: BorderStyle.SINGLE, size: 1, color: 'CCCCCC' }, right: { style: BorderStyle.SINGLE, size: 1, color: 'CCCCCC' } },
-                      children: [new Paragraph({ children: [new TextRun({ text: blackout || '–', size: 20, font: 'Calibri', color: '2B3034' })] })]
+                      width: { size: COL2, type: WidthType.DXA },
+                      margins: cellPad, borders,
+                      children: steps.length
+                        ? steps.map((s, i) => new Paragraph({ children: [valueStyle(`${i + 1}. ${s}`)] }))
+                        : [new Paragraph({ children: [valueStyle('—')] })]
                     })
                   ]
-                }),
+                })
               ]
             }),
-
-            new Paragraph({ children: [new TextRun({ text: '', size: 16 })] }),
           ]
         }]
       });
 
       const blob = await Packer.toBlob(doc);
-      const safeName = roleTitle.replace(/[^a-z0-9\s\-]/gi, '').replace(/\s+/g, '-');
+      const safeName = roleTitle.replace(/[^a-zA-Z0-9\s\-]/g, '').replace(/\s+/g, '-');
       saveAs(blob, `CertifID-Intake-${safeName}.docx`);
       showToast('DOCX downloaded successfully!', '✅');
     } catch (err) {
       console.error(err);
-      showToast('Error generating DOCX – check console', '❌');
+      showToast('Error generating DOCX — check console', '❌');
     } finally {
       btn.innerHTML = '⬇ Download DOCX';
       btn.disabled = false;
     }
   }
 
-  // Rich Editor
+  // ── Rich Editor ──
   const RICH_FIELDS = ['roleSummary','orgStructure','topSkills','niceToHave','petPeeves','skillGaps','comparableTitles','phoneScreenQuestions'];
 
   function richCmd(id, cmd) {
@@ -1489,6 +1550,7 @@
     });
   }
   function getRichItems(id) {
+    // Returns array of {text, isBullet, isOrdered, bold} objects
     const el = document.getElementById(id);
     if (!el) return [];
     const items = [];
@@ -1510,17 +1572,20 @@
       }
     }
     el.childNodes.forEach(c => walk(c, false, false));
+    // Remove empty duplicates from top-level text nodes adjacent to lists
     return items.filter(i => i.text.trim());
   }
   function richVal(id) {
+    // Plain text version for simple DOCX rows
     const el = document.getElementById(id);
     return el ? el.innerText.trim() : '';
   }
 
-  // Multi-select
+  // ── Multi-Select ──
   function toggleMultiselect(id) {
     const ms = document.getElementById(id);
     const isOpen = ms.classList.contains('open');
+    // Close all open multiselects first
     document.querySelectorAll('.multiselect.open').forEach(el => el.classList.remove('open'));
     if (!isOpen) ms.classList.add('open');
   }
@@ -1533,6 +1598,7 @@
     } else {
       display.innerHTML = checked.map(v => `<span class="tag">${v}</span>`).join('');
     }
+    // Wrap display in tags layout
     display.style.overflow = 'visible';
     display.style.whiteSpace = 'normal';
   }
@@ -1547,63 +1613,74 @@
     }
   });
 
-  // Shareablble Link
+  // ── Shareable Link ──
   function serializeForm() {
     const data = {};
 
+    // Plain inputs (text, date, url, number)
     data.inputs = {};
-    document.querySelectorAll('input[type="text"], input[type="date"], input[type="url"], input[type="number"], textarea, select').forEach(el => {
+    document.querySelectorAll('input[type="text"], input[type="date"], input[type="url"], input[type="number"]').forEach(el => {
       if (el.id) data.inputs[el.id] = el.value;
     });
 
+    // Selects
     data.selects = {};
     document.querySelectorAll('select').forEach(el => {
       if (el.id) data.selects[el.id] = el.value;
     });
 
+    // Textareas (non-rich ones)
     data.textareas = {};
     document.querySelectorAll('textarea').forEach(el => {
       if (el.id) data.textareas[el.id] = el.value;
     });
 
+    // Radio buttons (one value per name)
     data.radios = {};
     ['collegeRequired', 'quotaCarrying', 'newOrBackfill'].forEach(name => {
       data.radios[name] = radioVal(name);
     });
 
+    // Rich editors (save innerHTML)
     data.richEditors = {};
     RICH_FIELDS.forEach(id => {
       const el = document.getElementById(id);
       if (el) data.richEditors[id] = el.innerHTML;
     });
 
+    // Multi-select
     data.multiselect = {};
-    data.multiselect.levels = getMultiselectValues('levelsMutliselect');
+    data.multiselect.levels = getMultiselectValues('levelsMultiselect');
 
+    // Interview steps
     data.interviewSteps = getInterviewSteps();
 
     return data;
   }
 
   function populateForm(data) {
+    // Plain inputs
     if (data.inputs) {
       Object.entries(data.inputs).forEach(([id, value]) => {
         const el = document.getElementById(id);
         if (el) el.value = value;
       });
     }
+    // Selects
     if (data.selects) {
       Object.entries(data.selects).forEach(([id, value]) => {
         const el = document.getElementById(id);
         if (el) el.value = value;
       });
     }
+    // Textareas
     if (data.textareas) {
       Object.entries(data.textareas).forEach(([id, value]) => {
         const el = document.getElementById(id);
         if (el) el.value = value;
       });
     }
+    // Radios
     if (data.radios) {
       Object.entries(data.radios).forEach(([name, value]) => {
         if (value) {
@@ -1612,6 +1689,7 @@
         }
       });
     }
+    // Rich editors
     if (data.richEditors) {
       Object.entries(data.richEditors).forEach(([id, html]) => {
         const el = document.getElementById(id);
@@ -1621,13 +1699,15 @@
         }
       });
     }
+    // Multi-select levels
     if (data.multiselect && data.multiselect.levels) {
       data.multiselect.levels.forEach(v => {
-        const cb = document.querySelector(`#levelsMutliselect input[value="${v}"]`);
+        const cb = document.querySelector(`#levelsMultiselect input[value="${v}"]`);
         if (cb) cb.checked = true;
       });
-      updateMultiselectDisplay('levelsMutliselect', 'levelsDisplay');
+      updateMultiselectDisplay('levelsMultiselect', 'levelsDisplay');
     }
+    // Interview steps
     if (data.interviewSteps) {
       document.getElementById('interviewStepsList').innerHTML = '';
       data.interviewSteps.forEach(s => addInterviewStep(s));
@@ -1644,7 +1724,7 @@
 
       navigator.clipboard.writeText(url).then(() => {
         const btn = document.getElementById('copyLinkBtn');
-        btn.textContent = '✅ Copied!';
+        btn.textContent = '✓ Copied!';
         btn.style.borderColor = 'var(--green)';
         btn.style.color = '#1a7a3a';
         setTimeout(() => {
@@ -1654,6 +1734,7 @@
         }, 2500);
         showToast('Link copied! Share it or paste it in a new tab to restore this form.', '🔗');
       }).catch(() => {
+        // Fallback for browsers that block clipboard without HTTPS
         const ta = document.createElement('textarea');
         ta.value = url;
         ta.style.position = 'fixed';
@@ -1665,7 +1746,7 @@
         showToast('Link copied! Open it in any browser to restore this form.', '🔗');
       });
     } catch (e) {
-      showToast('Could not generate link – please try again.', '❌');
+      showToast('Could not generate link — please try again.', '❌');
     }
   }
 
