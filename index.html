@@ -20788,12 +20788,12 @@ var __async = (__this, __arguments, generator) => {
       <input type="date" id="targetHireDate" />
     </div>
     <div class="field-group">
-      <label for="jdLink">Job Description Link</label>
-      <textarea id="jdLink" placeholder="https://…" rows="2" style="font-size:11px;resize:none;overflow-wrap:break-word;word-break:break-all;line-height:1.4"></textarea>
+      <label for="jdLink"><a id="jdLinkLabel" href="#" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;pointer-events:none">Job Description Link</a></label>
+      <textarea id="jdLink" placeholder="https://…" rows="2" style="font-size:11px;resize:none;overflow-wrap:break-word;word-break:break-all;line-height:1.4" oninput="updateLinkLabel('jdLink','jdLinkLabel')"></textarea>
     </div>
     <div class="field-group">
-      <label for="scorecardLink">Scorecard Link</label>
-      <textarea id="scorecardLink" placeholder="https://…" rows="2" style="font-size:11px;resize:none;overflow-wrap:break-word;word-break:break-all;line-height:1.4"></textarea>
+      <label for="scorecardLink"><a id="scorecardLinkLabel" href="#" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;pointer-events:none">Scorecard Link</a></label>
+      <textarea id="scorecardLink" placeholder="https://…" rows="2" style="font-size:11px;resize:none;overflow-wrap:break-word;word-break:break-all;line-height:1.4" oninput="updateLinkLabel('scorecardLink','scorecardLinkLabel')"></textarea>
     </div>
   </div>
 
@@ -21247,15 +21247,21 @@ var __async = (__this, __arguments, generator) => {
   defaultSteps.forEach(s => addInterviewStep(s));
 
   // ── Helpers ──
-  function updateLinkPreview(inputId, previewId) {
+  function updateLinkLabel(inputId, labelId) {
     const url = document.getElementById(inputId).value.trim();
-    const a = document.getElementById(previewId);
+    const a = document.getElementById(labelId);
     if (url) {
       a.href = url;
-      a.textContent = url;
-      a.style.display = 'block';
+      a.style.color = '#166EBE';
+      a.style.textDecoration = 'underline';
+      a.style.pointerEvents = 'auto';
+      a.style.cursor = 'pointer';
     } else {
-      a.style.display = 'none';
+      a.href = '#';
+      a.style.color = '';
+      a.style.textDecoration = 'none';
+      a.style.pointerEvents = 'none';
+      a.style.cursor = 'default';
     }
   }
 
@@ -21305,7 +21311,7 @@ var __async = (__this, __arguments, generator) => {
     // Hide backfill field
     document.getElementById('backfillForWrap').style.display = 'none';
     // Hide link previews
-    ['jdLinkOpen','scorecardLinkOpen'].forEach(id => { document.getElementById(id).style.display = 'none'; });
+    ['jdLinkLabel','scorecardLinkLabel'].forEach(id => { const a = document.getElementById(id); a.href='#'; a.style.color=''; a.style.textDecoration='none'; a.style.pointerEvents='none'; });
     // Interview steps
     document.getElementById('interviewStepsList').innerHTML = '';
     defaultSteps.forEach(s => addInterviewStep(s));
