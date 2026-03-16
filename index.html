@@ -6,6 +6,3257 @@
   <title>CertifID — New Req In-Take Form</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/docx@8.5.0/build/index.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <style>
+    :root {
+      --primary-blue: #166EBE;
+      --primary-dark: #102754;
+      --text-high: #2B3034;
+      --text-medium: #555555;
+      --grey-light: #DDDDDD;
+      --grey-lighter: #EEEEEE;
+      --grey-100: #F0F0F0;
+      --grey-50: #F7F7F7;
+      --blue-ice: #F4F6FA;
+      --blue-medium: #2E6DA4;
+      --green: #61D690;
+      --font-headline: 'DM Serif Display', serif;
+      --font-body: 'Oxygen', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--grey-50);
+      color: var(--text-high);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .site-header {
+      background: var(--primary-dark);
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    }
+    .logo-mark {
+      width: 36px; height: 36px;
+      background: white;
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-inner {
+      width: 18px; height: 18px;
+      background: var(--primary-dark);
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    }
+    .header-text h1 {
+      font-family: var(--font-headline);
+      font-size: 20px;
+      color: white;
+      letter-spacing: 0.3px;
+    }
+    .header-text p {
+      font-size: 10px;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+    .header-actions {
+      margin-left: auto;
+      display: flex;
+      gap: 10px;
+    }
+    .btn {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 700;
+      border: none;
+      border-radius: 6px;
+      padding: 9px 20px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+      letter-spacing: 0.3px;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary {
+      background: var(--primary-blue);
+      color: white;
+      box-shadow: 0 2px 8px rgba(22,110,190,0.35);
+    }
+    .btn-primary:hover { background: #1580da; box-shadow: 0 4px 14px rgba(22,110,190,0.45); }
+    .btn-secondary {
+      background: rgba(255,255,255,0.12);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.2); }
+  </style>
+</head>
+<body>ght: 20px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px;
+    }
+    .card-body { padding: 20px; }
+
+    /* ── Form Grid ── */
+    .field-grid {
+      display: grid;
+      gap: 16px;
+    }
+    .col-1 { grid-template-columns: 1fr; }
+    .col-2 { grid-template-columns: 1fr 1fr; }
+    .col-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .col-2-1 { grid-template-columns: 2fr 1fr; }
+    .col-1-2 { grid-template-columns: 1fr 2fr; }
+    .col-1-1-2 { grid-template-columns: 1fr 1fr 2fr; }
+
+    @media (max-width: 600px) {
+      .col-2, .col-3, .col-2-1, .col-1-2, .col-1-1-2 { grid-template-columns: 1fr; }
+    }
+
+    .field-group { display: flex; flex-direction: column; gap: 5px; }
+    .field-group.span-full { grid-column: 1 / -1; }
+
+    label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-medium);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+    label .required { color: var(--primary-blue); margin-left: 2px; }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    input[type="url"],
+    select,
+    textarea {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--text-high);
+      background: var(--grey-50);
+      border: 1px solid var(--grey-light);
+      border-radius: 6px;
+      padding: 9px 12px;
+      width: 100%;
+      transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary-blue);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(22,110,190,0.12);
+    }
+    textarea { resize: vertical; min-height: 80px; line-height: 1.55; }
+    textarea.tall { min-height: 120px; }
+    textarea.short { min-height: 60px; }
+blue); margin-left: 2px; }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    input[type="url"],
+    select,
+    textarea {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--text-high);
+      background: var(--grey-50);
+      border: 1px solid var(--grey-light);
+      border-radius: 6px;
+      padding: 9px 12px;
+      width: 100%;
+      transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary-blue);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(22,110,190,0.12);
+    }
+    textarea { resize: vertical; min-height: 80px; line-height: 1.55; }
+    textarea.tall { min-height: 120px; }
+    textarea.short { min-height: 60px; }
+
+    select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23555' d='M6 8L0 0h12z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+
+    .hint {
+      font-size: 11px;
+      color: var(--text-medium);
+      margin-top: 3px;
+      font-style: italic;
+    }
+
+    /* ── Divider ── */
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--grey-100);
+      margin: 18px 0;
+    }
+
+    /* ── Role Title Banner ── */
+    .role-title-banner {
+      background: var(--blue-ice);
+      border: 1px solid #C8D9EE;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: end;
+    }
+    .role-title-banner input {
+      font-family: var(--font-headline);
+      font-size: 22px;
+      background: white;
+      border-color: #C8D9EE;
+      padding: 10px 14px;
+    }
+    .role-title-banner input:focus {
+      border-color: var(--primary-blue);
+    }
+    .role-title-banner label {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      color: var(--blue-medium);
+    }
+
+    /* ── Multi-Select ── */
+    .multiselect { position: relative; }
+    .multiselect-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--text-high);
+      background: var(--grey-50);
+      border: 1px solid var(--grey-light);
+      border-radius: 6px;
+      padding: 9px 12px;
+      cursor: pointer;
+      user-select: none;
+      transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+      min-height: 38px;
+    }
+    .multiselect.open .multiselect-trigger {
+      border-color: var(--primary-blue);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(22,110,190,0.12);
+    }
+    .multiselect-display {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--text-high);
+    }
+    .multiselect-display.placeholder { color: #aaa; }
+    .multiselect-arrow {
+      color: var(--text-medium);
+      font-size: 11px;
+      margin-left: 8px;
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+    .multiselect.open .multiselect-arrow { transform: rotate(180deg); }
+    .multiselect-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0; right: 0;
+      background: white;
+      border: 1px solid var(--grey-light);
+      border-radius: 8px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+      z-index: 50;
+      max-height: 260px;
+      overflow-y: auto;
+      padding: 6px 0;
+    }
+    .multiselect.open .multiselect-dropdown { display: block; }
+    .multiselect-group-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--primary-blue);
+      padding: 8px 12px 4px;
+    }
+    .multiselect-option {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 12px;
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--text-high);
+      transition: background 0.1s;
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 400;
+    }
+    .multiselect-option:hover { background: var(--blue-ice); }
+    .multiselect-option input[type="checkbox"] {
+      width: 15px; height: 15px;
+      accent-color: var(--primary-blue);
+      flex-shrink: 0;
+      cursor: pointer;
+      margin: 0; padding: 0;
+      border: none;
+      background: none;
+      box-shadow: none;
+    }
+    .multiselect-option input[type="checkbox"]:focus { box-shadow: none; }
+    .multiselect-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      align-items: center;
+    }
+    .tag {
+      background: var(--blue-ice);
+      color: var(--primary-blue);
+      border: 1px solid #C8D9EE;
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* ── Rich Editor ── */
+    .rich-editor-wrapper {
+      border: 1px solid var(--grey-light);
+      border-radius: 6px;
+      overflow: hidden;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      background: var(--grey-50);
+    }
+    .rich-editor-wrapper:focus-within {
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(22,110,190,0.12);
+      background: white;
+    }
+    .rich-toolbar {
+      background: var(--grey-100);
+      border-bottom: 1px solid var(--grey-light);
+      padding: 4px 8px;
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+    .rich-editor-wrapper:focus-within .rich-toolbar {
+      background: var(--grey-50);
+    }
+    .toolbar-btn {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-medium);
+      background: white;
+      border: 1px solid var(--grey-light);
+      border-radius: 4px;
+      padding: 3px 9px;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+      transition: all 0.15s;
+      line-height: 1.6;
+    }
+    .toolbar-btn:hover { border-color: var(--primary-blue); color: var(--primary-blue); background: var(--blue-ice); }
+    .toolbar-btn.active { border-color: var(--primary-blue); color: white; background: var(--primary-blue); }
+    .toolbar-sep { width: 1px; height: 16px; background: var(--grey-light); margin: 0 2px; }
+    .toolbar-hint {
+      font-size: 10px;
+      color: var(--text-medium);
+      letter-spacing: 0.5px;
+      margin-left: auto;
+      opacity: 0.6;
+    }
+    .rich-editor {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--text-high);
+      background: transparent;
+      padding: 9px 12px;
+      min-height: 80px;
+      outline: none;
+      line-height: 1.6;
+    }
+    .rich-editor.tall { min-height: 120px; }
+    .rich-editor:focus { background: white; }
+    .rich-editor.is-empty:before {
+      content: attr(data-placeholder);
+      color: #aaa;
+      pointer-events: none;
+      display: block;
+    }
+    .rich-editor ul { padding-left: 22px; margin: 3px 0; }
+    .rich-editor ol { padding-left: 22px; margin: 3px 0; }
+    .rich-editor li { margin: 2px 0; }
+    .rich-editor p { margin: 0; }
+
+    /* ── Toggle (Y/N) ── */
+    .toggle-group {
+      display: flex;
+      gap: 8px;
+    }
+    .toggle-group label {
+      flex: 1;
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 14px;
+      font-weight: 400;
+      cursor: pointer;
+    }
+    .toggle-group input[type="radio"] { display: none; }
+    .toggle-option {
+      display: block;
+      text-align: center;
+      padding: 8px 0;
+      border-radius: 6px;
+      border: 1.5px solid var(--grey-light);
+      background: var(--grey-50);
+      color: var(--text-medium);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .toggle-group input[type="radio"]:checked + .toggle-option {
+      border-color: var(--primary-blue);
+      background: var(--blue-ice);
+      color: var(--primary-blue);
+    }
+
+    /* ── Dynamic List (Interview Steps) ── */
+    .dynamic-list { display: flex; flex-direction: column; gap: 8px; }
+    .dynamic-item {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 8px;
+      align-items: center;
+    }
+    .dynamic-item input { margin: 0; }
+    .btn-icon {
+      width: 32px; height: 32px;
+      border-radius: 6px;
+      border: 1.5px solid var(--grey-light);
+      background: white;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      color: var(--text-medium);
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
+    .btn-icon:hover { border-color: var(--primary-blue); color: var(--primary-blue); background: var(--blue-ice); }
+    .btn-icon.danger:hover { border-color: #DB132C; color: #DB132C; background: #FFF5F6; }
+    .add-row-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary-blue);
+      background: none;
+      border: 1.5px dashed var(--primary-blue);
+      border-radius: 6px;
+      padding: 7px 14px;
+      cursor: pointer;
+      width: 100%;
+      justify-content: center;
+      opacity: 0.75;
+      transition: opacity 0.15s, background 0.15s;
+    }
+    .add-row-btn:hover { opacity: 1; background: var(--blue-ice); }
+
+    /* ── Bottom Actions ── */
+    .bottom-actions {
+      display: flex;}
+    .rich-editor ul { padding-left: 22px; margin: 3px 0; }
+    .rich-editor ol { padding-left: 22px; margin: 3px 0; }
+    .rich-editor li { margin: 2px 0; }
+    .rich-editor p { margin: 0; }
+
+    /* ── Toggle (Y/N) ── */
+    .toggle-group {
+      display: flex;
+      gap: 8px;
+    }
+    .toggle-group label {
+      flex: 1;
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 14px;
+      font-weight: 400;
+      cursor: pointer;
+    }
+    .toggle-group input[type="radio"] { display: none; }
+    .toggle-option {
+      display: block;
+      text-align: center;
+      padding: 8px 0;
+      border-radius: 6px;
+      border: 1.5px solid var(--grey-light);
+      background: var(--grey-50);
+      color: var(--text-medium);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .toggle-group input[type="radio"]:checked + .toggle-option {
+      border-color: var(--primary-blue);
+      background: var(--blue-ice);
+      color: var(--primary-blue);
+    }
+
+    /* ── Dynamic List (Interview Steps) ── */
+    .dynamic-list { display: flex; flex-direction: column; gap: 8px; }
+    .dynamic-item {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 8px;
+      align-items: center;
+    }
+    .dynamic-item input { margin: 0; }
+    .btn-icon {
+      width: 32px; height: 32px;
+      border-radius: 6px;
+      border: 1.5px solid var(--grey-light);
+      background: white;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      color: var(--text-medium);
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
+    .btn-icon:hover { border-color: var(--primary-blue); color: var(--primary-blue); background: var(--blue-ice); }
+    .btn-icon.danger:hover { border-color: #DB132C; color: #DB132C; background: #FFF5F6; }
+    .add-row-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary-blue);
+      background: none;
+      border: 1.5px dashed var(--primary-blue);
+      border-radius: 6px;
+      padding: 7px 14px;
+      cursor: pointer;
+      width: 100%;
+      justify-content: center;
+      opacity: 0.75;
+      transition: opacity 0.15s, background 0.15s;
+    }
+    .add-row-btn:hover { opacity: 1; background: var(--blue-ice); }
+
+    /* ── Bottom Actions ── */
+    .bottom-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+    .bottom-actions button { flex: 0 1 auto; min-width: 120px; }
+
+    /* ── Modals ── */
+    .confirm-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .confirm-overlay.active { display: flex; }
+    .confirm-modal {
+      background: white;
+      border-radius: 10px;
+      padding: 32px;
+      min-width: 400px;
+      max-width: 500px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+      animation: slideIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
+      z-index: 1001;
+    }
+    @keyframes slideIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .confirm-title {
+      font-family: var(--font-headline);
+      font-size: 24px;
+      color: var(--primary-dark);
+      margin-bottom: 12px;
+    }
+    .confirm-text {
+      color: var(--text-high);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    .confirm-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+    .confirm-actions button {
+      flex: 0 1 auto;
+      min-width: 100px;
+    }
+
+    @media (max-width: 600px) {
+      .page-container { padding: 24px 16px 48px; }
+      .confirm-modal { min-width: auto; margin: 16px; }
+      .bottom-actions { flex-direction: column; }
+      .bottom-actions button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo-mark">
+      <div class="logo-inner"></div>
+    </div>
+    <div class="header-text">
+      <h1>CertifID</h1>
+      <p>Next-Gen Talent Intake</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-secondary" id="shareBtn" onclick="shareForm()">Share Form</button>
+      <button class="btn btn-secondary" id="restoreBtn" onclick="restoreBtn_click()" style="display:none">Restore Form</button>
+    </div>
+  </header>
+
+  <div class="page-container">
+    <div style="grid-template-columns: 1fr 200px; row-gap: 14px;">
+    <div class="field-group">
+          <label>Intake;
+      transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+      z-index: 999;
+      transform-origin: top left;
+    }
+    .confirm-overlay { background: rgba(0,0,0,0.4); }
+    .modal { position: relative; z-index: 999; }
+    .button-row {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+    .button-row button { flex: 0 1 auto; }
+
+    /* Hidden inputs for JS */
+    input[type="hidden"] { display: none; }
+
+    /* ── Print Styles ── */
+    @media print {
+      .site-header, .bottom-actions, .header-actions, #shareBtn { display: none; }
+      body { background: white; }
+      .page-container { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hidden metadata -->
+  <div style="display: none;">
+    <input type="hidden" id="formVersionDate" value="" />
+  </div>
+
+  <header class="site-header">
+    <div class="logo-mark"><div class="logo-inner"></div></div>
+    <div class="header-text"><h1>CertifID</h1><p>Next-Gen Req Intake</p></div>
+    <div class="header-actions">
+      <button class="btn btn-secondary" id="shareFormBtn" onclick="shareForm()">Share Form</button>
+      <button class="btn btn-secondary" id="restoreFormBtn" onclick="restoreForm()" style="display:none">Restore Form</button>
+    </div>
+  </header>
+
+  <div class="page-container">
+    <div class="form-title">
+      <h2>Role Details</h2>
+      <div class="accent-bar"></div>
+      <div class="form-date" id="formDate"></div>
+    </div>
+
+    <form id="intakeForm">
+      <!-- Role Title Banner -->
+      <div class="role-title-banner" style="grid-template-columns: 1fr auto;">
+        <div class="field-group">
+          <label>Role Title <span class="required">*</span></label>
+          <input type="text" id="roleTitle" placeholder="e.g., Senior Software Engineer" required />
+        </div>
+        <div class="field-group">
+          <label>Country <span class="required">*</span></label>
+          <select id="country" required>
+            <option value="">Select country</option>
+            <option value="US">United States</option>
+            <option value="CA">Canada</option>
+            <option value="UK">United Kingdom</option>
+            <option value="AU">Australia</option>
+            <option value="DE">Germany</option>
+            <option value="FR">France</option>
+            <option value="SG">Singapore</option>
+            <option value="NZ">New Zealand</option>
+            <option value="IE">Ireland</option>
+            <option value="NL">Netherlands</option>
+          </select>
+        </div>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- Requisition Details Card -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-header-icon">📋</span>
+          <h3>Requisition Details</h3>
+        </div>
+        <div class="card-body field-grid col-3">
+          <div class="field-group">
+            <label>Request Type <span class="required">*</span></label>
+            <div class="toggle-group">
+              <label><input type="radio" name="requestType" value="New" onchange="updateForm()" /> <span class="toggle-option">New</span></label>
+              <label><input type="radio" name="requestType" value="Replacement" onchange="updateForm()" /> <span class="toggle-option">Replacement</span></label>
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Experience Level <span class="required">*</span></label>
+            <select id="expLevel" required onchange="updateForm()">
+              <option value="">Select level</option>
+              <option value="Entry">Entry Level (0-2 years)</option>
+              <option value="Junior">Junior (2-5 years)</option>
+              <option value="Mid">Mid-Level (5-8 years)</option>
+              <option value="Senior">Senior (8-12 years)</option>
+              <option value="Lead">Lead/Principal (12+ years)</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Hiring Manager <span class="required">*</span></label>
+            <input type="text" id="hiringManager" placeholder="Full name" required />
+          </div>
+        </div>
+      </div>
+
+      <!-- Employment Type Card -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-header-icon">💼</span>
+          <h3>Employment Type</h3>
+        </div>
+        <div class="card-body field-grid col-2">
+          <div class="field-group">
+            <label>Job Classification <span class="required">*</span></label>
+            <select id="jobClass" required>
+              <option value="">Select classification</option>
+              <option value="FT">Full-Time</option>
+              <option value="PT">Part-Time</option>
+              <option value="CT">Contractor</option>
+              <option value="TEMP">Temporary</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Remote Status <span class="required">*</span></label>
+            <select id="remoteStatus" required>
+              <option value="">Select status</option>
+              <option value="On-Site">On-Site</option>
+              <option value="Remote">Remote</option>
+              <option value="Hybrid">Hybrid</option>
+            </select>
+          </div>
+        </div>
+      </div>le="grid-template-columns: 1fr 200px; row-gap: 14px;">
+    <div class="field-group">
+      <label for="roleTitle">Role Title <span class="required">*</span></label>
+      <input type="text" id="roleTitle" placeholder="e.g., Senior Engineer" required />
+    </div>
+    <div class="field-group">
+      <label for="targetSalary">Target Salary Range</label>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+        <input type="number" id="salaryMin" placeholder="Min (USD)" />
+        <input type="number" id="salaryMax" placeholder="Max (USD)" />
+      </div>
+    </div>
+  </div>
+
+  <div class="form-date" id="formDate"></div>
+  <div class="form-title">
+    <h2>New Req In-Take</h2>
+    <div class="accent-bar"></div>
+  </div>
+
+  <!-- Role Title Banner -->
+  <div class="role-title-banner" style="grid-template-columns: 1fr auto; gap: 16px; align-items: end;">
+    <div class="field-group">
+      <label for="roleTitle">Role Title <span class="required">*</span></label>
+      <input type="text" id="roleTitle" placeholder="e.g., Senior Software Engineer" required />
+    </div>
+    <div class="field-group">
+      <label for="country">Country <span class="required">*</span></label>
+      <select id="country" required>
+        <option value="">Select Country</option>
+        <option value="US">United States</option>
+        <option value="CA">Canada</option>
+        <option value="UK">United Kingdom</option>
+        <option value="AU">Australia</option>
+        <option value="DE">Germany</option>
+        <option value="FR">France</option>
+        <option value="SG">Singapore</option>
+        <option value="NZ">New Zealand</option>
+        <option value="IE">Ireland</option>
+        <option value="NL">Netherlands</option>
+      </select>
+    </div>
+  </div>
+
+  <hr class="section-divider" />
+
+  <!-- Requisition Details -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-header-icon">📋</span>
+      <h3>Requisition Details</h3>
+    </div>
+    <div class="card-body field-grid col-3">
+      <div class="field-group">
+        <label>Request Type <span class="required">*</span></label>
+        <div class="toggle-group">
+          <label><input type="radio" name="requestType" value="New" onchange="updateForm()" /> <span class="toggle-option">New</span></label>
+          <label><input type="radio" name="requestType" value="Replacement" onchange="updateForm()" /> <span class="toggle-option">Replacement</span></label>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Experience Level <span class="required">*</span></label>
+        <select id="expLevel" required onchange="updateForm()">
+          <option value="">Select level</option>
+          <option value="Entry">Entry Level (0-2y)</option>
+          <option value="Junior">Junior (2-5y)</option>
+          <option value="Mid">Mid-Level (5-8y)</option>
+          <option value="Senior">Senior (8-12y)</option>
+          <option value="Lead">Lead (12+y)</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Hiring Manager <span class="required">*</span></label>
+        <input type="text" id="hiringManager" placeholder="Full name" required />
+      </div>
+    </div>
+  </div>
+
+  <!-- Employment Info -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-header-icon">💼</span>
+      <h3>Employment Info</h3>
+    </div>
+    <div class="card-body field-grid col-2">
+      <div class="field-group">
+        <label>Classification <span class="required">*</span></label>
+        <select id="jobClass" required>
+          <option value="">Select type</option>
+          <option value="FT">Full-Time</option>
+          <option value="PT">Part-Time</option>
+          <option value="CT">Contractor</option>
+          <option value="TEMP">Temporary</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Remote Status <span class="required">*</span></label>
+        <select id="remoteStatus" required>
+          <option value="">Select status</option>
+          <option value="OnSite">On-Site</option>
+          <option value="Remote">Remote</option>
+          <option value="Hybrid">Hybrid</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Salary & Comp -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-header-icon">💰</span>
+      <h3>Compensation</h3>
+    </div>
+    <div class="card-body field-grid col-3">
+      <div class="field-group">
+        <label>Base Salary Min</label>
+        <input type="number" id="baseSalaryMin" placeholder="USD" />
+      </div>
+      <div class="field-group">
+        <label>Base Salary Max</label>
+        <input type="number" id="baseSalaryMax" placeholder="USD" />
+      </div>
+      <div class="field-group">
+        <label>Bonus Target %</label>
+        <input type="number" id="bonusTarget" placeholder="%" />
+      </div>
+      <div class="field-group">
+        <label>Equity Value</label>
+        <input type="text" id="equityValue" placeholder="e.g., $150K" />
+      </div>
+      <div class="field-group">
+        <label>Other Comp</label>
+        <input type="text" id="otherComp" placeholder="Details" />
+      </div>
+      <div class="field-group">
+        <label>Signing Bonus</label>
+        <input type="text" id="signingBonus" placeholder="Amount" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Skills & Experience -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-header-icon">🎯</span>
+      <h3>Skills & Experience</h3>
+    </div>
+    <div class="card-body field-grid col-1">
+      <div class="field-group span-full">
+        <label>Must-Have Skills</label>
+        <div class="rich-editor-wrapper">
+          <div class="rich-toolbar">
+            <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('topSkills','insertUnorderedList')">• Bullets</button>
+            <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('topSkills','insertOrderedList')">1. Numbered</button>
+            <span class="toolbar-hint">or paste content</span>
+          </div>
+          <div class="rich-editor is-empty" id="topSkills" contenteditable="true" data-placeholder="List top skills required"></div>
+        </div>
+      </div>
+      <div class="field-group span-full">
+        <label>Nice-to-Have Skills</label>
+        <div class="rich-editor-wrapper">
+          <div class="rich-toolbar">
+            <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('niceSkills','insertUnorderedList')">• Bullets</button>
+            <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('niceSkills','insertOrderedList')">1. Numbered</button>
+            <span class="toolbar-hint">or paste content</span>
+          </div>
+          <div class="rich-editor is-empty" id="niceSkills" contenteditable="true" data-placeholder="List nice-to-have skills"></div>
+        </div>
+      </div>
+      <div class="field-group span-full">
+        <label>Comparable Job Titles</label>
+        <div class="rich-editor-wrapper">
+          <div class="rich-toolbar">
+            <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('comparableTitles','insertUnorderedList')">• Bullets</button>
+            <span class="toolbar-hint">or paste content</span>
+          </div>
+          <div class="rich-editor is-empty" id="comparableTitles" contenteditable="true" data-placeholder="e.g., Dev Ops Engineer, Infrastructure Engineer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interview Process -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-header-icon">🎤</span>
+      <h3>Interview Process</h3>
+    </div>
+    <div class="card-body">
+      <div class="field-group span-full">
+        <label>Interview Steps</label>
+        <div class="dynamic-list" id="interviewStepsList"></div>
+          <button type="button" class="add-row-btn" onclick="addInterviewStep()">+ Add Step</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Download Options -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-header-icon">📥</span>
+      <h3>Download</h3>
+    </div>
+    <div class="card-body field-grid col-2">
+      <button type="button" class="btn btn-primary" onclick="downloadPDF()">📄 Download as PDF</button>
+      <button type="button" class="btn btn-primary" onclick="downloadDOCX()">📋 Download as DOCX</button>
+    </div>
+  </div>
+
+  <!-- Bottom Actions -->
+  <div class="bottom-actions">
+    <button type="reset" class="btn btn-secondary">Clear Form</button>
+    <button type="submit" class="btn btn-primary">Submit Requisition</button>
+  </div>
+</form>
+
+  <!-- Confirmation Modal -->
+  <div class="confirm-overlay" id="confirmOverlay">
+    <div class="confirm-modal">
+      <h2 class="confirm-title">Confirm Submission</h2>
+      <p class="confirm-text">Are you sure you want to submit this requisition? You can still edit it after submission.</p>
+      <div class="confirm-actions">
+        <button type="button" class="btn btn-secondary" onclick="closeConfirm()">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="confirmSubmit()">Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Form manipulation & data handling
+    function updateForm() {
+      // Triggered on input changes
+    }
+
+    function addInterviewStep() {
+      const list = document.getElementById('interviewStepsList');
+      const item = document.createElement('div');
+      item.className = 'dynamic-item';
+      item.innerHTML = `
+        <input type="text" placeholder="Step title" class="interview-step" />
+        <input type="text" placeholder="Duration" class="interview-duration" />
+        <button type="button" class="btn-icon danger" onclick="this.parentElement.remove()" title="Remove">−</button>
+      `;
+      list.appendChild(item);
+    }
+
+    function downloadPDF() {
+      alert('PDF generation not yet implemented');
+    }
+
+    function downloadDOCX() {
+      // Prepare DOCX content
+      const data = serializeForm();
+
+      const doc = new docx.Document({
+        sections: [
+          {
+            children: [
+              new docx.Paragraph({
+                text: 'NEW REQ IN-TAKE',
+                bold: true,
+                size: 28,
+                font: 'Calibri',
+                color: '102754',
+                alignment: docx.AlignmentType.CENTER,
+              }),
+              new docx.Paragraph({ text: '', spacing: { line: 200 } }),
+              new docx.Table({
+                width: { size: 100, type: docx.WidthType.PERCENTAGE },
+                rows: [
+                  new docx.TableRow({
+                    children: [
+                      new docx.TableCell({
+                        shading: { fill: '102754', type: docx.ShadingType.CLEAR },
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        width: { size: 50, type: docx.WidthType.PERCENTAGE },
+                        children: [new docx.Paragraph({ text: 'Role Title', bold: true, color: 'FFFFFF', size: 20 })],
+                      }),
+                      new docx.TableCell({
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        width: { size: 50, type: docx.WidthType.PERCENTAGE },
+                        children: [new docx.Paragraph(data.inputs.roleTitle || '')],
+                      }),
+                    ],
+                  }),
+              new docx.TableRow({
+                    children: [
+                      new docx.TableCell({
+                        shading: { fill: '102754', type: docx.ShadingType.CLEAR },
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph({ text: 'Request Type', bold: true, color: 'FFFFFF', size: 20 })],
+                      }),
+                      new docx.TableCell({
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph(document.querySelector('input[name="requestType"]:checked')?.value || '')],
+                      }),
+                    ],
+                  }),
+                  ...(data.inputs.baseSalaryMin || data.inputs.baseSalaryMax ? [new docx.TableRow({
+                    children: [
+                      new docx.TableCell({
+                        shading: { fill: '102754', type: docx.ShadingType.CLEAR },
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph({ text: 'Salary Range', bold: true, color: 'FFFFFF', size: 20 })],
+                      }),
+                      new docx.TableCell({
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph(`$${data.inputs.baseSalaryMin} - $${data.inputs.baseSalaryMax}`)],
+                      }),
+                    ],
+                  })] : []),
+                  ...(data.inputs.equityValue ? [new docx.TableRow({
+                    children: [
+                      new docx.TableCell({
+                        shading: { fill: '102754', type: docx.ShadingType.CLEAR },
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph({ text: 'Equity Value', bold: true, color: 'FFFFFF', size: 20 })],
+                      }),
+                      new docx.TableCell({
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph(data.inputs.equityValue)],
+                      }),
+                    ],
+                  })] : []),
+                  ...(data.inputs.otherComp ? [new docx.TableRow({
+                    children: [
+                      new docx.TableCell({
+                        shading: { fill: '102754', type: docx.ShadingType.CLEAR },
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph({ text: 'Other Comp', bold: true, color: 'FFFFFF', size: 20 })],
+                      }),
+                      new docx.TableCell({
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph(data.inputs.otherComp)],
+                      }),
+                    ],
+                  })] : []),
+                ],
+              }),
+            ],
+          },
+        ],
+      });
+
+      docx.Packer.toBlob(doc).then(blob => {
+        saveAs(blob, 'New_Req_In-Take.docx');
+      });
+    }
+
+    function serializeForm() {
+      const data = { inputs: {}, radios: {}, texts: {} };
+
+      // Text/Number/Date inputs
+      document.querySelectorAll('input[type="text"], input[type="number"], input[type="date"], input[type="url"], input[type="email"]').forEach(el => {
+        if (el.id) data.inputs[el.id] = el.value;
+      });
+
+      // Selects
+      document.querySelectorAll('select').forEach(el => {
+        if (el.id) data.inputs[el.id] = el.value;
+      });
+
+      // Rich editors
+      document.querySelectorAll('.rich-editor').forEach(el => {
+        if (el.id) data.texts[el.id] = el.innerHTML;
+      });
+
+      // Multiselects
+      document.querySelectorAll('.multiselect').forEach(el => {
+        if (el.dataset.id) {
+          const selected = Array.from(el.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
+          data.inputs[el.dataset.id] = selected.join(', ');
+        }
+      });
+
+      return data;
+    }
+
+    function shareForm() {
+      closeConfirm();
+      const data = serializeForm();
+      const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+      const url = `${window.location.origin}${window.location.pathname}#formData=${encoded}`;
+
+      const ta = document.createElement('textarea');
+      ta.value = url;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast('Link copied! Open it in any browser to restore this form.', '🔗');
+    }
+
+    function loadFromHash() {
+      const hash = window.location.hash;
+      if (!hash.startsWith('#formData=')) return;
+      try {
+        const encoded = hash.slice('#formData='.length);
+        const json = decodeURIComponent(escape(atob(encoded)));
+        const data = JSON.parse(json);
+        populateForm(data);
+        showToast('Form restored from shared link!', '✅');
+      } catch (e) {
+        console.warn('Could not restore form from URL:', e);
+      }
+    }
+
+    function populateForm(data) {
+      // Text inputs
+      Object.entries(data.inputs).forEach(([id, value]) => {
+        const el = document.getElementById(id);
+        if (el && el.tagName === 'INPUT') el.value = value;
+        if (el && el.tagName === 'SELECT') el.value = value;
+      });
+
+      // Rich text
+      Object.entries(data.texts).forEach(([id, html]) => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = html;
+      });
+    }
+
+    function showConfirm(title, message) {
+      document.getElementById('confirmOverlay').classList.add('active');
+      document.querySelector('.confirm-title').textContent = title;
+      document.querySelector('.confirm-text').textContent = message;
+    }
+
+    function closeConfirm() {
+      document.getElementById('confirmOverlay').classList.remove('active');
+    }
+
+    function confirmSubmit() {
+      serializeForm();
+      closeConfirm();
+      showToast('Requisition submitted successfully!', '✅');
+    }
+
+    function showToast(message, icon = '') {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = `${icon} ${message}`;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    function restoreBtn_click() {
+      loadFromHash();
+    }
+
+    function richCmd(el, cmd) {
+      const editor = document.getElementById(el);
+      if (editor) editor.focus();
+      document.execCommand(cmd);
+      updateToolbarButtons(el);
+    }
+
+    function updateToolbarButtons(el) {
+      if (!el) return;
+      const editor = document.getElementById(el);
+      if (!editor) return;
+      editor.querySelectorAll('button').forEach(btn => {
+        btn.classList.toggle('active', document.queryCommandState(btn.dataset.cmd || ''));
+      });
+    }
+
+    // Load from hash after a brief delay to ensure DOM is ready
+    setTimeout(loadFromHash, 100);
+
+    // Close confirm overlay on background click
+    document.getElementById('confirmOverlay').addEventListener('click', function(e) {
+      if (e.target === this) closeConfirm();
+    });
+  </script>
+</body>
+</html>yle="margin-bottom:16px">
+        <div class="field-group">
+          <label for="requisitionID">Req ID / Job Code</label>
+          <input type="text" id="requisitionID" placeholder="e.g., SWE-001" />
+        </div>
+        <div class="field-group">
+          <label for="department">Department</label>
+          <input type="text" id="department" placeholder="e.g., Engineering" />
+        </div>
+        <div class="field-group">
+          <label for="reportingTo">Reporting To</label>
+          <input type="text" id="reportingTo" placeholder="Manager name" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Team & Skills Section -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-header-icon">👥</span>
+        <h3>Team & Skills</h3>
+      </div>
+      <div class="card-body">
+        <div class="field-group span-full">
+          <label for="teamSize">Team Size / Scope</label>
+          <textarea id="teamSize" class="short" placeholder="Describe the team and reporting structure"></textarea>
+        </div>
+
+        <div class="field-group span-full" style="margin-top: 16px">
+          <label>Critical Skills</label>
+          <div class="multiselect" data-id="criticalSkills">
+            <div class="multiselect-trigger">
+              <span class="multiselect-display placeholder">Select skills...</span>
+              <span class="multiselect-arrow">▼</span>
+              <div class="multiselect-tags"></div>
+            </div>
+            <div class="multiselect-dropdown">
+              <label class="multiselect-option"><input type="checkbox" value="Python" onchange="updateForm()" /> <span>Python</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="JavaScript" onchange="updateForm()" /> <span>JavaScript</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="Go" onchange="updateForm()" /> <span>Go</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="Rust" onchange="updateForm()" /> <span>Rust</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="Java" onchange="updateForm()" /> <span>Java</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="C++" onchange="updateForm()" /> <span>C++</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="SQL" onchange="updateForm()" /> <span>SQL</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="AWS" onchange="updateForm()" /> <span>AWS</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="GCP" onchange="updateForm()" /> <span>GCP</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="Kubernetes" onchange="updateForm()" /> <span>Kubernetes</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="Docker" onchange="updateForm()" /> <span>Docker</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="React" onchange="updateForm()" /> <span>React</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="Vue" onchange="updateForm()" /> <span>Vue</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="Node.js" onchange="updateForm()" /> <span>Node.js</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="Git" onchange="updateForm()" /> <span>Git</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="CI/CD" onchange="updateForm()" /> <span>CI/CD</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="Agile" onchange="updateForm()" /> <span>Agile</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="Leadership" onchange="updateForm()" /> <span>Leadership</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="Communication" onchange="updateForm()" /> <span>Communication</span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group span-full" style="margin-top: 16px">
+          <label>Experience Required</label>
+          <div class="toggle-group">
+            <label><input type="radio" name="newOrEX" value="New Grad" onchange="updateForm()" /> <span class="toggle-option">New Grad</span></label>
+            <label><input type="radio" name="newOrEX" value="EX-1" onchange="updateForm()" /> <span class="toggle-option">EX-1</span></label>
+            <label><input type="radio" name="newOrEX" value="EX-3" onchange="updateForm()" /> <span class="toggle-option">EX-3</span></label>
+            <label><input type="radio" name="newOrEX" value="EX-5" onchange="updateForm()" /> <span class="toggle-option">EX-5</span></label>
+            <label><input type="radio" name="newOrEX" value="EX-9" onchange="updateForm()" /> <span class="toggle-option">EX-9</span></label>
+            <label><input type="radio" name="newOrEX" value="Net New" onchange="updateForm()" /> <span class="toggle-option">Net New</span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Requirements -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-header-icon">📝</span>
+        <h3>Interview & Hiring</h3>
+      </div>
+      <div class="card-body">
+        <div class="field-group span-full">
+          <label for="hiringSummary">Hiring Summary</label>
+          <div class="rich-editor-wrapper">
+            <div class="rich-toolbar">
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('hiringSummary','insertUnorderedList')">• Bullets</button>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('hiringSummary','insertOrderedList')">1. Numbered</button>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('hiringSummary','createLink')">🔗 Link</button>
+              <span class="toolbar-hint">Format your notes here</span>
+            </div>
+            <div class="rich-editor is-empty tall" id="hiringSummary" contenteditable="true" data-placeholder="Overall hiring summary and notes"></div>
+          </div>
+        </div>
+
+        <div class="field-group span-full" style="margin-top: 16px">
+          <label>Interview Process Steps</label>
+          <div class="dynamic-list" id="interviewStepsList"></div>
+          <button type="button" class="add-row-btn" onclick="addInterviewStep()">+ Add Interview Step</button>
+        </div>
+
+        <div class="field-group span-full" style="margin-top: 16px">
+          <label for="topSkills">Critical Technical Skills</label>
+          <div class="rich-editor-wrapper">
+            <div class="rich-toolbar">
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('topSkills','insertUnorderedList')">• Bullets</button>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('topSkills','insertOrderedList')">1. Numbered</button>
+              <span class="toolbar-hint">or paste content</span>
+            </div>
+            <div class="rich-editor is-empty" id="topSkills" contenteditable="true" data-placeholder="List top technical skills required"></div>
+          </div>
+        </div>
+
+        <div class="field-group span-full" style="margin-top: 16px">
+          <label for="niceSkills">Nice-to-Have Skills</label>
+          <div class="rich-editor-wrapper">
+            <div class="rich-toolbar">
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('niceSkills','insertUnorderedList')">• Bullets</button>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('niceSkills','insertOrderedList')">1. Numbered</button>
+              <span class="toolbar-hint">or paste content</span>
+            </div>
+            <div class="rich-editor is-empty" id="niceSkills" contenteditable="true" data-placeholder="List nice-to-have skills"></div>
+          </div>
+        </div>
+
+        <div class="field-group span-full" style="margin-top: 16px">
+          <label for="comparableTitles">Comparable Job Titles</label>
+          <div class="rich-editor-wrapper">
+            <div class="rich-toolbar">
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('comparableTitles','insertUnorderedList')">• Bullets</button>
+              <span class="toolbar-hint">or paste content</span>
+            </div>
+            <div class="rich-editor is-empty" id="comparableTitles" contenteditable="true" data-placeholder="e.g., Dev Ops Engineer, Infrastructure Engineer"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Download & Submit -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-header-icon">📥</span>
+        <h3>Export & Submit</h3>
+      </div>
+      <div class="card-body">
+        <div class="bottom-actions">
+          <button type="button" class="btn btn-primary" onclick="downloadPDF()">📄 PDF</button>
+          <button type="button" class="btn btn-primary" onclick="downloadDOCX()">📋 DOCX</button>
+          <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear</button>
+          <button type="button" class="btn btn-primary" onclick="submitForm()">Submit</button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!-- Share/Restore Modal -->
+  <div class="confirm-overlay" id="confirmOverlay">
+    <div class="confirm-modal">
+      <h2 class="confirm-title">Share Form</h2>
+      <p class="confirm-text" id="confirmText">Share this link to let others fill out the form and restore it later.</p>
+      <div class="confirm-actions">
+        <button type="button" class="btn btn-secondary" onclick="closeConfirm()">Close</button>
+        <button type="button" class="btn btn-primary" id="confirmBtn" onclick="confirmAction()">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Form serialization & state management
+    function updateForm() {
+      // Triggered on any form change
+      updateMultiselect();
+    }
+
+    function addInterviewStep() {
+      const list = document.getElementById('interviewStepsList');
+      const item = document.createElement('div');
+      item.className = 'dynamic-item';
+      item.innerHTML = `
+        <input type="text" placeholder="Interview Step" class="interview-step" />
+        <input type="text" placeholder="Duration" class="interview-duration" />
+        <button type="button" class="btn-icon danger" onclick="this.parentElement.remove()" title="Remove">×</button>
+      `;
+      list.appendChild(item);
+    }
+
+    function clearForm() {
+      document.getElementById('intakeForm').reset();
+      document.querySelectorAll('.rich-editor').forEach(el => el.innerHTML = '');
+      document.getElementById('interviewStepsList').innerHTML = '';
+    }
+
+    function submitForm() {
+      const form = document.getElementById('intakeForm');
+      if (form.checkValidity()) {
+        showConfirm('Submit Requisition', 'Confirm submission of this requisition?');
+        window.__pendingAction = 'submit';
+      } else {
+        showToast('Please fill required fields', '⚠️');
+      }
+    }
+
+    function downloadPDF() {
+      showToast('PDF generation coming soon', '📄');
+    }
+
+    function downloadDOCX() {
+      // Serialize form data
+      const data = serializeForm();
+
+      const doc = new docx.Document({
+        sections: [
+          {
+            children: [
+              new docx.Paragraph({
+                text: 'NEW REQ IN-TAKE',
+                bold: true,
+                size: 28,
+                font: 'Calibri',
+                color: '102754',
+                alignment: docx.AlignmentType.CENTER,
+              }),
+              new docx.Paragraph({ text: '', spacing: { line: 200 } }),
+              new docx.Table({
+                width: { size: 100, type: docx.WidthType.PERCENTAGE },
+                rows: [
+                  new docx.TableRow({
+                    children: [
+                      new docx.TableCell({
+                        shading: { fill: '102754', type: docx.ShadingType.CLEAR },
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph({ text: 'Role Title', bold: true, color: 'FFFFFF', size: 20 })],
+                      }),
+                      new docx.TableCell({
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph(data.inputs.roleTitle || '')],
+                      }),
+                    ],
+                  }),
+                  new docx.TableRow({
+                    children: [
+                      new docx.TableCell({
+                        shading: { fill: '102754', type: docx.ShadingType.CLEAR },
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph({ text: 'Experience Level', bold: true, color: 'FFFFFF', size: 20 })],
+                      }),
+                      new docx.TableCell({
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph(data.inputs.expLevel || '')],
+                      }),
+                    ],
+                  }),
+                  new docx.TableRow({
+                    children: [
+                      new docx.TableCell({
+                        shading: { fill: '102754', type: docx.ShadingType.CLEAR },
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph({ text: 'Classification', bold: true, color: 'FFFFFF', size: 20 })],
+                      }),
+                      new docx.TableCell({
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph(data.inputs.jobClass || '')],
+                      }),
+                    ],
+                  }),
+                  new docx.TableRow({
+                    children: [
+                      new docx.TableCell({
+                        shading: { fill: '102754', type: docx.ShadingType.CLEAR },
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph({ text: 'Remote Status', bold: true, color: 'FFFFFF', size: 20 })],
+                      }),
+                      new docx.TableCell({
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph(data.inputs.remoteStatus || '')],
+                      }),
+                    ],
+                  }),
+                  ...(data.inputs.baseSalaryMin || data.inputs.baseSalaryMax ? [new docx.TableRow({
+                    children: [
+                      new docx.TableCell({
+                        shading: { fill: '102754', type: docx.ShadingType.CLEAR },
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph({ text: 'Salary Range', bold: true, color: 'FFFFFF', size: 20 })],
+                      }),
+                      new docx.TableCell({
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph(`$${data.inputs.baseSalaryMin} - $${data.inputs.baseSalaryMax}`)],
+                      }),
+                    ],
+                  })] : []),
+                  ...(data.inputs.equityValue ? [new docx.TableRow({
+                    children: [
+                      new docx.TableCell({
+                        shading: { fill: '102754', type: docx.ShadingType.CLEAR },
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph({ text: 'Equity Value', bold: true, color: 'FFFFFF', size: 20 })],
+                      }),
+                      new docx.TableCell({
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph(data.inputs.equityValue)],
+                      }),
+                    ],
+                  })] : []),
+                  ...(data.inputs.otherComp ? [new docx.TableRow({
+                    children: [
+                      new docx.TableCell({
+                        shading: { fill: '102754', type: docx.ShadingType.CLEAR },
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph({ text: 'Other Comp', bold: true, color: 'FFFFFF', size: 20 })],
+                      }),
+                      new docx.TableCell({
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph(data.inputs.otherComp)],
+                      }),
+                    ],
+                  })] : []),
+                ],
+              }),
+            ],
+          },
+        ],
+      });
+
+      docx.Packer.toBlob(doc).then(blob => {
+        saveAs(blob, 'New_Req_In-Take.docx');
+      });
+    }
+
+    function serializeForm() {
+      const data = { inputs: {}, texts: {} };
+      document.querySelectorAll('input[type="text"], input[type="number"], input[type="date"], select').forEach(el => {
+        if (el.id) data.inputs[el.id] = el.value;
+      });
+      document.querySelectorAll('.rich-editor').forEach(el => {
+        if (el.id) data.texts[el.id] = el.innerHTML;
+      });
+      return data;
+    }
+
+    function shareForm() {
+      const data = serializeForm();
+      const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+      const url = `${window.location.origin}${window.location.pathname}#formData=${encoded}`;
+      const ta = document.createElement('textarea');
+      ta.value = url;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast('Link copied! Open it in any browser to restore this form.', '🔗');
+    }
+
+    function loadFromHash() {
+      const hash = window.location.hash;
+      if (!hash.startsWith('#formData=')) return;
+      try {
+        const encoded = hash.slice('#formData='.length);
+        const json = decodeURIComponent(escape(atob(encoded)));
+        const data = JSON.parse(json);
+        populateForm(data);
+        showToast('Form restored from shared link!', '✅');
+      } catch (e) {
+        console.warn('Could not restore form from URL:', e);
+      }
+    }
+
+    function populateForm(data) {
+      Object.entries(data.inputs).forEach(([id, value]) => {
+        const el = document.getElementById(id);
+        if (el && el.tagName === 'INPUT') el.value = value;
+        if (el && el.tagName === 'SELECT') el.value = value;
+      });
+      Object.entries(data.texts).forEach(([id, html]) => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = html;
+      });
+    }
+
+    function showConfirm(title, message) {
+      document.getElementById('confirmOverlay').classList.add('active');
+      document.querySelector('.confirm-title').textContent = title;
+      document.querySelector('.confirm-text').textContent = message;
+    }
+
+    function closeConfirm() {
+      document.getElementById('confirmOverlay').classList.remove('active');
+    }
+
+    function confirmAction() {
+      if (window.__pendingAction === 'submit') {
+        showToast('Requisition submitted!', '✅');
+      }
+      closeConfirm();
+    }
+
+    function showToast(message, icon = '') {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = `${icon} ${message}`;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    function restoreForm() {
+      loadFromHash();
+    }
+
+    function updateMultiselect() {
+      document.querySelectorAll('.multiselect').forEach(ms => {
+        const trigger = ms.querySelector('.multiselect-trigger');
+        const display = ms.querySelector('.multiselect-display');
+        const tags = ms.querySelector('.multiselect-tags');
+        const checked = Array.from(ms.querySelectorAll('input[type="checkbox"]:checked'));
+
+        if (checked.length > 0) {
+          display.textContent = `${checked.length} selected`;
+          display.classList.remove('placeholder');
+          tags.innerHTML = checked.map(cb => `<span class="tag">${cb.value} ×</span>`).join('');
+          tags.querySelectorAll('.tag').forEach(tag => {
+            tag.addEventListener('click', () => {
+              const val = tag.textContent.slice(0, -2).trim();
+              ms.querySelector(`input[value="${val}"]`).checked = false;
+              updateMultiselect();
+            });
+          });
+        } else {
+          display.textContent = 'Select skills...';
+          display.classList.add('placeholder');
+          tags.innerHTML = '';
+        }
+      });
+    }
+
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', () => {
+      // Multiselect toggle
+      document.querySelectorAll('.multiselect-trigger').forEach(trigger => {
+        trigger.addEventListener('click', function() {
+          const ms = this.closest('.multiselect');
+          ms.classList.toggle('open');
+        });
+      });
+
+      // Update on checkbox change
+      document.querySelectorAll('.multiselect-option input[type="checkbox"]').forEach(cb => {
+        cb.addEventListener('change', updateMultiselect);
+      });
+
+      // Form submit
+      document.getElementById('intakeForm')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        submitForm();
+      });
+
+      // Load from hash
+      loadFromHash();
+
+      // Close modal on overlay click
+      document.getElementById('confirmOverlay')?.addEventListener('click', function(e) {
+        if (e.target === this) closeConfirm();
+      });
+    });
+  </script>
+</body>
+</html>le="grid-template-columns: 1fr 200px; row-gap: 14px;">
+    <div class="field-group">
+      <label for="roleTitle">Role Title <span class="required">*</span></label>
+      <input type="text" id="roleTitle" placeholder="e.g., Senior Engineer" required />
+    </div>
+    <div class="field-group">
+      <label for="targetSalary">Target Salary Range</label>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+        <input type="number" id="salaryMin" placeholder="Min (USD)" />
+        <input type="number" id="salaryMax" placeholder="Max (USD)" />
+      </div>
+    </div>
+  </div>
+
+  <div class="form-date" id="formDate"></div>
+  <div class="form-title">
+    <h2>New Req In-Take</h2>
+    <div class="accent-bar"></div>
+  </div>
+
+  <!-- Role Title Banner -->
+  <div class="role-title-banner" style="grid-template-columns: 1fr auto; gap: 16px; align-items: end;">
+    <div class="field-group">
+      <label for="roleTitle">Role Title <span class="required">*</span></label>
+      <input type="text" id="roleTitle" placeholder="e.g., Senior Software Engineer" required />
+    </div>
+    <div class="field-group">
+      <label for="country">Country <span class="required">*</span></label>
+      <select id="country" required>
+        <option value="">Select Country</option>
+        <option value="US">United States</option>
+        <option value="CA">Canada</option>
+        <option value="UK">United Kingdom</option>
+        <option value="AU">Australia</option>
+        <option value="DE">Germany</option>
+        <option value="FR">France</option>
+        <option value="SG">Singapore</option>
+        <option value="NZ">New Zealand</option>
+        <option value="IE">Ireland</option>
+        <option value="NL">Netherlands</option>
+      </select>
+    </div>
+  </div>
+
+  <hr class="section-divider" />
+
+  <!-- Requisition Details -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-header-icon">📋</span>
+      <h3>Requisition Details</h3>
+    </div>
+    <div class="card-body field-grid col-3">
+      <div class="field-group">
+        <label>Request Type <span class="required">*</span></label>
+        <div class="toggle-group">
+          <label><input type="radio" name="requestType" value="New" onchange="updateForm()" /> <span class="toggle-option">New</span></label>
+          <label><input type="radio" name="requestType" value="Replacement" onchange="updateForm()" /> <span class="toggle-option">Replacement</span></label>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Experience Level <span class="required">*</span></label>
+        <select id="expLevel" required onchange="updateForm()">
+          <option value="">Select level</option>
+          <option value="Entry">Entry Level (0-2y)</option>
+          <option value="Junior">Junior (2-5y)</option>
+          <option value="Mid">Mid-Level (5-8y)</option>
+          <option value="Senior">Senior (8-12y)</option>
+          <option value="Lead">Lead (12+y)</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Hiring Manager <span class="required">*</span></label>
+        <input type="text" id="hiringManager" placeholder="Full name" required />
+      </div>
+    </div>
+  </div>
+
+  <!-- Employment Info -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-header-icon">💼</span>
+      <h3>Employment Info</h3>
+    </div>
+    <div class="card-body field-grid col-2">
+      <div class="field-group">
+        <label>Classification <span class="required">*</span></label>
+        <select id="jobClass" required>
+          <option value="">Select type</option>
+          <option value="FT">Full-Time</option>
+          <option value="PT">Part-Time</option>
+          <option value="CT">Contractor</option>
+          <option value="TEMP">Temporary</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Remote Status <span class="required">*</span></label>
+        <select id="remoteStatus" required>
+          <option value="">Select status</option>
+          <option value="OnSite">On-Site</option>
+          <option value="Remote">Remote</option>
+          <option value="Hybrid">Hybrid</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Salary & Comp -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-header-icon">💰</span>
+      <h3>Compensation</h3>
+    </div>
+    <div class="card-body field-grid col-3">
+      <div class="field-group">
+        <label>Base Salary Min</label>
+        <input type="number" id="baseSalaryMin" placeholder="USD" />
+      </div>
+      <div class="field-group">
+        <label>Base Salary Max</label>
+        <input type="number" id="baseSalaryMax" placeholder="USD" />
+      </div>
+      <div class="field-group">
+        <label>Bonus Target %</label>
+        <input type="number" id="bonusTarget" placeholder="%" />
+      </div>
+      <div class="field-group">
+        <label>Equity Value</label>
+        <input type="text" id="equityValue" placeholder="e.g., $150K" />
+      </div>
+      <div class="field-group">
+        <label>Other Comp</label>
+        <input type="text" id="otherComp" placeholder="Details" />
+      </div>
+      <div class="field-group">
+        <label>Signing Bonus</label>
+        <input type="text" id="signingBonus" placeholder="Amount" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Skills & Experience -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-header-icon">🎯</span>
+      <h3>Skills & Experience</h3>
+    </div>
+    <div class="card-body field-grid col-1">
+      <div class="field-group span-full">
+        <label>Must-Have Skills</label>
+        <div class="rich-editor-wrapper">
+          <div class="rich-toolbar">
+            <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('topSkills','insertUnorderedList')">• Bullets</button>
+            <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('topSkills','insertOrderedList')">1. Numbered</button>
+            <span class="toolbar-hint">or paste content</span>
+          </div>
+          <div class="rich-editor is-empty" id="topSkills" contenteditable="true" data-placeholder="List top skills required"></div>
+        </div>
+      </div>
+      <div class="field-group span-full">
+        <label>Nice-to-Have Skills</label>
+        <div class="rich-editor-wrapper">
+          <div class="rich-toolbar">
+            <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('niceSkills','insertUnorderedList')">• Bullets</button>
+            <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('niceSkills','insertOrderedList')">1. Numbered</button>
+            <span class="toolbar-hint">or paste content</span>
+          </div>
+          <div class="rich-editor is-empty" id="niceSkills" contenteditable="true" data-placeholder="List nice-to-have skills"></div>
+        </div>
+      </div>
+      <div class="field-group span-full">
+        <label>Comparable Job Titles</label>
+        <div class="rich-editor-wrapper">
+          <div class="rich-toolbar">
+            <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('comparableTitles','insertUnorderedList')">• Bullets</button>
+            <span class="toolbar-hint">or paste content</span>
+          </div>
+          <div class="rich-editor is-empty" id="comparableTitles" contenteditable="true" data-placeholder="e.g., Dev Ops Engineer, Infrastructure Engineer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interview Process -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-header-icon">🎤</span>
+      <h3>Interview Process</h3>
+    </div>
+    <div class="card-body">
+      <div class="field-group span-full">
+        <label>Interview Steps</label>
+        <div class="dynamic-list" id="interviewStepsList"></div>
+          <button type="button" class="add-row-btn" onclick="addInterviewStep()">+ Add Step</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Download Options -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-header-icon">📥</span>
+      <h3>Download</h3>
+    </div>
+    <div class="card-body field-grid col-2">
+      <button type="button" class="btn btn-primary" onclick="downloadPDF()">📄 Download as PDF</button>
+      <button type="button" class="btn btn-primary" onclick="downloadDOCX()">📋 Download as DOCX</button>
+    </div>
+  </div>
+
+  <!-- Bottom Actions -->
+  <div class="bottom-actions">
+    <button type="reset" class="btn btn-secondary">Clear Form</button>
+    <button type="submit" class="btn btn-primary">Submit Requisition</button>
+  </div>
+</form>
+
+  <!-- Confirmation Modal -->
+  <div class="confirm-overlay" id="confirmOverlay">
+    <div class="confirm-modal">
+      <h2 class="confirm-title">Confirm Submission</h2>
+      <p class="confirm-text">Are you sure you want to submit this requisition? You can still edit it after submission.</p>
+      <div class="confirm-actions">
+        <button type="button" class="btn btn-secondary" onclick="closeConfirm()">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="confirmSubmit()">Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Form manipulation & data handling
+    function updateForm() {
+      // Triggered on input changes
+    }
+
+    function addInterviewStep() {
+      const list = document.getElementById('interviewStepsList');
+      const item = document.createElement('div');
+      item.className = 'dynamic-item';
+      item.innerHTML = `
+        <input type="text" placeholder="Step title" class="interview-step" />
+        <input type="text" placeholder="Duration" class="interview-duration" />
+        <button type="button" class="btn-icon danger" onclick="this.parentElement.remove()" title="Remove">−</button>
+      `;
+      list.appendChild(item);
+    }
+
+    function downloadPDF() {
+      alert('PDF generation not yet implemented');
+    }
+
+    function downloadDOCX() {
+      // Prepare DOCX content
+      const data = serializeForm();
+
+      const doc = new docx.Document({
+        sections: [
+          {
+            children: [
+              new docx.Paragraph({
+                text: 'NEW REQ IN-TAKE',
+                bold: true,
+                size: 28,
+                font: 'Calibri',
+                color: '102754',
+                alignment: docx.AlignmentType.CENTER,
+              }),
+              new docx.Paragraph({ text: '', spacing: { line: 200 } }),
+              new docx.Table({
+                width: { size: 100, type: docx.WidthType.PERCENTAGE },
+                rows: [
+                  new docx.TableRow({
+                    children: [
+                      new docx.TableCell({
+                        shading: { fill: '102754', type: docx.ShadingType.CLEAR },
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        width: { size: 50, type: docx.WidthType.PERCENTAGE },
+                        children: [new docx.Paragraph({ text: 'Role Title', bold: true, color: 'FFFFFF', size: 20 })],
+                      }),
+                      new docx.TableCell({
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        width: { size: 50, type: docx.WidthType.PERCENTAGE },
+                        children: [new docx.Paragraph(data.inputs.roleTitle || '')],
+                      }),
+                    ],
+                  }),
+              new docx.TableRow({
+                    children: [
+                      new docx.TableCell({
+                        shading: { fill: '102754', type: docx.ShadingType.CLEAR },
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph({ text: 'Request Type', bold: true, color: 'FFFFFF', size: 20 })],
+                      }),
+                      new docx.TableCell({
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph(document.querySelector('input[name="requestType"]:checked')?.value || '')],
+                      }),
+                    ],
+                  }),
+                  ...(data.inputs.baseSalaryMin || data.inputs.baseSalaryMax ? [new docx.TableRow({
+                    children: [
+                      new docx.TableCell({
+                        shading: { fill: '102754', type: docx.ShadingType.CLEAR },
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph({ text: 'Salary Range', bold: true, color: 'FFFFFF', size: 20 })],
+                      }),
+                      new docx.TableCell({
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph(`$${data.inputs.baseSalaryMin} - $${data.inputs.baseSalaryMax}`)],
+                      }),
+                    ],
+                  })] : []),
+                  ...(data.inputs.equityValue ? [new docx.TableRow({
+                    children: [
+                      new docx.TableCell({
+                        shading: { fill: '102754', type: docx.ShadingType.CLEAR },
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph({ text: 'Equity Value', bold: true, color: 'FFFFFF', size: 20 })],
+                      }),
+                      new docx.TableCell({
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph(data.inputs.equityValue)],
+                      }),
+                    ],
+                  })] : []),
+                  ...(data.inputs.otherComp ? [new docx.TableRow({
+                    children: [
+                      new docx.TableCell({
+                        shading: { fill: '102754', type: docx.ShadingType.CLEAR },
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph({ text: 'Other Comp', bold: true, color: 'FFFFFF', size: 20 })],
+                      }),
+                      new docx.TableCell({
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph(data.inputs.otherComp)],
+                      }),
+                    ],
+                  })] : []),
+                ],
+              }),
+            ],
+          },
+        ],
+      });
+
+      docx.Packer.toBlob(doc).then(blob => {
+        saveAs(blob, 'New_Req_In-Take.docx');
+      });
+    }
+
+    function serializeForm() {
+      const data = { inputs: {}, radios: {}, texts: {} };
+
+      // Text/Number/Date inputs
+      document.querySelectorAll('input[type="text"], input[type="number"], input[type="date"], input[type="url"], input[type="email"]').forEach(el => {
+        if (el.id) data.inputs[el.id] = el.value;
+      });
+
+      // Selects
+      document.querySelectorAll('select').forEach(el => {
+        if (el.id) data.inputs[el.id] = el.value;
+      });
+
+      // Rich editors
+      document.querySelectorAll('.rich-editor').forEach(el => {
+        if (el.id) data.texts[el.id] = el.innerHTML;
+      });
+
+      // Multiselects
+      document.querySelectorAll('.multiselect').forEach(el => {
+        if (el.dataset.id) {
+          const selected = Array.from(el.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
+          data.inputs[el.dataset.id] = selected.join(', ');
+        }
+      });
+
+      return data;
+    }
+
+    function shareForm() {
+      closeConfirm();
+      const data = serializeForm();
+      const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+      const url = `${window.location.origin}${window.location.pathname}#formData=${encoded}`;
+
+      const ta = document.createElement('textarea');
+      ta.value = url;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast('Link copied! Open it in any browser to restore this form.', '🔗');
+    }
+
+    function loadFromHash() {
+      const hash = window.location.hash;
+      if (!hash.startsWith('#formData=')) return;
+      try {
+        const encoded = hash.slice('#formData='.length);
+        const json = decodeURIComponent(escape(atob(encoded)));
+        const data = JSON.parse(json);
+        populateForm(data);
+        showToast('Form restored from shared link!', '✅');
+      } catch (e) {
+        console.warn('Could not restore form from URL:', e);
+      }
+    }
+
+    function populateForm(data) {
+      // Text inputs
+      Object.entries(data.inputs).forEach(([id, value]) => {
+        const el = document.getElementById(id);
+        if (el && el.tagName === 'INPUT') el.value = value;
+        if (el && el.tagName === 'SELECT') el.value = value;
+      });
+
+      // Rich text
+      Object.entries(data.texts).forEach(([id, html]) => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = html;
+      });
+    }
+
+    function showConfirm(title, message) {
+      document.getElementById('confirmOverlay').classList.add('active');
+      document.querySelector('.confirm-title').textContent = title;
+      document.querySelector('.confirm-text').textContent = message;
+    }
+
+    function closeConfirm() {
+      document.getElementById('confirmOverlay').classList.remove('active');
+    }
+
+    function confirmSubmit() {
+      serializeForm();
+      closeConfirm();
+      showToast('Requisition submitted successfully!', '✅');
+    }
+
+    function showToast(message, icon = '') {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = `${icon} ${message}`;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    function restoreBtn_click() {
+      loadFromHash();
+    }
+
+    function richCmd(el, cmd) {
+      const editor = document.getElementById(el);
+      if (editor) editor.focus();
+      document.execCommand(cmd);
+      updateToolbarButtons(el);
+    }
+
+    function updateToolbarButtons(el) {
+      if (!el) return;
+      const editor = document.getElementById(el);
+      if (!editor) return;
+      editor.querySelectorAll('button').forEach(btn => {
+        btn.classList.toggle('active', document.queryCommandState(btn.dataset.cmd || ''));
+      });
+    }
+
+    // Load from hash after a brief delay to ensure DOM is ready
+    setTimeout(loadFromHash, 100);
+
+    // Close confirm overlay on background click
+    document.getElementById('confirmOverlay').addEventListener('click', function(e) {
+      if (e.target === this) closeConfirm();
+    });
+  </script>
+</body>
+</html>yle="margin-bottom:16px">
+        <div class="field-group">
+          <label for="requisitionID">Req ID / Job Code</label>
+          <input type="text" id="requisitionID" placeholder="e.g., SWE-001" />
+        </div>
+        <div class="field-group">
+          <label for="department">Department</label>
+          <input type="text" id="department" placeholder="e.g., Engineering" />
+        </div>
+        <div class="field-group">
+          <label for="reportingTo">Reporting To</label>
+          <input type="text" id="reportingTo" placeholder="Manager name" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Team & Skills Section -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-header-icon">👥</span>
+        <h3>Team & Skills</h3>
+      </div>
+      <div class="card-body">
+        <div class="field-group span-full">
+          <label for="teamSize">Team Size / Scope</label>
+          <textarea id="teamSize" class="short" placeholder="Describe the team and reporting structure"></textarea>
+        </div>
+
+        <div class="field-group span-full" style="margin-top: 16px">
+          <label>Critical Skills</label>
+          <div class="multiselect" data-id="criticalSkills">
+            <div class="multiselect-trigger">
+              <span class="multiselect-display placeholder">Select skills...</span>
+              <span class="multiselect-arrow">▼</span>
+              <div class="multiselect-tags"></div>
+            </div>
+            <div class="multiselect-dropdown">
+              <label class="multiselect-option"><input type="checkbox" value="Python" onchange="updateForm()" /> <span>Python</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="JavaScript" onchange="updateForm()" /> <span>JavaScript</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="Go" onchange="updateForm()" /> <span>Go</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="Rust" onchange="updateForm()" /> <span>Rust</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="Java" onchange="updateForm()" /> <span>Java</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="C++" onchange="updateForm()" /> <span>C++</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="SQL" onchange="updateForm()" /> <span>SQL</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="AWS" onchange="updateForm()" /> <span>AWS</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="GCP" onchange="updateForm()" /> <span>GCP</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="Kubernetes" onchange="updateForm()" /> <span>Kubernetes</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="Docker" onchange="updateForm()" /> <span>Docker</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="React" onchange="updateForm()" /> <span>React</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="Vue" onchange="updateForm()" /> <span>Vue</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="Node.js" onchange="updateForm()" /> <span>Node.js</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="Git" onchange="updateForm()" /> <span>Git</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="CI/CD" onchange="updateForm()" /> <span>CI/CD</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="Agile" onchange="updateForm()" /> <span>Agile</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="Leadership" onchange="updateForm()" /> <span>Leadership</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="Communication" onchange="updateForm()" /> <span>Communication</span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group span-full" style="margin-top: 16px">
+          <label>Experience Required</label>
+          <div class="toggle-group">
+            <label><input type="radio" name="newOrEX" value="New Grad" onchange="updateForm()" /> <span class="toggle-option">New Grad</span></label>
+            <label><input type="radio" name="newOrEX" value="EX-1" onchange="updateForm()" /> <span class="toggle-option">EX-1</span></label>
+            <label><input type="radio" name="newOrEX" value="EX-3" onchange="updateForm()" /> <span class="toggle-option">EX-3</span></label>
+            <label><input type="radio" name="newOrEX" value="EX-5" onchange="updateForm()" /> <span class="toggle-option">EX-5</span></label>
+            <label><input type="radio" name="newOrEX" value="EX-9" onchange="updateForm()" /> <span class="toggle-option">EX-9</span></label>
+            <label><input type="radio" name="newOrEX" value="Net New" onchange="updateForm()" /> <span class="toggle-option">Net New</span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Requirements -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-header-icon">📝</span>
+        <h3>Interview & Hiring</h3>
+      </div>
+      <div class="card-body">
+        <div class="field-group span-full">
+          <label for="hiringSummary">Hiring Summary</label>
+          <div class="rich-editor-wrapper">
+            <div class="rich-toolbar">
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('hiringSummary','insertUnorderedList')">• Bullets</button>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('hiringSummary','insertOrderedList')">1. Numbered</button>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('hiringSummary','createLink')">🔗 Link</button>
+              <span class="toolbar-hint">Format your notes here</span>
+            </div>
+            <div class="rich-editor is-empty tall" id="hiringSummary" contenteditable="true" data-placeholder="Overall hiring summary and notes"></div>
+          </div>
+        </div>
+
+        <div class="field-group span-full" style="margin-top: 16px">
+          <label>Interview Process Steps</label>
+          <div class="dynamic-list" id="interviewStepsList"></div>
+          <button type="button" class="add-row-btn" onclick="addInterviewStep()">+ Add Interview Step</button>
+        </div>
+
+        <div class="field-group span-full" style="margin-top: 16px">
+          <label for="topSkills">Critical Technical Skills</label>
+          <div class="rich-editor-wrapper">
+            <div class="rich-toolbar">
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('topSkills','insertUnorderedList')">• Bullets</button>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('topSkills','insertOrderedList')">1. Numbered</button>
+              <span class="toolbar-hint">or paste content</span>
+            </div>
+            <div class="rich-editor is-empty" id="topSkills" contenteditable="true" data-placeholder="List top technical skills required"></div>
+          </div>
+        </div>
+
+        <div class="field-group span-full" style="margin-top: 16px">
+          <label for="niceSkills">Nice-to-Have Skills</label>
+          <div class="rich-editor-wrapper">
+            <div class="rich-toolbar">
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('niceSkills','insertUnorderedList')">• Bullets</button>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('niceSkills','insertOrderedList')">1. Numbered</button>
+              <span class="toolbar-hint">or paste content</span>
+            </div>
+            <div class="rich-editor is-empty" id="niceSkills" contenteditable="true" data-placeholder="List nice-to-have skills"></div>
+          </div>
+        </div>
+
+        <div class="field-group span-full" style="margin-top: 16px">
+          <label for="comparableTitles">Comparable Job Titles</label>
+          <div class="rich-editor-wrapper">
+            <div class="rich-toolbar">
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('comparableTitles','insertUnorderedList')">• Bullets</button>
+              <span class="toolbar-hint">or paste content</span>
+            </div>
+            <div class="rich-editor is-empty" id="comparableTitles" contenteditable="true" data-placeholder="e.g., Dev Ops Engineer, Infrastructure Engineer"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Download & Submit -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-header-icon">📥</span>
+        <h3>Export & Submit</h3>
+      </div>
+      <div class="card-body">
+        <div class="bottom-actions">
+          <button type="button" class="btn btn-primary" onclick="downloadPDF()">📄 PDF</button>
+          <button type="button" class="btn btn-primary" onclick="downloadDOCX()">📋 DOCX</button>
+          <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear</button>
+          <button type="button" class="btn btn-primary" onclick="submitForm()">Submit</button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!-- Share/Restore Modal -->
+  <div class="confirm-overlay" id="confirmOverlay">
+    <div class="confirm-modal">
+      <h2 class="confirm-title">Share Form</h2>
+      <p class="confirm-text" id="confirmText">Share this link to let others fill out the form and restore it later.</p>
+      <div class="confirm-actions">
+        <button type="button" class="btn btn-secondary" onclick="closeConfirm()">Close</button>
+        <button type="button" class="btn btn-primary" id="confirmBtn" onclick="confirmAction()">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Form serialization & state management
+    function updateForm() {
+      // Triggered on any form change
+      updateMultiselect();
+    }
+
+    function addInterviewStep() {
+      const list = document.getElementById('interviewStepsList');
+      const item = document.createElement('div');
+      item.className = 'dynamic-item';
+      item.innerHTML = `
+        <input type="text" placeholder="Interview Step" class="interview-step" />
+        <input type="text" placeholder="Duration" class="interview-duration" />
+        <button type="button" class="btn-icon danger" onclick="this.parentElement.remove()" title="Remove">×</button>
+      `;
+      list.appendChild(item);
+    }
+
+    function clearForm() {
+      document.getElementById('intakeForm').reset();
+      document.querySelectorAll('.rich-editor').forEach(el => el.innerHTML = '');
+      document.getElementById('interviewStepsList').innerHTML = '';
+    }
+
+    function submitForm() {
+      const form = document.getElementById('intakeForm');
+      if (form.checkValidity()) {
+        showConfirm('Submit Requisition', 'Confirm submission of this requisition?');
+        window.__pendingAction = 'submit';
+      } else {
+        showToast('Please fill required fields', '⚠️');
+      }
+    }
+
+    function downloadPDF() {
+      showToast('PDF generation coming soon', '📄');
+    }
+
+    function downloadDOCX() {
+      // Serialize form data
+      const data = serializeForm();
+
+      const doc = new docx.Document({
+        sections: [
+          {
+            children: [
+              new docx.Paragraph({
+                text: 'NEW REQ IN-TAKE',
+                bold: true,
+                size: 28,
+                font: 'Calibri',
+                color: '102754',
+                alignment: docx.AlignmentType.CENTER,
+              }),
+              new docx.Paragraph({ text: '', spacing: { line: 200 } }),
+              new docx.Table({
+                width: { size: 100, type: docx.WidthType.PERCENTAGE },
+                rows: [
+                  new docx.TableRow({
+                    children: [
+                      new docx.TableCell({
+                        shading: { fill: '102754', type: docx.ShadingType.CLEAR },
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph({ text: 'Role Title', bold: true, color: 'FFFFFF', size: 20 })],
+                      }),
+                      new docx.TableCell({
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph(data.inputs.roleTitle || '')],
+                      }),
+                    ],
+                  }),
+                  new docx.TableRow({
+                    children: [
+                      new docx.TableCell({
+                        shading: { fill: '102754', type: docx.ShadingType.CLEAR },
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph({ text: 'Experience Level', bold: true, color: 'FFFFFF', size: 20 })],
+                      }),
+                      new docx.TableCell({
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph(data.inputs.expLevel || '')],
+                      }),
+                    ],
+                  }),
+                  new docx.TableRow({
+                    children: [
+                      new docx.TableCell({
+                        shading: { fill: '102754', type: docx.ShadingType.CLEAR },
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph({ text: 'Classification', bold: true, color: 'FFFFFF', size: 20 })],
+                      }),
+                      new docx.TableCell({
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph(data.inputs.jobClass || '')],
+                      }),
+                    ],
+                  }),
+                  new docx.TableRow({
+                    children: [
+                      new docx.TableCell({
+                        shading: { fill: '102754', type: docx.ShadingType.CLEAR },
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph({ text: 'Remote Status', bold: true, color: 'FFFFFF', size: 20 })],
+                      }),
+                      new docx.TableCell({
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph(data.inputs.remoteStatus || '')],
+                      }),
+                    ],
+                  }),
+                  ...(data.inputs.baseSalaryMin || data.inputs.baseSalaryMax ? [new docx.TableRow({
+                    children: [
+                      new docx.TableCell({
+                        shading: { fill: '102754', type: docx.ShadingType.CLEAR },
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph({ text: 'Salary Range', bold: true, color: 'FFFFFF', size: 20 })],
+                      }),
+                      new docx.TableCell({
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph(`$${data.inputs.baseSalaryMin} - $${data.inputs.baseSalaryMax}`)],
+                      }),
+                    ],
+                  })] : []),
+                  ...(data.inputs.equityValue ? [new docx.TableRow({
+                    children: [
+                      new docx.TableCell({
+                        shading: { fill: '102754', type: docx.ShadingType.CLEAR },
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph({ text: 'Equity Value', bold: true, color: 'FFFFFF', size: 20 })],
+                      }),
+                      new docx.TableCell({
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph(data.inputs.equityValue)],
+                      }),
+                    ],
+                  })] : []),
+                  ...(data.inputs.otherComp ? [new docx.TableRow({
+                    children: [
+                      new docx.TableCell({
+                        shading: { fill: '102754', type: docx.ShadingType.CLEAR },
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph({ text: 'Other Comp', bold: true, color: 'FFFFFF', size: 20 })],
+                      }),
+                      new docx.TableCell({
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph(data.inputs.otherComp)],
+                      }),
+                    ],
+                  })] : []),
+                ],
+              }),
+            ],
+          },
+        ],
+      });
+
+      docx.Packer.toBlob(doc).then(blob => {
+        saveAs(blob, 'New_Req_In-Take.docx');
+      });
+    }
+
+    function serializeForm() {
+      const data = { inputs: {}, texts: {} };
+      document.querySelectorAll('input[type="text"], input[type="number"], input[type="date"], select').forEach(el => {
+        if (el.id) data.inputs[el.id] = el.value;
+      });
+      document.querySelectorAll('.rich-editor').forEach(el => {
+        if (el.id) data.texts[el.id] = el.innerHTML;
+      });
+      return data;
+    }
+
+    function shareForm() {
+      const data = serializeForm();
+      const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+      const url = `${window.location.origin}${window.location.pathname}#formData=${encoded}`;
+      const ta = document.createElement('textarea');
+      ta.value = url;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast('Link copied! Open it in any browser to restore this form.', '🔗');
+    }
+
+    function loadFromHash() {
+      const hash = window.location.hash;
+      if (!hash.startsWith('#formData=')) return;
+      try {
+        const encoded = hash.slice('#formData='.length);
+        const json = decodeURIComponent(escape(atob(encoded)));
+        const data = JSON.parse(json);
+        populateForm(data);
+        showToast('Form restored from shared link!', '✅');
+      } catch (e) {
+        console.warn('Could not restore form from URL:', e);
+      }
+    }
+
+    function populateForm(data) {
+      Object.entries(data.inputs).forEach(([id, value]) => {
+        const el = document.getElementById(id);
+        if (el && el.tagName === 'INPUT') el.value = value;
+        if (el && el.tagName === 'SELECT') el.value = value;
+      });
+      Object.entries(data.texts).forEach(([id, html]) => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = html;
+      });
+    }
+
+    function showConfirm(title, message) {
+      document.getElementById('confirmOverlay').classList.add('active');
+      document.querySelector('.confirm-title').textContent = title;
+      document.querySelector('.confirm-text').textContent = message;
+    }
+
+    function closeConfirm() {
+      document.getElementById('confirmOverlay').classList.remove('active');
+    }
+
+    function confirmAction() {
+      if (window.__pendingAction === 'submit') {
+        showToast('Requisition submitted!', '✅');
+      }
+      closeConfirm();
+    }
+
+    function showToast(message, icon = '') {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = `${icon} ${message}`;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    function restoreForm() {
+      loadFromHash();
+    }
+
+    function updateMultiselect() {
+      document.querySelectorAll('.multiselect').forEach(ms => {
+        const trigger = ms.querySelector('.multiselect-trigger');
+        const display = ms.querySelector('.multiselect-display');
+        const tags = ms.querySelector('.multiselect-tags');
+        const checked = Array.from(ms.querySelectorAll('input[type="checkbox"]:checked'));
+
+        if (checked.length > 0) {
+          display.textContent = `${checked.length} selected`;
+          display.classList.remove('placeholder');
+          tags.innerHTML = checked.map(cb => `<span class="tag">${cb.value} ×</span>`).join('');
+          tags.querySelectorAll('.tag').forEach(tag => {
+            tag.addEventListener('click', () => {
+              const val = tag.textContent.slice(0, -2).trim();
+              ms.querySelector(`input[value="${val}"]`).checked = false;
+              updateMultiselect();
+            });
+          });
+        } else {
+          display.textContent = 'Select skills...';
+          display.classList.add('placeholder');
+          tags.innerHTML = '';
+        }
+      });
+    }
+
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', () => {
+      // Multiselect toggle
+      document.querySelectorAll('.multiselect-trigger').forEach(trigger => {
+        trigger.addEventListener('click', function() {
+          const ms = this.closest('.multiselect');
+          ms.classList.toggle('open');
+        });
+      });
+
+      // Update on checkbox change
+      document.querySelectorAll('.multiselect-option input[type="checkbox"]').forEach(cb => {
+        cb.addEventListener('change', updateMultiselect);
+      });
+
+      // Form submit
+      document.getElementById('intakeForm')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        submitForm();
+      });
+
+      // Load from hash
+      loadFromHash();
+
+      // Close modal on overlay click
+      document.getElementById('confirmOverlay')?.addEventListener('click', function(e) {
+        if (e.target === this) closeConfirm();
+      });
+    });
+  </script>
+</body>
+</html>le="grid-template-columns: 1fr 200px; row-gap: 14px;">
+    <div class="field-group">
+      <label for="roleTitle">Role Title <span class="required">*</span></label>
+      <input type="text" id="roleTitle" placeholder="e.g., Senior Engineer" required />
+    </div>
+    <div class="field-group">
+      <label for="targetSalary">Target Salary Range</label>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+        <input type="number" id="salaryMin" placeholder="Min (USD)" />
+        <input type="number" id="salaryMax" placeholder="Max (USD)" />
+      </div>
+    </div>
+  </div>
+
+  <div class="form-date" id="formDate"></div>
+  <div class="form-title">
+    <h2>New Req In-Take</h2>
+    <div class="accent-bar"></div>
+  </div>
+
+  <!-- Role Title Banner -->
+  <div class="role-title-banner" style="grid-template-columns: 1fr auto; gap: 16px; align-items: end;">
+    <div class="field-group">
+      <label for="roleTitle">Role Title <span class="required">*</span></label>
+      <input type="text" id="roleTitle" placeholder="e.g., Senior Software Engineer" required />
+    </div>
+    <div class="field-group">
+      <label for="country">Country <span class="required">*</span></label>
+      <select id="country" required>
+        <option value="">Select Country</option>
+        <option value="US">United States</option>
+        <option value="CA">Canada</option>
+        <option value="UK">United Kingdom</option>
+        <option value="AU">Australia</option>
+        <option value="DE">Germany</option>
+        <option value="FR">France</option>
+        <option value="SG">Singapore</option>
+        <option value="NZ">New Zealand</option>
+        <option value="IE">Ireland</option>
+        <option value="NL">Netherlands</option>
+      </select>
+    </div>
+  </div>
+
+  <hr class="section-divider" />
+
+  <!-- Requisition Details -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-header-icon">📋</span>
+      <h3>Requisition Details</h3>
+    </div>
+    <div class="card-body field-grid col-3">
+      <div class="field-group">
+        <label>Request Type <span class="required">*</span></label>
+        <div class="toggle-group">
+          <label><input type="radio" name="requestType" value="New" onchange="updateForm()" /> <span class="toggle-option">New</span></label>
+          <label><input type="radio" name="requestType" value="Replacement" onchange="updateForm()" /> <span class="toggle-option">Replacement</span></label>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Experience Level <span class="required">*</span></label>
+        <select id="expLevel" required onchange="updateForm()">
+          <option value="">Select level</option>
+          <option value="Entry">Entry Level (0-2y)</option>
+          <option value="Junior">Junior (2-5y)</option>
+          <option value="Mid">Mid-Level (5-8y)</option>
+          <option value="Senior">Senior (8-12y)</option>
+          <option value="Lead">Lead (12+y)</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Hiring Manager <span class="required">*</span></label>
+        <input type="text" id="hiringManager" placeholder="Full name" required />
+      </div>
+    </div>
+  </div>
+
+  <!-- Employment Info -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-header-icon">💼</span>
+      <h3>Employment Info</h3>
+    </div>
+    <div class="card-body field-grid col-2">
+      <div class="field-group">
+        <label>Classification <span class="required">*</span></label>
+        <select id="jobClass" required>
+          <option value="">Select type</option>
+          <option value="FT">Full-Time</option>
+          <option value="PT">Part-Time</option>
+          <option value="CT">Contractor</option>
+          <option value="TEMP">Temporary</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Remote Status <span class="required">*</span></label>
+        <select id="remoteStatus" required>
+          <option value="">Select status</option>
+          <option value="OnSite">On-Site</option>
+          <option value="Remote">Remote</option>
+          <option value="Hybrid">Hybrid</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Salary & Comp -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-header-icon">💰</span>
+      <h3>Compensation</h3>
+    </div>
+    <div class="card-body field-grid col-3">
+      <div class="field-group">
+        <label>Base Salary Min</label>
+        <input type="number" id="baseSalaryMin" placeholder="USD" />
+      </div>
+      <div class="field-group">
+        <label>Base Salary Max</label>
+        <input type="number" id="baseSalaryMax" placeholder="USD" />
+      </div>
+      <div class="field-group">
+        <label>Bonus Target %</label>
+        <input type="number" id="bonusTarget" placeholder="%" />
+      </div>
+      <div class="field-group">
+        <label>Equity Value</label>
+        <input type="text" id="equityValue" placeholder="e.g., $150K" />
+      </div>
+      <div class="field-group">
+        <label>Other Comp</label>
+        <input type="text" id="otherComp" placeholder="Details" />
+      </div>
+      <div class="field-group">
+        <label>Signing Bonus</label>
+        <input type="text" id="signingBonus" placeholder="Amount" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Skills & Experience -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-header-icon">🎯</span>
+      <h3>Skills & Experience</h3>
+    </div>
+    <div class="card-body field-grid col-1">
+      <div class="field-group span-full">
+        <label>Must-Have Skills</label>
+        <div class="rich-editor-wrapper">
+          <div class="rich-toolbar">
+            <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('topSkills','insertUnorderedList')">• Bullets</button>
+            <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('topSkills','insertOrderedList')">1. Numbered</button>
+            <span class="toolbar-hint">or paste content</span>
+          </div>
+          <div class="rich-editor is-empty" id="topSkills" contenteditable="true" data-placeholder="List top skills required"></div>
+        </div>
+      </div>
+      <div class="field-group span-full">
+        <label>Nice-to-Have Skills</label>
+        <div class="rich-editor-wrapper">
+          <div class="rich-toolbar">
+            <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('niceSkills','insertUnorderedList')">• Bullets</button>
+            <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('niceSkills','insertOrderedList')">1. Numbered</button>
+            <span class="toolbar-hint">or paste content</span>
+          </div>
+          <div class="rich-editor is-empty" id="niceSkills" contenteditable="true" data-placeholder="List nice-to-have skills"></div>
+        </div>
+      </div>
+      <div class="field-group span-full">
+        <label>Comparable Job Titles</label>
+        <div class="rich-editor-wrapper">
+          <div class="rich-toolbar">
+            <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('comparableTitles','insertUnorderedList')">• Bullets</button>
+            <span class="toolbar-hint">or paste content</span>
+          </div>
+          <div class="rich-editor is-empty" id="comparableTitles" contenteditable="true" data-placeholder="e.g., Dev Ops Engineer, Infrastructure Engineer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interview Process -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-header-icon">🎤</span>
+      <h3>Interview Process</h3>
+    </div>
+    <div class="card-body">
+      <div class="field-group span-full">
+        <label>Interview Steps</label>
+        <div class="dynamic-list" id="interviewStepsList"></div>
+          <button type="button" class="add-row-btn" onclick="addInterviewStep()">+ Add Step</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Download Options -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-header-icon">📥</span>
+      <h3>Download</h3>
+    </div>
+    <div class="card-body field-grid col-2">
+      <button type="button" class="btn btn-primary" onclick="downloadPDF()">📄 Download as PDF</button>
+      <button type="button" class="btn btn-primary" onclick="downloadDOCX()">📋 Download as DOCX</button>
+    </div>
+  </div>
+
+  <!-- Bottom Actions -->
+  <div class="bottom-actions">
+    <button type="reset" class="btn btn-secondary">Clear Form</button>
+    <button type="submit" class="btn btn-primary">Submit Requisition</button>
+  </div>
+</form>yle="margin-bottom:16px">
+        <div class="field-group">
+          <label>Level(s)</label>
+          <div class="multiselect" id="levelsMultiselect">
+            <div class="multiselect-trigger" onclick="toggleMultiselect('levelsMultiselect')">
+              <span class="multiselect-display" id="levelsDisplay">Select levels...</span>
+              <span class="multiselect-arrow">▼</span>
+            </div>
+            <div class="multiselect-dropdown" id="levelsDropdown">
+              <div class="multiselect-group-label">Individual Contributor</div>
+              <label class="multiselect-option"><input type="checkbox" value="IC-1" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-1</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="IC-2" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-2</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="IC-3" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-3</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="IC-4" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-4</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="IC-5" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-5</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="IC-6" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-6</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="IC-7" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-7</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="IC-8" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-8</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="IC-9" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>IC-9</span></label>
+              <div class="multiselect-group-label">Manager</div>
+              <label class="multiselect-option"><input type="checkbox" value="MGR-4" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>MGR-4</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="MGR-5" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>MGR-5</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="MGR-6" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>MGR-6</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="MGR-7" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>MGR-7</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="MGR-8" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>MGR-8</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="MGR-9" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>MGR-9</span></label>
+              <div class="multiselect-group-label">Executive</div>
+              <label class="multiselect-option"><input type="checkbox" value="EVP" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>EVP</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="SVP" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>SVP</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="VP" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>VP</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="Director" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>Director</span></label>
+              <label class="multiselect-option"><input type="checkbox" value="C-Suite" onchange="updateMultiselectDisplay('levelsMultiselect','levelsDisplay')" /><span>C-Suite</span></label>
+            </div>
+          </div>
+        </div>
+        <div class="field-group">
+          <label>Required Travel</label>
+          <select id="requiredTravel">
+            <option value="">Select travel %</option>
+            <option value="0">None (0%)</option>
+            <option value="25">Light (0-25%)</option>
+            <option value="50">Moderate (25-50%)</option>
+            <option value="75">Significant (50-75%)</option>
+            <option value="100">Extensive (75%+)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Requirements Card -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-header-icon">⭐</span>
+        <h3>Must-Have Qualifications</h3>
+      </div>
+      <div class="card-body field-grid col-1">
+        <div class="field-group span-full">
+          <label for="mustHaveSkills">Critical Skills (Required)</label>
+          <div class="rich-editor-wrapper">
+            <div class="rich-toolbar">
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('mustHaveSkills','insertUnorderedList')">• Bullets</button>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('mustHaveSkills','insertOrderedList')">1. Numbered</button>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('mustHaveSkills','createLink')">🔗 Link</button>
+              <span class="toolbar-hint">Paste or type here</span>
+            </div>
+            <div class="rich-editor is-empty tall" id="mustHaveSkills" contenteditable="true" data-placeholder="List all critical skills (non-negotiable)"></div>
+          </div>
+        </div>
+        <div class="field-group span-full">
+          <label for="niceToHaveSkills">Nice-to-Have Skills (Preferred)</label>
+          <div class="rich-editor-wrapper">
+            <div class="rich-toolbar">
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('niceToHaveSkills','insertUnorderedList')">• Bullets</button>
+              <button type="button" class="toolbar-btn" onmousedown="event.preventDefault();richCmd('niceToHaveSkills','insertOrderedList')">1. Numbered</button>
+              <span class="toolbar-hint">Paste or type here</span>
+            </div>
+            <div class="rich-editor is-empty tall" id="niceToHaveSkills" contenteditable="true" data-placeholder="Skills that are nice to have but not required"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interview Process -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-header-icon">🎤</span>
+        <h3>Interview Process & Timeline</h3>
+      </div>
+      <div class="card-body field-grid col-1">
+        <div class="field-group span-full">
+          <label>Interview Steps</label>
+          <div class="dynamic-list" id="interviewStepsList"></div>
+          <button type="button" class="add-row-btn" onclick="addInterviewStep()">+ Add Interview Step</button>
+        </div>
+        <div class="field-group span-full">
+          <label for="timelineExpectation">Timeline / Urgency</label>
+          <select id="timelineExpectation">
+            <option value="">Select timeline</option>
+            <option value="ASAP">ASAP (immediate start)</option>
+            <option value="1month">1 Month</option>
+            <option value="2months">2 Months</option>
+            <option value="3months">3 Months</option>
+            <option value="6months">6 Months+</option>
+            <option value="Flexible">Flexible</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submission -->
+    <div class="bottom-actions">
+      <button type="button" class="btn btn-secondary" onclick="clearAllForm()">Clear Form</button>
+      <button type="button" class="btn btn-primary" onclick="downloadPDF()">📄 Download PDF</button>
+      <button type="button" class="btn btn-primary" onclick="downloadDOCX()">📋 Download DOCX</button>
+      <button type="button" class="btn btn-primary" onclick="submitForm()">✓ Submit</button>
+    </div>
+  </form>
+
+  <!-- Confirmation Modal -->
+  <div class="confirm-overlay" id="confirmOverlay">
+    <div class="confirm-modal">
+      <h2 class="confirm-title">Confirm Action</h2>
+      <p class="confirm-text" id="confirmText"></p>
+      <div class="confirm-actions">
+        <button type="button" class="btn btn-secondary" onclick="closeConfirm()">Cancel</button>
+        <button type="button" class="btn btn-primary" id="confirmBtn" onclick="confirmSubmit()">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // === FORM INITIALIZATION & HELPERS ===
+    function addInterviewStep() {
+      const list = document.getElementById('interviewStepsList');
+      const stepCount = list.children.length + 1;
+      const item = document.createElement('div');
+      item.className = 'dynamic-item';
+      item.innerHTML = `
+        <input type="text" placeholder="Step ${stepCount} Title" class="interview-step-title" />
+        <input type="text" placeholder="Duration (e.g., 1 hour)" class="interview-step-duration" />
+        <button type="button" class="btn-icon danger" onclick="this.parentElement.remove()" title="Delete">−</button>
+      `;
+      list.appendChild(item);
+    }
+
+    function clearAllForm() {
+      if (!confirm('Clear all form data?')) return;
+      document.getElementById('intakeForm').reset();
+      document.querySelectorAll('.rich-editor').forEach(el => el.innerHTML = '');
+      document.getElementById('interviewStepsList').innerHTML = '';
+      document.querySelectorAll('.multiselect-dropdown input[type="checkbox"]').forEach(cb => cb.checked = false);
+    }
+
+    function toggleMultiselect(elementId) {
+      const dropdown = document.getElementById(elementId + 'Dropdown');
+      const trigger = dropdown.parentElement.querySelector('.multiselect-trigger');
+      const isOpen = dropdown.style.display === 'block';
+      document.querySelectorAll('.multiselect-dropdown').forEach(d => d.style.display = 'none');
+      if (!isOpen) dropdown.style.display = 'block';
+    }
+
+    function updateMultiselectDisplay(elementId, displayId) {
+      const ms = document.getElementById(elementId);
+      const display = document.getElementById(displayId);
+      const checked = ms.querySelectorAll('input[type="checkbox"]:checked');
+      if (checked.length > 0) {
+        display.textContent = checked.length + ' selected';
+      } else {
+        display.textContent = 'Select levels...';
+      }
+    }
+
+    function downloadPDF() {
+      const data = serializeForm();
+      // PDF generation would go here
+      alert('PDF export not yet implemented');
+    }
+
+    function downloadDOCX() {
+      const data = serializeForm();
+
+      // Build DOCX document
+      const doc = new docx.Document({
+        sections: [
+          {
+            children: [
+              new docx.Paragraph({
+                text: 'NEW REQ IN-TAKE',
+                bold: true,
+                size: 28,
+                font: 'Calibri',
+                color: '102754',
+                alignment: docx.AlignmentType.CENTER,
+              }),
+              new docx.Paragraph({ text: '' }),
+              new docx.Table({
+                width: { size: 100, type: docx.WidthType.PERCENTAGE },
+                rows: [
+                  new docx.TableRow({
+                    children: [
+                      new docx.TableCell({
+                        shading: { fill: '102754', type: docx.ShadingType.CLEAR },
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph({ text: 'Role Title', bold: true, color: 'FFFFFF', size: 20 })],
+                      }),
+                      new docx.TableCell({
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph(data.roleTitle || '')],
+                      }),
+                    ],
+                  }),
+                  new docx.TableRow({
+                    children: [
+                      new docx.TableCell({
+                        shading: { fill: '102754', type: docx.ShadingType.CLEAR },
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph({ text: 'Experience Level', bold: true, color: 'FFFFFF', size: 20 })],
+                      }),
+                      new docx.TableCell({
+                        margins: { top: 100, bottom: 100, left: 100, right: 100 },
+                        children: [new docx.Paragraph(data.expLevel || '')],
+                      }),
+                    ],
+                  }),
+                ],
+              }),
+            ],
+          },
+        ],
+      });
+
+      docx.Packer.toBlob(doc).then(blob => {
+        saveAs(blob, 'New_Req_In-Take.docx');
+      });
+    }
+
+    function serializeForm() {
+      const formData = {};
+      document.querySelectorAll('input[type="text"], input[type="number"], input[type="date"], select').forEach(el => {
+        if (el.id) formData[el.id] = el.value;
+      });
+      document.querySelectorAll('.rich-editor').forEach(el => {
+        if (el.id) formData[el.id] = el.innerHTML;
+      });
+      return formData;
+    }
+
+    function showConfirm(title, message) {
+      document.getElementById('confirmOverlay').style.display = 'flex';
+      document.querySelector('.confirm-title').textContent = title;
+      document.getElementById('confirmText').textContent = message;
+    }
+
+    function closeConfirm() {
+      document.getElementById('confirmOverlay').style.display = 'none';
+    }
+
+    function submitForm() {
+      showConfirm('Submit Requisition', 'Are you sure you want to submit this requisition?');
+      window.pendingSubmit = true;
+    }
+
+    function confirmSubmit() {
+      if (window.pendingSubmit) {
+        const data = serializeForm();
+        console.log('Submitted:', data);
+        alert('Requisition submitted successfully!');
+        closeConfirm();
+        window.pendingSubmit = false;
+      }
+    }
+
+    function richCmd(elementId, command) {
+      const editor = document.getElementById(elementId);
+      if (editor) {
+        editor.focus();
+        document.execCommand(command, false, null);
+      }
+    }
+
+    function populateForm(data) {
+      Object.keys(data).forEach(key => {
+        const el = document.getElementById(key);
+        if (el) {
+          if (el.classList.contains('rich-editor')) {
+            el.innerHTML = data[key];
+          } else if (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT' || el.tagName === 'SELECT') {
+            el.value = data[key];
+          }
+        }
+      });
+    }
+
+    function shareForm() {
+      const data = serializeForm();
+      const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+      const url = window.location.href.split('#')[0] + '#formData=' + encoded;
+
+      const ta = document.createElement('textarea');
+      ta.value = url;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast('Link copied! Open it in any browser to restore this form.', '🔗');
+    }
+
+    function loadFromHash() {
+      const hash = window.location.hash;
+      if (!hash.startsWith('#formData=')) return;
+      try {
+        const encoded = hash.slice('#formData='.length);
+        const json = decodeURIComponent(escape(atob(encoded)));
+        const data = JSON.parse(json);
+        populateForm(data);
+        showToast('Form restored from shared link!', '✅');
+      } catch (e) {
+        console.warn('Could not restore form:', e);
+      }
+    }
+
+    function restoreBtn_click() {
+      loadFromHash();
+    }
+
+    function updateForm() {
+      // Form update handler
+    }
+
+    function showToast(message, icon) {
+      const toast = document.createElement('div');
+      toast.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#333;color:white;padding:12px 20px;border-radius:6px;z-index:10000;';
+      toast.textContent = icon + ' ' + message;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    // Event delegation for multiselect
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.multiselect')) {
+        document.querySelectorAll('.multiselect-dropdown').forEach(d => d.style.display = 'none');
+      }
+    });
+
+    // Load from hash on page load
+    document.addEventListener('DOMContentLoaded', loadFromHash);
+
+    // Form submission
+    document.getElementById('intakeForm')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      submitForm();
+    });
+
+    // Confirm modal close on overlay click
+    document.getElementById('confirmOverlay')?.addEventListener('click', function(e) {
+      if (e.target === this) closeConfirm();
+    });
+  </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CertifID — New Req In-Take Form</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/docx@8.5.0/build/index.js"></script>
 <script>
 /* ---- Tab System ---- */
   var currentTab=0;var TAB_KEY='certifid_intake_tabs';
