@@ -7,6 +7,8 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/docx@8.5.0/build/index.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     :root {
       --primary-blue: #166EBE;
@@ -626,6 +628,7 @@
       input, select, textarea, [contenteditable] { border: none !important; background: transparent !important; box-shadow: none !important; }
       .multiselect .dropdown { display: none !important; }
       .form-date, .form-title { text-align: left; }
+      .salary-range-field { grid-column: 1 / -1 !important; }
     }
   </style>
 </head>
@@ -864,7 +867,7 @@
     </div>
     <div class="card-body">
       <div class="field-grid col-3" style="margin-bottom:16px">
-        <div class="field-group">
+        <div class="field-group salary-range-field">
           <label for="salaryRange">Salary Range</label>
           <input type="text" id="salaryRange" placeholder="e.g. $90,000 – $110,000" />
         </div>
@@ -1161,10 +1164,56 @@
   }
 
   // ── DOCX Generation ──
-  function downloadPdf() {
-    const roleTitle = document.getElementById('roleTitle')?.value?.trim() || 'New Req In-Take';
-    document.title = 'CertifID — ' + roleTitle;
-    window.print();
+  async function downloadPdf() {
+    const btn = document.querySelector('[onclick="downloadPdf()"]');
+    const origText = btn ? btn.innerHTML : '';
+    if (btn) btn.innerHTML = '<span class="spinner"></span> Generating…';
+
+    const roleTitle = document.getElementById('roleTitle')?.value?.trim() || 'New-Req-In-Take';
+    const filename = 'CertifID-' + roleTitle.replace(/[^a-z0-9]/gi, '-') + '.pdf';
+
+    try {
+      const { jsPDF } = window.jspdf;
+      const main = document.querySelector('main.page-container');
+      const canvas = await html2canvas(main, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#F7F7F7',
+        scrollY: -window.scrollY
+      });
+
+      const imgData = canvas.toDataURL('image/jpeg', 0.92);
+      const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'letter' });
+      const pageW = pdf.internal.pageSize.getWidth();
+      const pageH = pdf.internal.pageSize.getHeight();
+      const margin = 12;
+      const contentW = pageW - margin * 2;
+      const imgH = (canvas.height * contentW) / canvas.width;
+
+      let yPos = margin;
+      let remaining = imgH;
+      let sourceY = 0;
+
+      while (remaining > 0) {
+        const sliceH = Math.min(remaining, pageH - margin * 2);
+        const sliceCanvas = document.createElement('canvas');
+        sliceCanvas.width = canvas.width;
+        sliceCanvas.height = (sliceH / contentW) * canvas.width;
+        const ctx = sliceCanvas.getContext('2d');
+        ctx.drawImage(canvas, 0, sourceY * canvas.width / contentW, canvas.width, sliceCanvas.height, 0, 0, canvas.width, sliceCanvas.height);
+        pdf.addImage(sliceCanvas.toDataURL('image/jpeg', 0.92), 'JPEG', margin, yPos, contentW, sliceH);
+        remaining -= sliceH;
+        sourceY += sliceH;
+        if (remaining > 0) { pdf.addPage(); yPos = margin; }
+      }
+
+      pdf.save(filename);
+    } catch (e) {
+      console.error(e);
+      showToast('PDF generation failed — please try again.', '❌');
+    } finally {
+      if (btn) btn.innerHTML = origText;
+    }
   }
 
   async function downloadDocx() {
