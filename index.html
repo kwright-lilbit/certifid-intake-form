@@ -20789,11 +20789,13 @@ var __async = (__this, __arguments, generator) => {
     </div>
     <div class="field-group">
       <label for="jdLink">Job Description Link</label>
-      <input type="url" id="jdLink" placeholder="https://…" />
+      <input type="url" id="jdLink" placeholder="https://…" style="font-size:11px" oninput="updateLinkPreview('jdLink','jdLinkOpen')" />
+      <a id="jdLinkOpen" href="#" target="_blank" rel="noopener" style="display:none;font-size:11px;color:#166EBE;text-decoration:underline;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%;display:none">Open ↗</a>
     </div>
     <div class="field-group">
       <label for="scorecardLink">Scorecard Link</label>
-      <input type="url" id="scorecardLink" placeholder="https://…" />
+      <input type="url" id="scorecardLink" placeholder="https://…" style="font-size:11px" oninput="updateLinkPreview('scorecardLink','scorecardLinkOpen')" />
+      <a id="scorecardLinkOpen" href="#" target="_blank" rel="noopener" style="display:none;font-size:11px;color:#166EBE;text-decoration:underline;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%;display:none">Open ↗</a>
     </div>
   </div>
 
@@ -21247,6 +21249,18 @@ var __async = (__this, __arguments, generator) => {
   defaultSteps.forEach(s => addInterviewStep(s));
 
   // ── Helpers ──
+  function updateLinkPreview(inputId, previewId) {
+    const url = document.getElementById(inputId).value.trim();
+    const a = document.getElementById(previewId);
+    if (url) {
+      a.href = url;
+      a.textContent = url;
+      a.style.display = 'block';
+    } else {
+      a.style.display = 'none';
+    }
+  }
+
   function val(id) {
     const el = document.getElementById(id);
     return el ? el.value.trim() : '';
@@ -21292,6 +21306,8 @@ var __async = (__this, __arguments, generator) => {
     document.querySelector('input[name="collegeRequired"][value="No"]').checked = true;
     // Hide backfill field
     document.getElementById('backfillForWrap').style.display = 'none';
+    // Hide link previews
+    ['jdLinkOpen','scorecardLinkOpen'].forEach(id => { document.getElementById(id).style.display = 'none'; });
     // Interview steps
     document.getElementById('interviewStepsList').innerHTML = '';
     defaultSteps.forEach(s => addInterviewStep(s));
