@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CertifID — New Req In-Take Form</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet" />
-  <script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -1284,6 +1284,10 @@
   }
 
   async function downloadDocx() {
+    if (typeof docx === 'undefined') {
+      showToast('DOCX library not loaded — please refresh the page and try again.', '❌');
+      return;
+    }
     const btn = document.getElementById('downloadBtn');
     btn.innerHTML = '<span class="spinner"></span> Generating…';
     btn.disabled = true;
